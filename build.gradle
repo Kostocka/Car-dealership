@@ -6,6 +6,10 @@ plugins {
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
+ext {
+    lombokVersion = '1.18.42'
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
@@ -23,6 +27,11 @@ dependencies {
     testImplementation 'org.testcontainers:postgresql:1.19.7'
     testImplementation 'org.postgresql:postgresql:42.7.4'
     testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.13'
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
 configurations {
