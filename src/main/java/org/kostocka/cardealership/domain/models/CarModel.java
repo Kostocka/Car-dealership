@@ -8,6 +8,8 @@ import org.kostocka.cardealership.domain.vo.DrivetrainType;
 import org.kostocka.cardealership.domain.vo.Money;
 import org.kostocka.cardealership.domain.vo.id.CarModelId;
 
+import java.awt.*;
+
 
 @Getter
 @Setter
@@ -25,7 +27,7 @@ public class CarModel implements Cloneable
     private final Interior interior;
     private final Wheels wheels;
     private final DrivetrainType drivetrainType;
-    private final String color;
+    private final Color color;
 
     private final Money basePrice;
 
