@@ -1,7 +1,6 @@
 package org.kostocka.cardealership.domain.repository;
 
 import org.kostocka.cardealership.domain.vo.id.CarId;
-import org.kostocka.cardealership.domain.vo.id.CarModelId;
 
 import java.util.List;
 
@@ -13,5 +12,5 @@ public interface TestDriveCarRepository
 
     boolean isAvailable(CarId carId);
 
-    List<CarModelId> findAll();
+    List<CarId> findAll();
 }

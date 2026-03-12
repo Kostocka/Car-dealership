@@ -46,7 +46,7 @@ public class OrderService
     {
         OrderId orderId = OrderId.generate();
         EmployeeId managerId = employeeAssignmentService.assignManager();
-        Car car = carRepository.findById(carId).orElseThrow( () -> new EntityNotFoundException(" Car not found"));
+        Car car = carRepository.findById(carId).orElseThrow( () -> new EntityNotFoundException("Car not found"));
 
         StockCarOrder order = new StockCarOrder(orderId, clientId, managerId, car.getCarId());
         stockOrderRepository.save(order);
