@@ -15,5 +15,4 @@ public abstract class Order
     private final OrderId orderId;
     private final ClientId clientId;
     private final EmployeeId managerId;
-    private final Money price;
 }

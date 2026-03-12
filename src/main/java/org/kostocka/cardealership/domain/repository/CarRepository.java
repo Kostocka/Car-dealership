@@ -1,12 +1,12 @@
 package org.kostocka.cardealership.domain.repository;
 
-import org.kostocka.cardealership.domain.models.CarModel;
+import org.kostocka.cardealership.domain.models.Car;
 import org.kostocka.cardealership.domain.models.specifications.Specification;
-import org.kostocka.cardealership.domain.vo.id.CarModelId;
+import org.kostocka.cardealership.domain.vo.id.CarId;
 
 import java.util.List;
 
-public interface CarRepository extends Repository<CarModel, CarModelId>
+public interface CarRepository extends Repository<Car, CarId>
 {
-    List<CarModel> find(Specification<CarModel> spec);
+    List<Car> find(Specification<Car> spec);
 }

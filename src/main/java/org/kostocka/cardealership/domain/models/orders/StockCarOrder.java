@@ -17,9 +17,9 @@ public class StockCarOrder extends Order
     @Setter
     private StockOrderState state;
 
-    public StockCarOrder(OrderId orderId, ClientId clientId, EmployeeId managerId, Money price, CarId carId)
+    public StockCarOrder(OrderId orderId, ClientId clientId, EmployeeId managerId, CarId carId)
     {
-        super(orderId, clientId, managerId, price);
+        super(orderId, clientId, managerId);
         this.carId = carId;
         this.state = new StockCreatedState();
     }

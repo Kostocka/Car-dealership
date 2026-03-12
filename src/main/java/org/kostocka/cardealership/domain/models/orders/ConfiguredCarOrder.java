@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.kostocka.cardealership.domain.models.CarModel;
 import org.kostocka.cardealership.domain.models.orders.states.ConfiguredOrderState;
 import org.kostocka.cardealership.domain.models.orders.states.configured.ConfiguredCreatedState;
-import org.kostocka.cardealership.domain.vo.Money;
 import org.kostocka.cardealership.domain.vo.id.ClientId;
 import org.kostocka.cardealership.domain.vo.id.EmployeeId;
 import org.kostocka.cardealership.domain.vo.id.OrderId;
@@ -18,9 +17,9 @@ public class ConfiguredCarOrder extends Order
     @Setter
     private ConfiguredOrderState state;
 
-    public ConfiguredCarOrder(OrderId orderId, ClientId clientId, EmployeeId managerId, Money price, CarModel configuration)
+    public ConfiguredCarOrder(OrderId orderId, ClientId clientId, EmployeeId managerId, CarModel configuration)
     {
-        super(orderId, clientId, managerId, price);
+        super(orderId, clientId, managerId);
         this.configuration = configuration;
         this.state = new ConfiguredCreatedState();
     }
