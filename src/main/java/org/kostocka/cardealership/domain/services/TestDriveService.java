@@ -1,4 +1,4 @@
-package org.kostocka.cardealership.domain.sevices;
+package org.kostocka.cardealership.domain.services;
 
 import lombok.AllArgsConstructor;
 import org.kostocka.cardealership.domain.exception.DomainValidationException;

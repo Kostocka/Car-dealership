@@ -1,4 +1,4 @@
-package org.kostocka.cardealership.domain.models.employes;
+package org.kostocka.cardealership.domain.models.employees;
 
 import org.kostocka.cardealership.domain.exception.EntityNotFoundException;
 import org.kostocka.cardealership.domain.vo.id.EmployeeId;

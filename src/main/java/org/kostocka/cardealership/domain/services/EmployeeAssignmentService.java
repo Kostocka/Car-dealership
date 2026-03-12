@@ -1,7 +1,7 @@
-package org.kostocka.cardealership.domain.sevices;
+package org.kostocka.cardealership.domain.services;
 
 import lombok.AllArgsConstructor;
-import org.kostocka.cardealership.domain.models.employes.EmployeeAssignmentStrategy;
+import org.kostocka.cardealership.domain.models.employees.EmployeeAssignmentStrategy;
 import org.kostocka.cardealership.domain.repository.EmployeeRepository;
 import org.kostocka.cardealership.domain.vo.id.EmployeeId;
 

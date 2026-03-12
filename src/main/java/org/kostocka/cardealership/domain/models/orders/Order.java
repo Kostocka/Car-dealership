@@ -2,7 +2,6 @@ package org.kostocka.cardealership.domain.models.orders;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.kostocka.cardealership.domain.vo.Money;
 import org.kostocka.cardealership.domain.vo.id.ClientId;
 import org.kostocka.cardealership.domain.vo.id.EmployeeId;
 import org.kostocka.cardealership.domain.vo.id.OrderId;

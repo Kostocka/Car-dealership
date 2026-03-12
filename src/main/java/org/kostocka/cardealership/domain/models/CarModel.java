@@ -29,8 +29,6 @@ public class CarModel implements Cloneable
     private final DrivetrainType drivetrainType;
     private final Color color;
 
-    private final Money basePrice;
-
     @Override
     public CarModel clone()
     {

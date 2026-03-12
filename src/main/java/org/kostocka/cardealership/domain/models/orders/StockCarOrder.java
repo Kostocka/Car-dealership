@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.kostocka.cardealership.domain.models.orders.states.StockOrderState;
 import org.kostocka.cardealership.domain.models.orders.states.stocks.StockCreatedState;
-import org.kostocka.cardealership.domain.vo.Money;
 import org.kostocka.cardealership.domain.vo.id.CarId;
 import org.kostocka.cardealership.domain.vo.id.ClientId;
 import org.kostocka.cardealership.domain.vo.id.EmployeeId;

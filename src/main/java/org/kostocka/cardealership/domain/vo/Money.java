@@ -6,9 +6,9 @@ public record Money(BigDecimal value)
 {
     public Money
     {
-        if (value.compareTo(BigDecimal.ZERO) <= 0)
+        if (value.compareTo(BigDecimal.ZERO) < 0)
         {
-            throw new IllegalArgumentException("Value must be greater than zero");
+            throw new IllegalArgumentException("Value must be positive");
         }
     }
 
