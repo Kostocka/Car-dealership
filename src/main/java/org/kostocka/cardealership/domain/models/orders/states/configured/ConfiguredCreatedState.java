@@ -8,27 +8,32 @@ public class ConfiguredCreatedState implements ConfiguredOrderState
 {
 
     @Override
-    public void approve(ConfiguredCarOrder order) {
+    public void approve(ConfiguredCarOrder order)
+    {
         order.setState(new ConfiguredWarehouseApprovedState());
     }
 
     @Override
-    public void pay(ConfiguredCarOrder order) {
+    public void pay(ConfiguredCarOrder order)
+    {
         throw new DomainValidationException("Order not approved");
     }
 
     @Override
-    public void deliver(ConfiguredCarOrder order) {
+    public void deliver(ConfiguredCarOrder order)
+    {
         throw new DomainValidationException("Order not approved");
     }
 
     @Override
-    public void finish(ConfiguredCarOrder order) {
+    public void finish(ConfiguredCarOrder order)
+    {
         throw new DomainValidationException("Order not approved");
     }
 
     @Override
-    public void cancel(ConfiguredCarOrder order) {
+    public void cancel(ConfiguredCarOrder order)
+    {
         order.setState(new ConfiguredCancelledState());
     }
 }

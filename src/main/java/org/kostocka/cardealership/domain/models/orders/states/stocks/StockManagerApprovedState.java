@@ -8,22 +8,26 @@ public class StockManagerApprovedState implements StockOrderState
 {
 
     @Override
-    public void approve(StockCarOrder order) {
+    public void approve(StockCarOrder order)
+    {
         throw new DomainValidationException("Already approved");
     }
 
     @Override
-    public void pay(StockCarOrder order) {
-        order.setState(new StockWaitingPaymentState());
+    public void pay(StockCarOrder order)
+    {
+        order.setState(new StockPaidState());
     }
 
     @Override
-    public void finish(StockCarOrder order) {
+    public void finish(StockCarOrder order)
+    {
         throw new DomainValidationException("Not paid");
     }
 
     @Override
-    public void cancel(StockCarOrder order) {
-        order.setState( new StockCancelledState());
+    public void cancel(StockCarOrder order)
+    {
+        order.setState(new StockCancelledState());
     }
 }

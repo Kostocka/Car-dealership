@@ -1,10 +1,9 @@
 package org.kostocka.cardealership.domain.services;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.kostocka.cardealership.domain.models.CarModel;
 import org.kostocka.cardealership.domain.models.rules.CompatibilityRule;
-
-import java.util.List;
 
 @AllArgsConstructor
 public class CompatibilityService
@@ -13,7 +12,7 @@ public class CompatibilityService
 
     public void validate(CarModel model)
     {
-        for(CompatibilityRule rule : rules)
+        for (CompatibilityRule rule : rules)
         {
             rule.validate(model);
         }

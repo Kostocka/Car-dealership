@@ -24,20 +24,14 @@ public class OrderService
     private final EmployeeAssignmentService employeeAssignmentService;
     private final ConfiguratorService configuratorService;
 
-    private CarModel lastValidCarModel;
-
-    public void validateConfiguration(CarModel carModel)
+    public ConfiguredCarOrder createConfiguredOrder(ClientId clientId, CarModel configuration)
     {
-        configuratorService.validateConfiguration(carModel);
-        lastValidCarModel = carModel;
-    }
+        configuratorService.validateConfiguration(configuration);
 
-    public ConfiguredCarOrder createConfiguredOrder(ClientId clientId)
-    {
         OrderId orderId = OrderId.generate();
         EmployeeId managerId = employeeAssignmentService.assignManager();
 
-        ConfiguredCarOrder order = new ConfiguredCarOrder(orderId, clientId, managerId, lastValidCarModel);
+        ConfiguredCarOrder order = new ConfiguredCarOrder(orderId, clientId, managerId, configuration);
         configuredOrderRepository.save(order);
         return order;
     }
@@ -46,7 +40,8 @@ public class OrderService
     {
         OrderId orderId = OrderId.generate();
         EmployeeId managerId = employeeAssignmentService.assignManager();
-        Car car = carRepository.findById(carId).orElseThrow( () -> new EntityNotFoundException("Car not found"));
+        Car car = carRepository.findById(carId)
+                .orElseThrow(() -> new EntityNotFoundException("Car not found"));
 
         StockCarOrder order = new StockCarOrder(orderId, clientId, managerId, car.getCarId());
         stockOrderRepository.save(order);

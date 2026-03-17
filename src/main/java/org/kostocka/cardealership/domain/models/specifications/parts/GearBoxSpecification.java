@@ -9,6 +9,7 @@ import org.kostocka.cardealership.domain.vo.GearBoxType;
 public class GearBoxSpecification implements Specification<CarModel>
 {
     private final GearBoxType type;
+
     @Override
     public boolean isSatisfiedBy(CarModel entity)
     {

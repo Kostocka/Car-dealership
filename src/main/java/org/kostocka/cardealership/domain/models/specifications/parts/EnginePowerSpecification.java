@@ -8,6 +8,7 @@ import org.kostocka.cardealership.domain.models.specifications.Specification;
 public class EnginePowerSpecification implements Specification<CarModel>
 {
     private final int minPower;
+
     @Override
     public boolean isSatisfiedBy(CarModel entity)
     {

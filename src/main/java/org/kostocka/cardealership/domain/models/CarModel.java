@@ -1,20 +1,21 @@
 package org.kostocka.cardealership.domain.models;
 
+import java.awt.Color;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import org.kostocka.cardealership.domain.models.parts.*;
+import org.kostocka.cardealership.domain.models.parts.Body;
+import org.kostocka.cardealership.domain.models.parts.Engine;
+import org.kostocka.cardealership.domain.models.parts.GearBox;
+import org.kostocka.cardealership.domain.models.parts.Interior;
+import org.kostocka.cardealership.domain.models.parts.Wheels;
 import org.kostocka.cardealership.domain.vo.DrivetrainType;
-import org.kostocka.cardealership.domain.vo.Money;
 import org.kostocka.cardealership.domain.vo.id.CarModelId;
 
-import java.awt.*;
-
-
 @Getter
-@Setter
 @AllArgsConstructor
-public class CarModel implements Cloneable
+@Builder(toBuilder = true)
+public class CarModel
 {
     private final CarModelId modelId;
 
@@ -28,17 +29,4 @@ public class CarModel implements Cloneable
     private final Wheels wheels;
     private final DrivetrainType drivetrainType;
     private final Color color;
-
-    @Override
-    public CarModel clone()
-    {
-        try
-        {
-            return (CarModel) super.clone();
-        }
-        catch (CloneNotSupportedException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
 }

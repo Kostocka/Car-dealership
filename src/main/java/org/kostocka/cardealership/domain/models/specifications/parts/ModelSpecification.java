@@ -8,6 +8,7 @@ import org.kostocka.cardealership.domain.models.specifications.Specification;
 public class ModelSpecification implements Specification<CarModel>
 {
     private final String model;
+
     @Override
     public boolean isSatisfiedBy(CarModel entity)
     {

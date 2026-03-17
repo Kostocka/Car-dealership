@@ -17,10 +17,36 @@ public class ConfiguredCarOrder extends Order
     @Setter
     private ConfiguredOrderState state;
 
-    public ConfiguredCarOrder(OrderId orderId, ClientId clientId, EmployeeId managerId, CarModel configuration)
+    public ConfiguredCarOrder(OrderId orderId, ClientId clientId,
+                              EmployeeId managerId, CarModel configuration)
     {
         super(orderId, clientId, managerId);
         this.configuration = configuration;
         this.state = new ConfiguredCreatedState();
+    }
+
+    public void approve()
+    {
+        state.approve(this);
+    }
+
+    public void pay()
+    {
+        state.pay(this);
+    }
+
+    public void deliver()
+    {
+        state.deliver(this);
+    }
+
+    public void finish()
+    {
+        state.finish(this);
+    }
+
+    public void cancel()
+    {
+        state.cancel(this);
     }
 }

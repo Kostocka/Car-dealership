@@ -9,6 +9,7 @@ import org.kostocka.cardealership.domain.vo.BodyType;
 public class BodySpecification implements Specification<CarModel>
 {
     private final BodyType type;
+
     @Override
     public boolean isSatisfiedBy(CarModel entity)
     {

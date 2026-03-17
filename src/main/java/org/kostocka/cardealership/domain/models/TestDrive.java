@@ -1,12 +1,11 @@
 package org.kostocka.cardealership.domain.models;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.kostocka.cardealership.domain.vo.id.CarId;
 import org.kostocka.cardealership.domain.vo.id.ClientId;
 import org.kostocka.cardealership.domain.vo.id.TestDriveId;
-
-import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor

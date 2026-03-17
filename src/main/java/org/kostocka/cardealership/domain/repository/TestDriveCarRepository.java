@@ -1,8 +1,7 @@
 package org.kostocka.cardealership.domain.repository;
 
-import org.kostocka.cardealership.domain.vo.id.CarId;
-
 import java.util.List;
+import org.kostocka.cardealership.domain.vo.id.CarId;
 
 public interface TestDriveCarRepository
 {

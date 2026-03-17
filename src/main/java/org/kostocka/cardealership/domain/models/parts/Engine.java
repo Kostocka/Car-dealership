@@ -13,7 +13,7 @@ public class Engine extends Part
     private final EnginePower power;
     private final FuelType fuelType;
 
-    public Engine(PartId id , FuelType fuelType, EnginePower enginePower, EngineVolume engineVolume)
+    public Engine(PartId id, FuelType fuelType, EnginePower enginePower, EngineVolume engineVolume)
     {
         super(id);
         this.fuelType = fuelType;

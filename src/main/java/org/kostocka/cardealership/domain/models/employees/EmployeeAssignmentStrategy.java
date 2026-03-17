@@ -1,8 +1,7 @@
 package org.kostocka.cardealership.domain.models.employees;
 
-import org.kostocka.cardealership.domain.vo.id.EmployeeId;
-
 import java.util.List;
+import org.kostocka.cardealership.domain.vo.id.EmployeeId;
 
 public interface EmployeeAssignmentStrategy
 {

@@ -9,6 +9,7 @@ import org.kostocka.cardealership.domain.vo.FuelType;
 public class FuelTypeSpecification implements Specification<CarModel>
 {
     private final FuelType type;
+
     @Override
     public boolean isSatisfiedBy(CarModel entity)
     {

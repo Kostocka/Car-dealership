@@ -1,11 +1,10 @@
 package org.kostocka.cardealership.domain.services;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.kostocka.cardealership.domain.models.employees.EmployeeAssignmentStrategy;
 import org.kostocka.cardealership.domain.repository.EmployeeRepository;
 import org.kostocka.cardealership.domain.vo.id.EmployeeId;
-
-import java.util.List;
 
 @AllArgsConstructor
 public class EmployeeAssignmentService

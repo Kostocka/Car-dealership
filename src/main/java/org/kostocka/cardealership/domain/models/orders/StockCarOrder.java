@@ -22,4 +22,24 @@ public class StockCarOrder extends Order
         this.carId = carId;
         this.state = new StockCreatedState();
     }
+
+    public void approve()
+    {
+        state.approve(this);
+    }
+
+    public void pay()
+    {
+        state.pay(this);
+    }
+
+    public void finish()
+    {
+        state.finish(this);
+    }
+
+    public void cancel()
+    {
+        state.cancel(this);
+    }
 }

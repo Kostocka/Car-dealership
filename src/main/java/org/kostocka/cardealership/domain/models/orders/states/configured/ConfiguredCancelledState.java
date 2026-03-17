@@ -7,27 +7,32 @@ import org.kostocka.cardealership.domain.models.orders.states.ConfiguredOrderSta
 public class ConfiguredCancelledState implements ConfiguredOrderState
 {
     @Override
-    public void approve(ConfiguredCarOrder order) {
+    public void approve(ConfiguredCarOrder order)
+    {
         throw new DomainValidationException("Canceled");
     }
 
     @Override
-    public void pay(ConfiguredCarOrder order) {
+    public void pay(ConfiguredCarOrder order)
+    {
         throw new DomainValidationException("Canceled");
     }
 
     @Override
-    public void deliver(ConfiguredCarOrder order) {
+    public void deliver(ConfiguredCarOrder order)
+    {
         throw new DomainValidationException("Canceled");
     }
 
     @Override
-    public void finish(ConfiguredCarOrder order) {
+    public void finish(ConfiguredCarOrder order)
+    {
         throw new DomainValidationException("Canceled");
     }
 
     @Override
-    public void cancel(ConfiguredCarOrder order) {
+    public void cancel(ConfiguredCarOrder order)
+    {
         throw new DomainValidationException("Canceled");
     }
 }

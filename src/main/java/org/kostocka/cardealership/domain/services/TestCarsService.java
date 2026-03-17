@@ -9,11 +9,13 @@ public class TestCarsService
 {
     private final TestDriveCarRepository testDriveCarRepository;
 
-    public void addCar(CarId carId) {
+    public void addCar(CarId carId)
+    {
         testDriveCarRepository.addCar(carId);
     }
 
-    public void removeCar(CarId carId) {
+    public void removeCar(CarId carId)
+    {
         testDriveCarRepository.removeCar(carId);
     }
 }

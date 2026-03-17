@@ -8,22 +8,26 @@ public class StockCancelledState implements StockOrderState
 {
 
     @Override
-    public void approve(StockCarOrder order) {
+    public void approve(StockCarOrder order)
+    {
         throw new DomainValidationException("Canceled");
     }
 
     @Override
-    public void pay(StockCarOrder order) {
+    public void pay(StockCarOrder order)
+    {
         throw new DomainValidationException("Canceled");
     }
 
     @Override
-    public void finish(StockCarOrder order) {
+    public void finish(StockCarOrder order)
+    {
         throw new DomainValidationException("Canceled");
     }
 
     @Override
-    public void cancel(StockCarOrder order) {
+    public void cancel(StockCarOrder order)
+    {
         throw new DomainValidationException("Already Canceled");
     }
 }

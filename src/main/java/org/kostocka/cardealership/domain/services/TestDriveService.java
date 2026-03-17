@@ -1,5 +1,6 @@
 package org.kostocka.cardealership.domain.services;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import org.kostocka.cardealership.domain.exception.DomainValidationException;
 import org.kostocka.cardealership.domain.models.TestDrive;
@@ -8,8 +9,6 @@ import org.kostocka.cardealership.domain.repository.TestDriveRepository;
 import org.kostocka.cardealership.domain.vo.id.CarId;
 import org.kostocka.cardealership.domain.vo.id.ClientId;
 import org.kostocka.cardealership.domain.vo.id.TestDriveId;
-
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 public class TestDriveService
@@ -25,7 +24,7 @@ public class TestDriveService
             throw new DomainValidationException("Car not available");
         }
 
-        TestDrive testDrive =  new TestDrive(testDriveId, clientId, carId, LocalDateTime.now());
+        TestDrive testDrive = new TestDrive(testDriveId, clientId, carId, LocalDateTime.now());
         testDriveRepository.save(testDrive);
         return testDrive;
     }

@@ -1,12 +1,11 @@
 package org.kostocka.cardealership.domain.models.rules;
 
+import java.util.function.Function;
 import lombok.AllArgsConstructor;
 import org.kostocka.cardealership.domain.exception.IncompatibleComponentException;
 import org.kostocka.cardealership.domain.models.CarModel;
 import org.kostocka.cardealership.domain.repository.ModelPartCompatibilityRepository;
 import org.kostocka.cardealership.domain.vo.id.PartId;
-
-import java.util.function.Function;
 
 @AllArgsConstructor
 public class ModelPartCompatibilityRule implements CompatibilityRule
@@ -20,7 +19,7 @@ public class ModelPartCompatibilityRule implements CompatibilityRule
     {
         PartId id = extractor.apply(carModel);
 
-        if(!repository.isCompatible(id, carModel.getModelId()))
+        if (!repository.isCompatible(id, carModel.getModelId()))
         {
             throw new IncompatibleComponentException("Part uncompatible with" + carModel.getModelId());
         }
