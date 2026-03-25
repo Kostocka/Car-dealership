@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.infrastructure;
+package peipo.ru.cardealership.infrastructure.inMemory;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -7,12 +7,12 @@ import peipo.ru.cardealership.domain.models.parts.*;
 import peipo.ru.cardealership.domain.repository.*;
 import peipo.ru.cardealership.domain.services.*;
 import peipo.ru.cardealership.domain.vo.*;
-import peipo.ru.cardealership.infrastructure.*;
 import peipo.ru.cardealership.domain.models.rules.CompatibilityRuleFactory;
 import peipo.ru.cardealership.domain.vo.id.CarId;
 import peipo.ru.cardealership.domain.vo.id.CarModelId;
 import peipo.ru.cardealership.domain.vo.id.EmployeeId;
 import peipo.ru.cardealership.domain.vo.id.PartId;
+import peipo.ru.cardealership.infrastructure.inMemory.*;
 
 import java.awt.*;
 import java.math.BigDecimal;
