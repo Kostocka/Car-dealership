@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.application.models;
+package peipo.ru.cardealership.application.usecases.models;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.domain.services;
+package peipo.ru.cardealership.application.usecases.testdrives;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -11,20 +11,19 @@ import peipo.ru.cardealership.domain.vo.id.ClientId;
 import peipo.ru.cardealership.domain.vo.id.TestDriveId;
 
 @AllArgsConstructor
-public class TestDriveService
+public class CreateTestDriveRequest
 {
     private final TestDriveRepository testDriveRepository;
     private final TestDriveCarRepository testDriveCarRepository;
 
-    public TestDrive signUp(ClientId clientId, CarId carId)
+    public TestDrive execute(ClientId clientId, CarId carId)
     {
-        TestDriveId testDriveId = TestDriveId.generate();
         if (!testDriveCarRepository.isAvailable(carId))
         {
             throw new DomainValidationException("Car not available");
         }
 
-        TestDrive testDrive = new TestDrive(testDriveId, clientId, carId, LocalDateTime.now());
+        TestDrive testDrive = new TestDrive(TestDriveId.generate(), clientId, carId, LocalDateTime.now());
         testDriveRepository.save(testDrive);
         return testDrive;
     }

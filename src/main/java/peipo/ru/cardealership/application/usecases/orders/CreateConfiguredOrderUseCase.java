@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.application.orders;
+package peipo.ru.cardealership.application.usecases.orders;
 
 import lombok.AllArgsConstructor;
 import peipo.ru.cardealership.domain.models.CarModel;

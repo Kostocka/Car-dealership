@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.domain.services;
+package peipo.ru.cardealership.application.usecases.models;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,15 +9,14 @@ import peipo.ru.cardealership.domain.vo.Money;
 import peipo.ru.cardealership.domain.vo.id.PartId;
 
 @AllArgsConstructor
-public class CarPriceCalculatorService
+public class GetCarPriceUseCase
 {
     private final PartPriceRepository partPriceRepository;
 
-    public Money calculate(CarModel selected)
+    public Money execute(CarModel selected)
     {
-        Money price = new Money(BigDecimal.ZERO);
-
-        List<PartId> selectedParts = List.of(
+        var price = new Money(BigDecimal.ZERO);
+        var selectedParts = List.of(
                 selected.getBody().getId(),
                 selected.getEngine().getId(),
                 selected.getGearBox().getId(),
