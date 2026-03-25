@@ -1,14 +1,10 @@
 package peipo.ru.cardealership.domain.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import peipo.ru.cardealership.domain.models.orders.StockCarOrder;
-import peipo.ru.cardealership.domain.vo.id.ClientId;
-import peipo.ru.cardealership.domain.vo.id.EmployeeId;
 import peipo.ru.cardealership.domain.vo.id.OrderId;
 
-public interface StockOrderRepository extends Repository<StockCarOrder, OrderId>
+public interface StockOrderRepository extends JpaRepository<StockCarOrder, OrderId>, JpaSpecificationExecutor<StockCarOrder>
 {
-    List<StockCarOrder> findByClientId(ClientId clientId);
-
-    List<StockCarOrder> findByManagerId(EmployeeId employeeId);
 }
