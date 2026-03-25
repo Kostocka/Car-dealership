@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.models.orders.ConfiguredCarOrder;
 import peipo.ru.cardealership.domain.repository.ConfiguredOrderRepository;
-import peipo.ru.cardealership.domain.repository.PartStockRepository;
 import peipo.ru.cardealership.domain.services.ConfiguratorService;
 import peipo.ru.cardealership.domain.services.EmployeeAssignmentService;
 import peipo.ru.cardealership.domain.services.InventoryService;
