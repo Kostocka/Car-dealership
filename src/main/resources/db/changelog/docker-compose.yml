@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: "cardealership"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "user"
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql
+  liquibase:
+    image: liquibase/liquibase:4.23
+    working_dir: /liquibase/changelog
+    volumes:
+      - ./src/main/resources/db/changelog:/liquibase/changelog
+    depends_on:
+      - postgres
+    command:
+      - --url=jdbc:postgresql://postgres:5432/cardealership
+      - --username=user
+      - --password=user
+      - --changeLogFile=db.changelog-master.yaml
+      - update
+
+volumes:
+  postgres_data:
