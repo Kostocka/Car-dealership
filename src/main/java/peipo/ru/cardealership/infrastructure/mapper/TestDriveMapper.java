@@ -15,7 +15,7 @@ public abstract class TestDriveMapper
     public TestDrive toDomain(TestDriveEntity entity)
     {
         return new TestDrive(
-                new TestDriveId(entity.getTestDriveId()),
+                new TestDriveId(entity.getId()),
                 new ClientId(entity.getClientId()),
                 new CarId(entity.getCarId()),
                 entity.getStartTime()
@@ -27,7 +27,7 @@ public abstract class TestDriveMapper
         TestDriveEntity testDriveEntity = new TestDriveEntity();
         testDriveEntity.setCarId(testDriveEntity.getCarId());
         testDriveEntity.setClientId(testDriveEntity.getClientId());
-        testDriveEntity.setTestDriveId(testDriveEntity.getTestDriveId());
+        testDriveEntity.setId(testDriveEntity.getId());
         testDriveEntity.setStartTime(testDriveEntity.getStartTime());
         return testDriveEntity;
     }

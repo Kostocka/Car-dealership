@@ -19,10 +19,10 @@ public class StockOrderMapper
     public StockCarOrder toDomain(StockCarOrderEntity stockCarOrderEntity)
     {
         return new StockCarOrder(
-                new OrderId(stockCarOrderEntity.getOrderId()),
+                new OrderId(stockCarOrderEntity.getId()),
                 new ClientId(stockCarOrderEntity.getClientId()),
                 new EmployeeId(stockCarOrderEntity.getManagerId()),
-                new CarId(stockCarOrderEntity.getCar().getCarId())
+                new CarId(stockCarOrderEntity.getCar().getId())
         );
     }
 
@@ -31,7 +31,7 @@ public class StockOrderMapper
         StockCarOrderEntity stockCarOrderEntity = new StockCarOrderEntity();
         stockCarOrderEntity.setOrderState(toStateEnam(stockCarOrder.getState()));
         stockCarOrderEntity.setCar(stockCarOrderEntity.getCar());
-        stockCarOrderEntity.setOrderId(stockCarOrderEntity.getOrderId());
+        stockCarOrderEntity.setId(stockCarOrderEntity.getId());
         stockCarOrderEntity.setClientId(stockCarOrderEntity.getClientId());
         stockCarOrderEntity.setManagerId(stockCarOrderEntity.getManagerId());
         return stockCarOrderEntity;

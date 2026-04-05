@@ -11,7 +11,7 @@ public interface InteriorMapper
     default Interior toDomain(InteriorEntity interiorEntity)
     {
         return new Interior(
-                new PartId(interiorEntity.getPartId()),
+                new PartId(interiorEntity.getId()),
                 interiorEntity.getMaterial()
         );
     }
@@ -20,7 +20,7 @@ public interface InteriorMapper
     {
         InteriorEntity interiorEntity = new InteriorEntity();
         interiorEntity.setMaterial(interior.getMaterial());
-        interiorEntity.setPartId(interior.getId().id());
+        interiorEntity.setId(interior.getId().id());
         return interiorEntity;
     }
 }

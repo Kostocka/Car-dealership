@@ -11,7 +11,7 @@ public interface GearBoxMapper
     default GearBox toDomain(GearBoxEntity entity)
     {
         return new GearBox(
-                new PartId(entity.getPartId()),
+                new PartId(entity.getId()),
                 entity.getGearBoxType()
         );
     }
@@ -20,7 +20,7 @@ public interface GearBoxMapper
     {
         GearBoxEntity gearBoxEntity = new GearBoxEntity();
         gearBoxEntity.setGearBoxType(gearBox.getGearBoxType());
-        gearBoxEntity.setPartId(gearBox.getId().id());
+        gearBoxEntity.setId(gearBox.getId().id());
         return gearBoxEntity;
     }
 }

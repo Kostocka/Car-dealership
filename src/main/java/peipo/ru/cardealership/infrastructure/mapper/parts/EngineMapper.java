@@ -16,14 +16,14 @@ public interface EngineMapper
         engineEntity.setFuelType(engine.getFuelType());
         engineEntity.setPower(engine.getPower().horsePower());
         engineEntity.setPower(engine.getPower().horsePower());
-        engineEntity.setPartId(engine.getId().id());
+        engineEntity.setId(engine.getId().id());
         return engineEntity;
     }
 
     default Engine toDomain(EngineEntity engineEntity)
     {
         return new Engine(
-                new PartId(engineEntity.getPartId()),
+                new PartId(engineEntity.getId()),
                 engineEntity.getFuelType(),
                 new EnginePower(engineEntity.getPower()),
                 new EngineVolume(engineEntity.getVolume())

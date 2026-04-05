@@ -11,7 +11,7 @@ public interface BodyMapper
     default Body toDomain(BodyEntity entity)
     {
         return new Body(
-                new PartId(entity.getPartId()),
+                new PartId(entity.getId()),
                 entity.getBodyType()
         );
     }
@@ -20,7 +20,7 @@ public interface BodyMapper
     {
         BodyEntity bodyEntity = new BodyEntity();
         bodyEntity.setBodyType(body.getType());
-        bodyEntity.setPartId(body.getId().id());
+        bodyEntity.setId(body.getId().id());
         return bodyEntity;
     }
 }

@@ -13,7 +13,7 @@ public abstract class CarMapper
     public Car toDomain(CarEntity entity)
     {
         return new Car(
-                new CarId(entity.getCarId()),
+                new CarId(entity.getId()),
                 map(entity.getCarModel())
         );
     }
@@ -22,7 +22,7 @@ public abstract class CarMapper
     {
         CarEntity carEntity = new CarEntity();
         carEntity.setCarModel(map(model.getConfiguration()));
-        carEntity.setCarId(model.getCarId().id());
+        carEntity.setId(model.getCarId().id());
         return carEntity;
     }
 

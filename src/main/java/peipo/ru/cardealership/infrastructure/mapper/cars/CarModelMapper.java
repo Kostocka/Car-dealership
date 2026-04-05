@@ -24,7 +24,7 @@ public abstract class CarModelMapper
     public CarModel toDomain(CarModelEntity entity)
     {
         return new CarModel(
-                new CarModelId(entity.getCarModelId()),
+                new CarModelId(entity.getId()),
                 entity.getBrand(),
                 entity.getModel(),
                 bodyMapper().toDomain(entity.getBody()),
@@ -40,7 +40,7 @@ public abstract class CarModelMapper
     public CarModelEntity toEntity(CarModel domain)
     {
         CarModelEntity carModelEntity = new CarModelEntity();
-        carModelEntity.setCarModelId(domain.getModelId().id());
+        carModelEntity.setId(domain.getModelId().id());
         carModelEntity.setBrand(domain.getBrand());
         carModelEntity.setModel(domain.getModel());
         carModelEntity.setBody(bodyMapper().toEntity(domain.getBody()));

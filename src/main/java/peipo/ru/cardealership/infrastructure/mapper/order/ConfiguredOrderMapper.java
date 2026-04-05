@@ -21,7 +21,7 @@ public abstract class ConfiguredOrderMapper
     public ConfiguredCarOrder toDomain(ConfiguredCarOrderEntity configuredCarOrderEntity)
     {
         ConfiguredCarOrder order = new ConfiguredCarOrder(
-                new OrderId(configuredCarOrderEntity.getOrderId()),
+                new OrderId(configuredCarOrderEntity.getId()),
                 new ClientId(configuredCarOrderEntity.getClientId()),
                 new EmployeeId(configuredCarOrderEntity.getManagerId()),
                 map(configuredCarOrderEntity.getConfiguration())
@@ -34,7 +34,7 @@ public abstract class ConfiguredOrderMapper
     public ConfiguredCarOrderEntity toEntity(ConfiguredCarOrder domain)
     {
         ConfiguredCarOrderEntity entity = new ConfiguredCarOrderEntity();
-        entity.setOrderId(domain.getOrderId().id());
+        entity.setId(domain.getOrderId().id());
         entity.setClientId(domain.getClientId().id());
         entity.setManagerId(domain.getManagerId().id());
 

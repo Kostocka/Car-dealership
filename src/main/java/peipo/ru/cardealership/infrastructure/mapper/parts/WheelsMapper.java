@@ -11,7 +11,7 @@ public interface WheelsMapper
     default Wheels toDomain(WheelsEntity wheelsEntity)
     {
         return new Wheels(
-                new PartId(wheelsEntity.getPartId()),
+                new PartId(wheelsEntity.getId()),
                 wheelsEntity.getSize()
         );
     }
@@ -20,7 +20,7 @@ public interface WheelsMapper
     {
         WheelsEntity wheelsEntity = new WheelsEntity();
         wheelsEntity.setSize(wheels.getSize());
-        wheelsEntity.setPartId(wheels.getId().id());
+        wheelsEntity.setId(wheels.getId().id());
         return wheelsEntity;
     }
 }
