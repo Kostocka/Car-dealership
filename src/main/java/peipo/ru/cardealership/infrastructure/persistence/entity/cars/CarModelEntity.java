@@ -1,24 +1,18 @@
 package peipo.ru.cardealership.infrastructure.persistence.entity.cars;
 
 import jakarta.persistence.*;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.UuidGenerator;
 import peipo.ru.cardealership.domain.vo.DrivetrainType;
+import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 import peipo.ru.cardealership.infrastructure.persistence.entity.parts.*;
 
 @Entity
 @Table(name = "car_model")
 @Getter
 @Setter
-public class CarModelEntity
+public class CarModelEntity extends BaseEntity
 {
-    @Id
-    @GeneratedValue
-    @UuidGenerator
-    private UUID carModelId;
-
     private String brand;
     private String model;
 

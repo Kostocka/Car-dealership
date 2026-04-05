@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.UuidGenerator;
+import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 
 
 @Entity
@@ -12,13 +12,8 @@ import org.hibernate.annotations.UuidGenerator;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-public abstract class OrderEntity
+public abstract class OrderEntity extends BaseEntity
 {
-    @Id
-    @GeneratedValue
-    @UuidGenerator
-    private UUID orderId;
-
     private UUID clientId;
     private UUID managerId;
 }
