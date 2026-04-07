@@ -5,10 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 
-@Entity
 @Getter
 @Setter
-@Table(name = "part")
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 public abstract class PartEntity extends BaseEntity
 {}

@@ -1,33 +1,80 @@
 package peipo.ru.cardealership.infrastructure.mapper.order;
 
+import java.awt.*;
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import peipo.ru.cardealership.domain.exception.DomainValidationException;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.models.orders.ConfiguredCarOrder;
 import peipo.ru.cardealership.domain.models.orders.states.ConfiguredOrderState;
 import peipo.ru.cardealership.domain.models.orders.states.configured.*;
-import peipo.ru.cardealership.domain.models.orders.states.stocks.*;
 import peipo.ru.cardealership.domain.vo.id.ClientId;
 import peipo.ru.cardealership.domain.vo.id.EmployeeId;
 import peipo.ru.cardealership.domain.vo.id.OrderId;
-import peipo.ru.cardealership.infrastructure.mapper.cars.CarModelMapper;
-import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarModelEntity;
+import peipo.ru.cardealership.infrastructure.jparepositorys.parts.*;
+import peipo.ru.cardealership.infrastructure.mapper.parts.*;
+import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarConfigurationEmbeddable;
 import peipo.ru.cardealership.infrastructure.persistence.entity.order.ConfiguredCarOrderEntity;
 import peipo.ru.cardealership.infrastructure.persistence.entity.order.ConfiguredOrderStateEnum;
 
-@Mapper(componentModel = "spring", uses = CarModelMapper.class)
+@Mapper(componentModel = "spring")
 public abstract class ConfiguredOrderMapper
 {
+    @Autowired
+    protected EngineJpaRepository engineJpaRepository;
+
+    @Autowired
+    protected BodyJpaRepository bodyJpaRepository;
+
+    @Autowired
+    protected GearBoxJpaRepository gearBoxJpaRepository;
+
+    @Autowired
+    protected InteriorJpaRepository interiorJpaRepository;
+
+    @Autowired
+    protected WheelsJpaRepository wheelsJpaRepository;
+
+    @Autowired
+    protected EngineMapper engineMapper;
+
+    @Autowired
+    protected BodyMapper bodyMapper;
+
+    @Autowired
+    protected GearBoxMapper gearBoxMapper;
+
+    @Autowired
+    protected InteriorMapper interiorMapper;
+
+    @Autowired
+    protected WheelsMapper wheelsMapper;
+
     public ConfiguredCarOrder toDomain(ConfiguredCarOrderEntity configuredCarOrderEntity)
     {
-        ConfiguredCarOrder order = new ConfiguredCarOrder(
+        CarConfigurationEmbeddable emb = configuredCarOrderEntity.getConfiguration();
+
+        CarModel model = new CarModel(
+                null,
+                emb.getBrand(),
+                emb.getModel(),
+                bodyMapper.toDomain(bodyJpaRepository.findById(emb.getBody()).orElseThrow()),
+                engineMapper.toDomain(engineJpaRepository.findById(emb.getEngine()).orElseThrow()),
+                gearBoxMapper.toDomain(gearBoxJpaRepository.findById(emb.getGearBox()).orElseThrow()),
+                interiorMapper.toDomain(interiorJpaRepository.findById(emb.getInterior()).orElseThrow()),
+                wheelsMapper.toDomain(wheelsJpaRepository.findById(emb.getWheels()).orElseThrow()),
+                emb.getDrivetrainType(),
+                Color.decode(emb.getColor())
+        );
+
+        var order = new ConfiguredCarOrder(
                 new OrderId(configuredCarOrderEntity.getId()),
                 new ClientId(configuredCarOrderEntity.getClientId()),
                 new EmployeeId(configuredCarOrderEntity.getManagerId()),
-                map(configuredCarOrderEntity.getConfiguration())
+                model
         );
-
         order.setState(toState(configuredCarOrderEntity.getOrderState()));
+
         return order;
     }
 
@@ -37,10 +84,21 @@ public abstract class ConfiguredOrderMapper
         entity.setId(domain.getOrderId().id());
         entity.setClientId(domain.getClientId().id());
         entity.setManagerId(domain.getManagerId().id());
+        entity.setOrderState(toStateEnum(domain.getState()));
 
-        entity.setConfiguration(map(domain.getConfiguration()));
+        CarConfigurationEmbeddable emb = new CarConfigurationEmbeddable();
+        emb.setBrand(domain.getConfiguration().getBrand());
+        emb.setModel(domain.getConfiguration().getModel());
+        emb.setBody(domain.getConfiguration().getBody().getId().id());
+        emb.setEngine(domain.getConfiguration().getEngine().getId().id());
+        emb.setGearBox(domain.getConfiguration().getGearBox().getId().id());
+        emb.setInterior(domain.getConfiguration().getInterior().getId().id());
+        emb.setWheels(domain.getConfiguration().getWheels().getId().id());
+        emb.setDrivetrainType(domain.getConfiguration().getDrivetrainType());
+        emb.setColor(domain.getConfiguration().getColor().toString());
 
-        entity.setOrderState(toStateEnam(domain.getState()));
+        entity.setConfiguration(emb);
+
         return entity;
     }
 
@@ -52,23 +110,22 @@ public abstract class ConfiguredOrderMapper
             case Approved -> new ConfiguredWarehouseApprovedState();
             case Cancelled -> new ConfiguredCancelledState();
             case Finished -> new ConfiguredCompletedState();
-            case Paid ->  new ConfiguredPaidState();
+            case Paid -> new ConfiguredPaidState();
             case ReadyForPick -> new ConfiguredReadyForPickupState();
         };
     }
 
-    protected ConfiguredOrderStateEnum toStateEnam(ConfiguredOrderState configuredOrderState)
+    protected ConfiguredOrderStateEnum toStateEnum(ConfiguredOrderState configuredOrderState)
     {
-        if(configuredOrderState instanceof StockCreatedState) return ConfiguredOrderStateEnum.Created;
-        if (configuredOrderState instanceof StockManagerApprovedState) return ConfiguredOrderStateEnum.Approved;
-        if (configuredOrderState instanceof StockCancelledState) return ConfiguredOrderStateEnum.Cancelled;
-        if (configuredOrderState instanceof  StockCancelledState) return ConfiguredOrderStateEnum.Cancelled;
-        if (configuredOrderState instanceof StockPaidState) return ConfiguredOrderStateEnum.Paid;
+        return switch (configuredOrderState)
+        {
+            case ConfiguredCreatedState configuredCreatedState -> ConfiguredOrderStateEnum.Created;
+            case ConfiguredWarehouseApprovedState configuredWarehouseApprovedState -> ConfiguredOrderStateEnum.Approved;
+            case ConfiguredCancelledState configuredCancelledState -> ConfiguredOrderStateEnum.Cancelled;
+            case ConfiguredPaidState configuredPaidState -> ConfiguredOrderStateEnum.Paid;
+            case ConfiguredReadyForPickupState configuredReadyForPickupState -> ConfiguredOrderStateEnum.ReadyForPick;
 
-        throw new DomainValidationException("Unknown StockOrderState" + configuredOrderState);
+            case null, default -> throw new DomainValidationException("Unknown StockOrderState" + configuredOrderState);
+        };
     }
-
-    protected abstract CarModel map(CarModelEntity entity);
-
-    protected abstract CarModelEntity map(CarModel domain);
 }

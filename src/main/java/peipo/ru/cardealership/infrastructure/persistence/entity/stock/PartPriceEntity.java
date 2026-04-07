@@ -1,17 +1,20 @@
 package peipo.ru.cardealership.infrastructure.persistence.entity.stock;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 
 @Entity
 @Table(name = "part_price")
 @Getter
 @Setter
-public class PartPriceEntity extends BaseEntity
+public class PartPriceEntity
 {
+    @Id
+    @Column(name = "part_id")
+    private UUID part;
+
     private BigDecimal price;
 }

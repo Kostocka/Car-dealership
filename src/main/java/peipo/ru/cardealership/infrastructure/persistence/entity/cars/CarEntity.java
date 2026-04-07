@@ -11,7 +11,6 @@ import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 @Setter
 public class CarEntity extends BaseEntity
 {
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    private CarModelEntity carModel;
+    @Embedded
+    private CarConfigurationEmbeddable  carModel;
 }

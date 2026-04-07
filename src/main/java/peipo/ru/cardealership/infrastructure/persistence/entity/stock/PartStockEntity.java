@@ -1,16 +1,19 @@
 package peipo.ru.cardealership.infrastructure.persistence.entity.stock;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 
 @Entity
 @Table(name = "part_stock")
 @Getter
 @Setter
-public class PartStockEntity extends BaseEntity
+public class PartStockEntity
 {
+    @Id
+    @Column(name = "part_id")
+    private UUID part;
+
     private int quantity;
 }

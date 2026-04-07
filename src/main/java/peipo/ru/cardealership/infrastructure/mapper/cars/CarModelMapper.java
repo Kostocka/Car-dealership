@@ -1,9 +1,12 @@
 package peipo.ru.cardealership.infrastructure.mapper.cars;
 
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.vo.id.CarModelId;
+import peipo.ru.cardealership.infrastructure.jparepositorys.parts.*;
 import peipo.ru.cardealership.infrastructure.mapper.parts.*;
+import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarConfigurationEmbeddable;
 import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarModelEntity;
 
 import java.awt.*;
@@ -21,17 +24,47 @@ import java.awt.*;
 )
 public abstract class CarModelMapper
 {
+    @Autowired
+    protected EngineJpaRepository engineJpaRepository;
+
+    @Autowired
+    protected BodyJpaRepository bodyJpaRepository;
+
+    @Autowired
+    protected GearBoxJpaRepository gearBoxJpaRepository;
+
+    @Autowired
+    protected InteriorJpaRepository interiorJpaRepository;
+
+    @Autowired
+    protected WheelsJpaRepository wheelsJpaRepository;
+
+    @Autowired
+    protected EngineMapper engineMapper;
+
+    @Autowired
+    protected BodyMapper bodyMapper;
+
+    @Autowired
+    protected GearBoxMapper gearBoxMapper;
+
+    @Autowired
+    protected InteriorMapper interiorMapper;
+
+    @Autowired
+    protected WheelsMapper wheelsMapper;
+
     public CarModel toDomain(CarModelEntity entity)
     {
         return new CarModel(
                 new CarModelId(entity.getId()),
                 entity.getBrand(),
                 entity.getModel(),
-                bodyMapper().toDomain(entity.getBody()),
-                engineMapper().toDomain(entity.getEngine()),
-                gearBoxMapper().toDomain(entity.getGearBox()),
-                interiorMapper().toDomain(entity.getInterior()),
-                wheelsMapper().toDomain(entity.getWheels()),
+                bodyMapper.toDomain(entity.getBody()),
+                engineMapper.toDomain(entity.getEngine()),
+                gearBoxMapper.toDomain(entity.getGearBox()),
+                interiorMapper.toDomain(entity.getInterior()),
+                wheelsMapper.toDomain(entity.getWheels()),
                 entity.getDrivetrainType(),
                 Color.decode(entity.getColor())
         );
@@ -43,24 +76,44 @@ public abstract class CarModelMapper
         carModelEntity.setId(domain.getModelId().id());
         carModelEntity.setBrand(domain.getBrand());
         carModelEntity.setModel(domain.getModel());
-        carModelEntity.setBody(bodyMapper().toEntity(domain.getBody()));
-        carModelEntity.setEngine(engineMapper().toEntity(domain.getEngine()));
-        carModelEntity.setGearBox(gearBoxMapper().toEntity(domain.getGearBox()));
-        carModelEntity.setInterior(interiorMapper().toEntity(domain.getInterior()));
-        carModelEntity.setWheels(wheelsMapper().toEntity(domain.getWheels()));
+        carModelEntity.setBody(bodyMapper.toEntity(domain.getBody()));
+        carModelEntity.setEngine(engineMapper.toEntity(domain.getEngine()));
+        carModelEntity.setGearBox(gearBoxMapper.toEntity(domain.getGearBox()));
+        carModelEntity.setInterior(interiorMapper.toEntity(domain.getInterior()));
+        carModelEntity.setWheels(wheelsMapper.toEntity(domain.getWheels()));
         carModelEntity.setColor(domain.getColor().toString());
         carModelEntity.setDrivetrainType(domain.getDrivetrainType());
         return carModelEntity;
     }
 
-    protected abstract EngineMapper engineMapper();
+    public CarModel toDomain(CarConfigurationEmbeddable entity)
+    {
+        return new CarModel(
+                null,
+                entity.getBrand(),
+                entity.getModel(),
+                bodyMapper.toDomain(bodyJpaRepository.findById(entity.getBody()).orElseThrow()),
+                engineMapper.toDomain(engineJpaRepository.findById(entity.getEngine()).orElseThrow()),
+                gearBoxMapper.toDomain(gearBoxJpaRepository.findById(entity.getGearBox()).orElseThrow()),
+                interiorMapper.toDomain(interiorJpaRepository.findById(entity.getInterior()).orElseThrow()),
+                wheelsMapper.toDomain(wheelsJpaRepository.findById(entity.getWheels()).orElseThrow()),
+                entity.getDrivetrainType(),
+                Color.decode(entity.getColor())
+        );
+    }
 
-    protected abstract BodyMapper bodyMapper();
-
-    protected abstract GearBoxMapper gearBoxMapper();
-
-    protected abstract InteriorMapper interiorMapper();
-
-    protected abstract WheelsMapper wheelsMapper();
-
+    public CarConfigurationEmbeddable toEmbeddable(CarModel domain)
+    {
+        CarConfigurationEmbeddable emb = new CarConfigurationEmbeddable();
+        emb.setBrand(domain.getBrand());
+        emb.setModel(domain.getModel());
+        emb.setBody(domain.getBody().getId().id());
+        emb.setEngine(domain.getEngine().getId().id());
+        emb.setGearBox(domain.getGearBox().getId().id());
+        emb.setInterior(domain.getInterior().getId().id());
+        emb.setWheels(domain.getWheels().getId().id());
+        emb.setColor(domain.getColor().toString());
+        emb.setDrivetrainType(domain.getDrivetrainType());
+        return emb;
+    }
 }

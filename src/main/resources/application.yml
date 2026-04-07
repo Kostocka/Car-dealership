@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/cardealership
+    username: user
+    password: user
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+  liquibase:
+    enabled: false

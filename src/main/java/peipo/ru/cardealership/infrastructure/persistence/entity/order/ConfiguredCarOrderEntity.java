@@ -3,8 +3,7 @@ package peipo.ru.cardealership.infrastructure.persistence.entity.order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
-import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarModelEntity;
+import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarConfigurationEmbeddable;
 
 @Entity
 @Table(name = "configured_car_order")
@@ -12,10 +11,10 @@ import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarModelEnt
 @Getter
 public class ConfiguredCarOrderEntity extends OrderEntity
 {
-    @OneToOne
-    @JoinColumn(name = "configuration_id")
-    private CarModelEntity configuration;
+    @Embedded
+    private CarConfigurationEmbeddable configuration;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "state")
     private ConfiguredOrderStateEnum orderState;
 }

@@ -14,18 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class PostgresIT {
 
-    @Container
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine")
-            .withDatabaseName("testdb")
-            .withUsername("test")
-            .withPassword("test");
-
     @Test
     void canConnectAndQuery() throws Exception {
         try (Connection connection = DriverManager.getConnection(
-                postgres.getJdbcUrl(),
-                postgres.getUsername(),
-                postgres.getPassword())) {
+                "jdbc:postgresql://localhost:5433/cardealership",
+                "user",
+                "user")) {
 
             ResultSet rs = connection.createStatement().executeQuery("select 1");
             rs.next();

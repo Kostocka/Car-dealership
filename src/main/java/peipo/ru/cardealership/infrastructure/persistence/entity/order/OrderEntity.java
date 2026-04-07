@@ -7,9 +7,7 @@ import lombok.Setter;
 import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 
 
-@Entity
-@Table(name = "order")
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 @Getter
 @Setter
 public abstract class OrderEntity extends BaseEntity
