@@ -13,7 +13,7 @@ import peipo.ru.cardealership.domain.vo.id.CarId;
 import peipo.ru.cardealership.infrastructure.jparepositorys.CarJpaRepository;
 import peipo.ru.cardealership.infrastructure.mapper.cars.CarMapper;
 import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarEntity;
-import peipo.ru.cardealership.infrastructure.specifications.FilterMapper;
+import peipo.ru.cardealership.infrastructure.mapper.FilterMapper;
 
 @Repository
 @RequiredArgsConstructor

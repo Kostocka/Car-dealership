@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.infrastructure.specifications;
+package peipo.ru.cardealership.infrastructure.mapper;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -6,17 +6,28 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import peipo.ru.cardealership.domain.exception.DomainValidationException;
 import peipo.ru.cardealership.domain.models.filters.Filter;
-import peipo.ru.cardealership.infrastructure.mapper.FilterSpecificationMapper;
 import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarEntity;
+import peipo.ru.cardealership.infrastructure.specifications.CompositeFilterHandler;
+import peipo.ru.cardealership.infrastructure.specifications.FilterHandler;
+import peipo.ru.cardealership.infrastructure.specifications.FilterResolver;
 
 @Component
 @RequiredArgsConstructor
 public class FilterMapper implements FilterResolver
 {
     private final List<FilterHandler> handlers;
+    private final List<CompositeFilterHandler> compositeHandlers;
 
     public Specification<CarEntity> resolve(Filter<?> filter)
     {
+        for (CompositeFilterHandler compositeHandler : compositeHandlers)
+        {
+            if (compositeHandler.supports(filter))
+            {
+                return compositeHandler.handle(filter, this);
+            }
+        }
+
         for (FilterHandler handler : handlers)
         {
             if (handler.supports(filter))
