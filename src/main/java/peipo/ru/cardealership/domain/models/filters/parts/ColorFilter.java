@@ -1,12 +1,14 @@
-package peipo.ru.cardealership.domain.models.specifications.parts;
+package peipo.ru.cardealership.domain.models.filters.parts;
 
 import java.awt.Color;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import peipo.ru.cardealership.domain.models.CarModel;
-import peipo.ru.cardealership.domain.models.specifications.Specification;
+import peipo.ru.cardealership.domain.models.filters.Filter;
 
 @AllArgsConstructor
-public class ColorSpecification implements Specification<CarModel>
+@Getter
+public class ColorFilter implements Filter<CarModel>
 {
     private final Color color;
 

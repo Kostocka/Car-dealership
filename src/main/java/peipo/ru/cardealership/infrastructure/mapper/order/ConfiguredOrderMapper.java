@@ -58,11 +58,11 @@ public abstract class ConfiguredOrderMapper
                 null,
                 emb.getBrand(),
                 emb.getModel(),
-                bodyMapper.toDomain(bodyJpaRepository.findById(emb.getBody()).orElseThrow()),
-                engineMapper.toDomain(engineJpaRepository.findById(emb.getEngine()).orElseThrow()),
-                gearBoxMapper.toDomain(gearBoxJpaRepository.findById(emb.getGearBox()).orElseThrow()),
-                interiorMapper.toDomain(interiorJpaRepository.findById(emb.getInterior()).orElseThrow()),
-                wheelsMapper.toDomain(wheelsJpaRepository.findById(emb.getWheels()).orElseThrow()),
+                bodyMapper.toDomain(emb.getBody()),
+                engineMapper.toDomain(emb.getEngine()),
+                gearBoxMapper.toDomain(emb.getGearBox()),
+                interiorMapper.toDomain(emb.getInterior()),
+                wheelsMapper.toDomain(emb.getWheels()),
                 emb.getDrivetrainType(),
                 Color.decode(emb.getColor())
         );
@@ -89,11 +89,11 @@ public abstract class ConfiguredOrderMapper
         CarConfigurationEmbeddable emb = new CarConfigurationEmbeddable();
         emb.setBrand(domain.getConfiguration().getBrand());
         emb.setModel(domain.getConfiguration().getModel());
-        emb.setBody(domain.getConfiguration().getBody().getId().id());
-        emb.setEngine(domain.getConfiguration().getEngine().getId().id());
-        emb.setGearBox(domain.getConfiguration().getGearBox().getId().id());
-        emb.setInterior(domain.getConfiguration().getInterior().getId().id());
-        emb.setWheels(domain.getConfiguration().getWheels().getId().id());
+        emb.setBody(bodyMapper.toEntity(domain.getConfiguration().getBody()));
+        emb.setEngine(engineMapper.toEntity(domain.getConfiguration().getEngine()));
+        emb.setGearBox(gearBoxMapper.toEntity(domain.getConfiguration().getGearBox()));
+        emb.setInterior(interiorMapper.toEntity(domain.getConfiguration().getInterior()));
+        emb.setWheels(wheelsMapper.toEntity(domain.getConfiguration().getWheels()));
         emb.setDrivetrainType(domain.getConfiguration().getDrivetrainType());
         emb.setColor(domain.getConfiguration().getColor().toString());
 

@@ -8,7 +8,7 @@ import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarEntity;
 
 @Component
 @RequiredArgsConstructor
-public abstract class CarMapper
+public class CarMapper
 {
     private final CarModelMapper carModelMapper;
 

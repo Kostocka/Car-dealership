@@ -1,8 +1,8 @@
 package peipo.ru.cardealership.infrastructure.jparepositorys;
 
-import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import peipo.ru.cardealership.infrastructure.persistence.entity.rules.PartCompatibilityEntity;
+import peipo.ru.cardealership.infrastructure.persistence.entity.rules.PartCompatibilityId;
 
-public interface PartCompatibilityJpaRepository extends JpaRepository<PartCompatibilityEntity, UUID>
+public interface PartCompatibilityJpaRepository extends JpaRepository<PartCompatibilityEntity, PartCompatibilityId>
 {}

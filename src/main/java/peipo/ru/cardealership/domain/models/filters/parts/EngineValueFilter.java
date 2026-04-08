@@ -1,11 +1,13 @@
-package peipo.ru.cardealership.domain.models.specifications.parts;
+package peipo.ru.cardealership.domain.models.filters.parts;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import peipo.ru.cardealership.domain.models.CarModel;
-import peipo.ru.cardealership.domain.models.specifications.Specification;
+import peipo.ru.cardealership.domain.models.filters.Filter;
 
 @AllArgsConstructor
-public class EngineValueSpecification implements Specification<CarModel>
+@Getter
+public class EngineValueFilter implements Filter<CarModel>
 {
     private final int minVolume;
 

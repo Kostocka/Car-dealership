@@ -92,11 +92,11 @@ public abstract class CarModelMapper
                 null,
                 entity.getBrand(),
                 entity.getModel(),
-                bodyMapper.toDomain(bodyJpaRepository.findById(entity.getBody()).orElseThrow()),
-                engineMapper.toDomain(engineJpaRepository.findById(entity.getEngine()).orElseThrow()),
-                gearBoxMapper.toDomain(gearBoxJpaRepository.findById(entity.getGearBox()).orElseThrow()),
-                interiorMapper.toDomain(interiorJpaRepository.findById(entity.getInterior()).orElseThrow()),
-                wheelsMapper.toDomain(wheelsJpaRepository.findById(entity.getWheels()).orElseThrow()),
+                bodyMapper.toDomain(entity.getBody()),
+                engineMapper.toDomain(entity.getEngine()),
+                gearBoxMapper.toDomain(entity.getGearBox()),
+                interiorMapper.toDomain(entity.getInterior()),
+                wheelsMapper.toDomain(entity.getWheels()),
                 entity.getDrivetrainType(),
                 Color.decode(entity.getColor())
         );
@@ -107,11 +107,11 @@ public abstract class CarModelMapper
         CarConfigurationEmbeddable emb = new CarConfigurationEmbeddable();
         emb.setBrand(domain.getBrand());
         emb.setModel(domain.getModel());
-        emb.setBody(domain.getBody().getId().id());
-        emb.setEngine(domain.getEngine().getId().id());
-        emb.setGearBox(domain.getGearBox().getId().id());
-        emb.setInterior(domain.getInterior().getId().id());
-        emb.setWheels(domain.getWheels().getId().id());
+        emb.setBody(bodyMapper.toEntity(domain.getBody()));
+        emb.setEngine(engineMapper.toEntity(domain.getEngine()));
+        emb.setGearBox(gearBoxMapper.toEntity(domain.getGearBox()));
+        emb.setInterior(interiorMapper.toEntity(domain.getInterior()));
+        emb.setWheels(wheelsMapper.toEntity(domain.getWheels()));
         emb.setColor(domain.getColor().toString());
         emb.setDrivetrainType(domain.getDrivetrainType());
         return emb;
