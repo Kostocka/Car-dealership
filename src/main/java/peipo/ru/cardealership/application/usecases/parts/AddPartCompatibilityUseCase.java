@@ -1,9 +1,11 @@
 package peipo.ru.cardealership.application.usecases.parts;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import peipo.ru.cardealership.domain.repository.PartCompatibilityRepository;
 import peipo.ru.cardealership.domain.vo.id.PartId;
 
+@Service
 @AllArgsConstructor
 public class AddPartCompatibilityUseCase
 {

@@ -25,21 +25,6 @@ import java.awt.*;
 public abstract class CarModelMapper
 {
     @Autowired
-    protected EngineJpaRepository engineJpaRepository;
-
-    @Autowired
-    protected BodyJpaRepository bodyJpaRepository;
-
-    @Autowired
-    protected GearBoxJpaRepository gearBoxJpaRepository;
-
-    @Autowired
-    protected InteriorJpaRepository interiorJpaRepository;
-
-    @Autowired
-    protected WheelsJpaRepository wheelsJpaRepository;
-
-    @Autowired
     protected EngineMapper engineMapper;
 
     @Autowired

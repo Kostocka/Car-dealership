@@ -1,11 +1,13 @@
 package peipo.ru.cardealership.application.usecases.models;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import peipo.ru.cardealership.domain.exception.EntityNotFoundException;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.repository.CarModelRepository;
 import peipo.ru.cardealership.domain.vo.id.CarModelId;
 
+@Service
 @AllArgsConstructor
 public class GetCarModelByIdUseCase
 {

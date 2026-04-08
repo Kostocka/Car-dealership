@@ -1,6 +1,7 @@
 package peipo.ru.cardealership.application.usecases.orders;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import peipo.ru.cardealership.domain.exception.EntityNotFoundException;
 import peipo.ru.cardealership.domain.models.Car;
 import peipo.ru.cardealership.domain.models.orders.StockCarOrder;
@@ -12,6 +13,7 @@ import peipo.ru.cardealership.domain.vo.id.ClientId;
 import peipo.ru.cardealership.domain.vo.id.EmployeeId;
 import peipo.ru.cardealership.domain.vo.id.OrderId;
 
+@Service
 @AllArgsConstructor
 public class CreateStockOrderUseCase
 {

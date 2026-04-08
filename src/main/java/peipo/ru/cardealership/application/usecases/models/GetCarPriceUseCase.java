@@ -3,11 +3,13 @@ package peipo.ru.cardealership.application.usecases.models;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.repository.PartPriceRepository;
 import peipo.ru.cardealership.domain.vo.Money;
 import peipo.ru.cardealership.domain.vo.id.PartId;
 
+@Service
 @AllArgsConstructor
 public class GetCarPriceUseCase
 {
