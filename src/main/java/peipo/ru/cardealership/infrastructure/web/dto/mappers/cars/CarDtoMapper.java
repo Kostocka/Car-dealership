@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.infrastructure.web.dto.mappers;
+package peipo.ru.cardealership.infrastructure.web.dto.mappers.cars;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

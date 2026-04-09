@@ -7,7 +7,7 @@ import peipo.ru.cardealership.domain.vo.id.PartId;
 
 @Service
 @AllArgsConstructor
-public class AddPartStockUseCases
+public class AddPartStockUseCase
 {
     private PartStockRepository  partStockRepository;
 

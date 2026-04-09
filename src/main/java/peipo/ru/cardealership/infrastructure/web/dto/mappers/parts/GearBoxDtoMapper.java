@@ -1,10 +1,11 @@
-package peipo.ru.cardealership.infrastructure.web.dto.mappers;
+package peipo.ru.cardealership.infrastructure.web.dto.mappers.parts;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import peipo.ru.cardealership.domain.models.parts.GearBox;
 import peipo.ru.cardealership.domain.vo.id.PartId;
-import peipo.ru.cardealership.infrastructure.web.dto.cars.GearBoxDto;
+import peipo.ru.cardealership.infrastructure.web.dto.parts.requests.CreateGearBoxRequest;
+import peipo.ru.cardealership.infrastructure.web.dto.parts.GearBoxDto;
 
 @Component
 @RequiredArgsConstructor
@@ -15,6 +16,14 @@ public class GearBoxDtoMapper
         return new GearBox(
                 new PartId(gearBoxDto.getId()),
                 gearBoxDto.getGearBoxType()
+        );
+    }
+
+    public GearBox fromRequest(CreateGearBoxRequest createBodyRequest)
+    {
+        return new GearBox(
+                PartId.generate(),
+                createBodyRequest.getGearBoxType()
         );
     }
 

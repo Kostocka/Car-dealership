@@ -11,8 +11,8 @@ public class CreateEngineUseCase
 {
     private final PartRepository<Engine> partRepository;
 
-    public void execute(Engine part)
+    public Engine execute(Engine part)
     {
-        partRepository.save(part);
+        return partRepository.save(part);
     }
 }

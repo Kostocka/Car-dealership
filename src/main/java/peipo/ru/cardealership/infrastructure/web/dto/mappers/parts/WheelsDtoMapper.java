@@ -1,10 +1,11 @@
-package peipo.ru.cardealership.infrastructure.web.dto.mappers;
+package peipo.ru.cardealership.infrastructure.web.dto.mappers.parts;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import peipo.ru.cardealership.domain.models.parts.Wheels;
 import peipo.ru.cardealership.domain.vo.id.PartId;
-import peipo.ru.cardealership.infrastructure.web.dto.cars.WheelsDto;
+import peipo.ru.cardealership.infrastructure.web.dto.parts.requests.CreateWheelsRequest;
+import peipo.ru.cardealership.infrastructure.web.dto.parts.WheelsDto;
 
 @Component
 @RequiredArgsConstructor
@@ -15,6 +16,14 @@ public class WheelsDtoMapper
         return new Wheels(
                 new PartId(wheelsDto.getId()),
                 wheelsDto.getSize()
+        );
+    }
+
+    public Wheels fromRequest(CreateWheelsRequest createBodyRequest)
+    {
+        return new Wheels(
+                PartId.generate(),
+                createBodyRequest.getSize()
         );
     }
 

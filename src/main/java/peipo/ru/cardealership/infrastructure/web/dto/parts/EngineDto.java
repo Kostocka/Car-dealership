@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.infrastructure.web.dto.cars;
+package peipo.ru.cardealership.infrastructure.web.dto.parts;
 
 import lombok.*;
 import peipo.ru.cardealership.domain.vo.FuelType;

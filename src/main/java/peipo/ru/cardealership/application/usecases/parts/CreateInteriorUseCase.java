@@ -11,8 +11,8 @@ public class CreateInteriorUseCase
 {
     private final PartRepository<Interior> partRepository;
 
-    public void execute(Interior part)
+    public Interior execute(Interior part)
     {
-        partRepository.save(part);
+        return partRepository.save(part);
     }
 }

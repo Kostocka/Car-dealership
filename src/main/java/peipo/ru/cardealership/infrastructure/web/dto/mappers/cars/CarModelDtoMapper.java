@@ -1,12 +1,12 @@
-package peipo.ru.cardealership.infrastructure.web.dto.mappers;
+package peipo.ru.cardealership.infrastructure.web.dto.mappers.cars;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.vo.id.CarModelId;
 import peipo.ru.cardealership.infrastructure.web.dto.cars.CarConfigurationDto;
-
-import java.awt.*;
+import peipo.ru.cardealership.infrastructure.web.dto.cars.CarModelResponceDto;
+import peipo.ru.cardealership.infrastructure.web.dto.mappers.parts.*;
 
 @Component
 @RequiredArgsConstructor
@@ -48,4 +48,13 @@ public class CarModelDtoMapper
                 model.getColor().toString()
         );
     }
+
+    public CarModelResponceDto toModelDto(CarModel model)
+    {
+        return new CarModelResponceDto(
+                model.getModelId().id(),
+                toDto(model)
+        );
+    }
+
 }

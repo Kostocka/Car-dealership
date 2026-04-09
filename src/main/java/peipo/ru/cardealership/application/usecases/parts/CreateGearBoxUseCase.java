@@ -11,8 +11,8 @@ public class CreateGearBoxUseCase
 {
     private final PartRepository<GearBox> partRepository;
 
-    public void execute(GearBox part)
+    public GearBox execute(GearBox part)
     {
-        partRepository.save(part);
+        return partRepository.save(part);
     }
 }

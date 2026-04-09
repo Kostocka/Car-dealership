@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import peipo.ru.cardealership.domain.vo.DrivetrainType;
+import peipo.ru.cardealership.infrastructure.web.dto.parts.*;
 
 @Getter
 @Setter

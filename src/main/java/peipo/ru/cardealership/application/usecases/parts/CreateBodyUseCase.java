@@ -11,8 +11,8 @@ public class CreateBodyUseCase
 {
     private final PartRepository<Body> partRepository;
 
-    public void execute(Body part)
+    public Body execute(Body part)
     {
-        partRepository.save(part);
+        return partRepository.save(part);
     }
 }

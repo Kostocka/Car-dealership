@@ -11,8 +11,8 @@ public class CreateWheelsUseCase
 {
     private final PartRepository<Wheels> partRepository;
 
-    public void execute(Wheels part)
+    public Wheels execute(Wheels part)
     {
-        partRepository.save(part);
+        return partRepository.save(part);
     }
 }

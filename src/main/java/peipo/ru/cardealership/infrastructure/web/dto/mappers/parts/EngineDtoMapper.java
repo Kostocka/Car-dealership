@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.infrastructure.web.dto.mappers;
+package peipo.ru.cardealership.infrastructure.web.dto.mappers.parts;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,8 @@ import peipo.ru.cardealership.domain.models.parts.Engine;
 import peipo.ru.cardealership.domain.vo.EnginePower;
 import peipo.ru.cardealership.domain.vo.EngineVolume;
 import peipo.ru.cardealership.domain.vo.id.PartId;
-import peipo.ru.cardealership.infrastructure.web.dto.cars.EngineDto;
+import peipo.ru.cardealership.infrastructure.web.dto.parts.requests.CreateEngineRequest;
+import peipo.ru.cardealership.infrastructure.web.dto.parts.EngineDto;
 
 @Component
 @RequiredArgsConstructor
@@ -19,6 +20,16 @@ public class EngineDtoMapper
                 engineDto.getFuelType(),
                 new EnginePower(engineDto.getPower()),
                 new EngineVolume(engineDto.getVolume())
+        );
+    }
+
+    public Engine fromRequest(CreateEngineRequest createEngineRequest)
+    {
+        return new Engine(
+                PartId.generate(),
+                createEngineRequest.getFuelType(),
+                new EnginePower(createEngineRequest.getPower()),
+                new EngineVolume(createEngineRequest.getVolume())
         );
     }
 
