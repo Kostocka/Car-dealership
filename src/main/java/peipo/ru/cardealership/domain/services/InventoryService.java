@@ -17,7 +17,7 @@ public class InventoryService
     {
         if (partStockRepository.getQuantity(part.getId()) <= 0)
         {
-            throw new DomainValidationException("Part not available");
+            throw new DomainValidationException("Part not available " + part.getId());
         }
     }
 

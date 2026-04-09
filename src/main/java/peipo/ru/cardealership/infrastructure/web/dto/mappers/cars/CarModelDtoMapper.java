@@ -21,7 +21,7 @@ public class CarModelDtoMapper
     public CarModel toDomain(CarConfigurationDto dto)
     {
         return new CarModel(
-                CarModelId.generate(),
+                new CarModelId(dto.getId()),
                 dto.getBrand(),
                 dto.getModel(),
                 bodyDtoMapper.toDomain(dto.getBody()),
@@ -37,6 +37,7 @@ public class CarModelDtoMapper
     public CarConfigurationDto toDto(CarModel model)
     {
         return new CarConfigurationDto(
+                model.getModelId().id(),
                 model.getBrand(),
                 model.getModel(),
                 bodyDtoMapper.toDto(model.getBody()),

@@ -17,6 +17,7 @@ public class ConfiguredOrderMapper
     public ConfiguredCarOrderDto toDto(ConfiguredCarOrder configuredCarOrder)
     {
         ConfiguredCarOrderDto dto = new ConfiguredCarOrderDto();
+        dto.setOrderId(configuredCarOrder.getOrderId().id());
         dto.setClientId(configuredCarOrder.getClientId().id());
         dto.setManagerId(configuredCarOrder.getManagerId().id());
         dto.setConfiguration(carModelMapper.toDto(configuredCarOrder.getConfiguration()));

@@ -15,6 +15,7 @@ public class StockOrderMapper
     public StockCarOrderDto toDto(StockCarOrder stockCarOrder)
     {
         StockCarOrderDto dto = new StockCarOrderDto();
+        dto.setOrderId(stockCarOrder.getOrderId().id());
         dto.setClientId(stockCarOrder.getClientId().id());
         dto.setManagerId(stockCarOrder.getManagerId().id());
         dto.setCarId(stockCarOrder.getCarId().id());
