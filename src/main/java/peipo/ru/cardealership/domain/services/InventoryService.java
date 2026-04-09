@@ -1,11 +1,13 @@
 package peipo.ru.cardealership.domain.services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import peipo.ru.cardealership.domain.exception.DomainValidationException;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.models.parts.Part;
 import peipo.ru.cardealership.domain.repository.PartStockRepository;
 
+@Service
 @AllArgsConstructor
 public class InventoryService
 {

@@ -51,9 +51,9 @@ public class CarRepositoryImpl implements CarRepository
     }
 
     @Override
-    public void save(Car entity)
+    public Car save(Car entity)
     {
-        carJpaRepository.save(carMapper.toEntity(entity));
+        return carMapper.toDomain(carJpaRepository.save(carMapper.toEntity(entity)));
     }
 
     @Override

@@ -1,14 +1,16 @@
 package peipo.ru.cardealership.infrastructure.persistence.mapper.parts;
 
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import peipo.ru.cardealership.domain.models.parts.Body;
 import peipo.ru.cardealership.domain.vo.id.PartId;
 import peipo.ru.cardealership.infrastructure.persistence.entity.parts.BodyEntity;
+import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.parts.BodyJpaRepository;
 
 @Mapper(componentModel = "spring")
-public interface BodyMapper
+public abstract class BodyMapper
 {
-    default Body toDomain(BodyEntity entity)
+    public Body toDomain(BodyEntity entity)
     {
         return new Body(
                 new PartId(entity.getId()),
@@ -16,7 +18,7 @@ public interface BodyMapper
         );
     }
 
-    default BodyEntity toEntity(Body body)
+    public BodyEntity toEntity(Body body)
     {
         BodyEntity bodyEntity = new BodyEntity();
         bodyEntity.setBodyType(body.getType());

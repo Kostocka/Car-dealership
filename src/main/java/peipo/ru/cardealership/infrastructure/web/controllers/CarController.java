@@ -23,7 +23,6 @@ public class CarController
     public CarResponseDto addCar(@RequestBody CreateCarRequest createCarRequest)
     {
         Car carDomain = carDtoMapper.toDomain(createCarRequest);
-        addCarUseCase.execute(carDomain);
-        return carDtoMapper.toDto(carDomain);
+        return carDtoMapper.toDto(addCarUseCase.execute(carDomain));
     }
 }

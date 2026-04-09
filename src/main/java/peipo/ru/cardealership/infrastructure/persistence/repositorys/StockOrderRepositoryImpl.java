@@ -35,9 +35,9 @@ public class StockOrderRepositoryImpl implements StockOrderRepository
     }
 
     @Override
-    public void save(StockCarOrder entity)
+    public StockCarOrder save(StockCarOrder entity)
     {
-        stockOrderJpaRepository.save(stockOrderMapper.toEntity(entity));
+        return stockOrderMapper.toDomain(stockOrderJpaRepository.save(stockOrderMapper.toEntity(entity)));
     }
 
     @Override

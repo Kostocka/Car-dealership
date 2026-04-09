@@ -16,7 +16,7 @@ public class CarModelEntity extends BaseEntity
     private String brand;
     private String model;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "body_id")
     private BodyEntity body;
 

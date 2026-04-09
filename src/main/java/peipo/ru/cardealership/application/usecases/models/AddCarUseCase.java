@@ -11,8 +11,8 @@ public class AddCarUseCase
 {
     private final CarRepository carRepository;
 
-    public void execute(Car car)
+    public Car execute(Car car)
     {
-        carRepository.save(car);
+        return carRepository.save(car);
     }
 }

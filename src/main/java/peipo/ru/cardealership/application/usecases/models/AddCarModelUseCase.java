@@ -1,15 +1,15 @@
 package peipo.ru.cardealership.application.usecases.models;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.repository.CarModelRepository;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AddCarModelUseCase
 {
-    private CarModelRepository carRepository;
+    private final CarModelRepository carRepository;
 
     public void execute(CarModel carModel)
     {

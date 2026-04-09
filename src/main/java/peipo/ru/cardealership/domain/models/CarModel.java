@@ -28,5 +28,5 @@ public class CarModel
     private final Interior interior;
     private final Wheels wheels;
     private final DrivetrainType drivetrainType;
-    private final Color color;
+    private final String color;
 }

@@ -2,10 +2,12 @@ package peipo.ru.cardealership.domain.services;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import peipo.ru.cardealership.domain.models.employees.EmployeeAssignmentStrategy;
 import peipo.ru.cardealership.domain.repository.EmployeeRepository;
 import peipo.ru.cardealership.domain.vo.id.EmployeeId;
 
+@Service
 @AllArgsConstructor
 public class EmployeeAssignmentService
 {

@@ -35,9 +35,9 @@ public class WheelsRepositoryImpl implements PartRepository<Wheels>
     }
 
     @Override
-    public void save(Wheels entity)
+    public Wheels save(Wheels entity)
     {
-        wheelsJpaRepository.save(wheelsMapper.toEntity(entity));
+        return wheelsMapper.toDomain(wheelsJpaRepository.save(wheelsMapper.toEntity(entity)));
     }
 
     @Override

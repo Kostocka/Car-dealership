@@ -51,7 +51,7 @@ public abstract class CarModelMapper
                 interiorMapper.toDomain(entity.getInterior()),
                 wheelsMapper.toDomain(entity.getWheels()),
                 entity.getDrivetrainType(),
-                Color.decode(entity.getColor())
+                entity.getColor()
         );
     }
 
@@ -74,7 +74,7 @@ public abstract class CarModelMapper
     public CarModel toDomain(CarConfigurationEmbeddable entity)
     {
         return new CarModel(
-                null,
+                new CarModelId(entity.getModelId()),
                 entity.getBrand(),
                 entity.getModel(),
                 bodyMapper.toDomain(entity.getBody()),
@@ -83,13 +83,14 @@ public abstract class CarModelMapper
                 interiorMapper.toDomain(entity.getInterior()),
                 wheelsMapper.toDomain(entity.getWheels()),
                 entity.getDrivetrainType(),
-                Color.decode(entity.getColor())
+                entity.getColor()
         );
     }
 
     public CarConfigurationEmbeddable toEmbeddable(CarModel domain)
     {
         CarConfigurationEmbeddable emb = new CarConfigurationEmbeddable();
+        emb.setModelId(domain.getModelId().id());
         emb.setBrand(domain.getBrand());
         emb.setModel(domain.getModel());
         emb.setBody(bodyMapper.toEntity(domain.getBody()));

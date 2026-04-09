@@ -2,9 +2,11 @@ package peipo.ru.cardealership.domain.services;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.models.rules.CompatibilityRule;
 
+@Service
 @AllArgsConstructor
 public class CompatibilityService
 {

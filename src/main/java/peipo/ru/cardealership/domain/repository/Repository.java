@@ -11,7 +11,7 @@ public interface Repository<T, IDT>
 
     List<T> findAll();
 
-    void save(T entity);
+    T save(T entity);
 
     void delete(IDT id);
 }

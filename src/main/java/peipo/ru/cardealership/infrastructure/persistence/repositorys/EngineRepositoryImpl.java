@@ -35,9 +35,9 @@ public class EngineRepositoryImpl implements PartRepository<Engine>
     }
 
     @Override
-    public void save(Engine entity)
+    public Engine save(Engine entity)
     {
-        engineJpaRepository.save(engineMapper.toEntity(entity));
+        return engineMapper.toDomain(engineJpaRepository.save(engineMapper.toEntity(entity)));
     }
 
     @Override

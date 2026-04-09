@@ -64,7 +64,7 @@ public abstract class ConfiguredOrderMapper
                 interiorMapper.toDomain(emb.getInterior()),
                 wheelsMapper.toDomain(emb.getWheels()),
                 emb.getDrivetrainType(),
-                Color.decode(emb.getColor())
+                emb.getColor()
         );
 
         var order = new ConfiguredCarOrder(

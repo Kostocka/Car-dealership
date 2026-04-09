@@ -35,9 +35,9 @@ public class GearBoxRepositoryImpl implements PartRepository<GearBox>
     }
 
     @Override
-    public void save(GearBox entity)
+    public GearBox save(GearBox entity)
     {
-        gearBoxJpaRepository.save(gearBoxMapper.toEntity(entity));
+        return gearBoxMapper.toDomain(gearBoxJpaRepository.save(gearBoxMapper.toEntity(entity)));
     }
 
     @Override

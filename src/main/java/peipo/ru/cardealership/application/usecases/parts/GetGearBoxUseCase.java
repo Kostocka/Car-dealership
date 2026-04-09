@@ -2,14 +2,14 @@ package peipo.ru.cardealership.application.usecases.parts;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import peipo.ru.cardealership.domain.models.parts.Part;
+import peipo.ru.cardealership.domain.models.parts.GearBox;
 import peipo.ru.cardealership.domain.repository.PartRepository;
 
 @Service
 @AllArgsConstructor
-public class GetParts<T extends Part>
+public class GetGearBoxUseCase
 {
-    private PartRepository<T> partRepository;
+    private PartRepository<GearBox> partRepository;
 
     public void execute()
     {

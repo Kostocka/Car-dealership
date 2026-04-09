@@ -34,9 +34,9 @@ public class TestDriveRepositoryImpl implements TestDriveRepository
     }
 
     @Override
-    public void save(TestDrive entity)
+    public TestDrive save(TestDrive entity)
     {
-        testDriveJpaRepository.save(testDriveMapper.toEntity(entity));
+        return testDriveMapper.toDomain(testDriveJpaRepository.save(testDriveMapper.toEntity(entity)));
     }
 
     @Override

@@ -30,7 +30,7 @@ public class CarModelDtoMapper
                 interiorDtoMapper.toDomain(dto.getInterior()),
                 wheelsDtoMapper.toDomain(dto.getWheels()),
                 dto.getDrivetrainType(),
-                Color.decode(dto.getColor())
+                dto.getColor()
         );
     }
 

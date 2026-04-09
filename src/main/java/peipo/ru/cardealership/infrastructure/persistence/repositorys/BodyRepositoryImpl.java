@@ -35,9 +35,9 @@ public class BodyRepositoryImpl implements PartRepository<Body>
     }
 
     @Override
-    public void save(Body entity)
+    public Body save(Body entity)
     {
-        bodyJpaRepository.save(bodyMapper.toEntity(entity));
+        return bodyMapper.toDomain(bodyJpaRepository.save(bodyMapper.toEntity(entity)));
     }
 
     @Override

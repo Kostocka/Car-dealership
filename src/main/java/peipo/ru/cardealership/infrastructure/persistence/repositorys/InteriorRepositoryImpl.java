@@ -35,9 +35,9 @@ public class InteriorRepositoryImpl implements PartRepository<Interior>
     }
 
     @Override
-    public void save(Interior entity)
+    public Interior save(Interior entity)
     {
-        interiorJpaRepository.save(interiorMapper.toEntity(entity));
+        return interiorMapper.toDomain(interiorJpaRepository.save(interiorMapper.toEntity(entity)));
     }
 
     @Override
