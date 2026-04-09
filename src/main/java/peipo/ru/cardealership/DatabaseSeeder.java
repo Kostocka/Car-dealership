@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import peipo.ru.cardealership.application.usecases.models.AddCarModelUseCase;
 import peipo.ru.cardealership.application.usecases.models.AddCarUseCase;
 import peipo.ru.cardealership.application.usecases.parts.*;
+import peipo.ru.cardealership.application.usecases.testdrives.AddCarToTestDrive;
 import peipo.ru.cardealership.domain.models.Car;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.models.parts.*;
@@ -33,6 +34,7 @@ public class DatabaseSeeder
 
     private final AddCarModelUseCase addCarModelUseCase;
     private final AddCarUseCase addCarUseCase;
+    private final AddCarToTestDrive addCarToTestDriveUseCase;
 
     @Transactional
     public void seed()
@@ -157,6 +159,7 @@ public class DatabaseSeeder
 
         Car audiRs = new Car(CarId.generate(), audiRs6);
         addCarUseCase.execute(audiRs);
+        addCarToTestDriveUseCase.execute(audiRs.getCarId());
     }
 
 }

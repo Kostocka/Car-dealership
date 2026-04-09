@@ -12,8 +12,12 @@ import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 @Table(name = "test_drive")
 @Getter
 @Setter
-public class TestDriveEntity extends BaseEntity
+public class TestDriveEntity
 {
+    @Id
+    @GeneratedValue()
+    private UUID id;
+
     private UUID clientId;
 
     @Column(name = "car_id")
