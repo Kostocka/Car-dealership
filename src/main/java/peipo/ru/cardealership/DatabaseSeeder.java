@@ -1,4 +1,4 @@
-package peipo.ru.cardealership.application;
+package peipo.ru.cardealership;
 
 import java.awt.*;
 import java.math.BigDecimal;
