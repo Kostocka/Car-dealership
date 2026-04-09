@@ -1,7 +1,5 @@
 package peipo.ru.cardealership.domain.repository;
 
-import org.springframework.data.jpa.domain.Specification;
-
 import java.util.List;
 import java.util.Optional;
 

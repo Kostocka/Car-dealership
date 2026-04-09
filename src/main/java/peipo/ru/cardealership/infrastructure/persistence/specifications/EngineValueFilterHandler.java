@@ -21,6 +21,9 @@ public class EngineValueFilterHandler implements FilterHandler
         EngineValueFilter filter = (EngineValueFilter) spec;
 
         return (root, criteriaQuery, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("carModel").get("engine").get("volume"), filter.getMinVolume());
+                criteriaBuilder.equal(
+                        root.get("carModel").get("engine").get("volume"),
+                        filter.getMinVolume()
+                );
     }
 }

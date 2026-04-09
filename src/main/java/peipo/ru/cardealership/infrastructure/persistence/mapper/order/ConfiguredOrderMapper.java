@@ -8,6 +8,7 @@ import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.models.orders.ConfiguredCarOrder;
 import peipo.ru.cardealership.domain.models.orders.states.ConfiguredOrderState;
 import peipo.ru.cardealership.domain.models.orders.states.configured.*;
+import peipo.ru.cardealership.domain.vo.id.CarModelId;
 import peipo.ru.cardealership.domain.vo.id.ClientId;
 import peipo.ru.cardealership.domain.vo.id.EmployeeId;
 import peipo.ru.cardealership.domain.vo.id.OrderId;
@@ -55,7 +56,7 @@ public abstract class ConfiguredOrderMapper
         CarConfigurationEmbeddable emb = configuredCarOrderEntity.getConfiguration();
 
         CarModel model = new CarModel(
-                null,
+                new CarModelId(emb.getModelId()),
                 emb.getBrand(),
                 emb.getModel(),
                 bodyMapper.toDomain(emb.getBody()),
@@ -87,6 +88,7 @@ public abstract class ConfiguredOrderMapper
         entity.setOrderState(toStateEnum(domain.getState()));
 
         CarConfigurationEmbeddable emb = new CarConfigurationEmbeddable();
+        emb.setModelId(domain.getConfiguration().getModelId().id());
         emb.setBrand(domain.getConfiguration().getBrand());
         emb.setModel(domain.getConfiguration().getModel());
         emb.setBody(bodyMapper.toEntity(domain.getConfiguration().getBody()));

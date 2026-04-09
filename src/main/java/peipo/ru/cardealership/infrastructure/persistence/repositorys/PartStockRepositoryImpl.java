@@ -6,8 +6,8 @@ import peipo.ru.cardealership.domain.exception.DomainValidationException;
 import peipo.ru.cardealership.domain.exception.EntityNotFoundException;
 import peipo.ru.cardealership.domain.repository.PartStockRepository;
 import peipo.ru.cardealership.domain.vo.id.PartId;
-import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.PartStockJpaRepository;
 import peipo.ru.cardealership.infrastructure.persistence.entity.stock.PartStockEntity;
+import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.PartStockJpaRepository;
 
 @Repository
 @RequiredArgsConstructor

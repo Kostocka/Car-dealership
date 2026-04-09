@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import peipo.ru.cardealership.domain.models.parts.Wheels;
 import peipo.ru.cardealership.domain.vo.id.PartId;
-import peipo.ru.cardealership.infrastructure.web.dto.parts.requests.CreateWheelsRequest;
 import peipo.ru.cardealership.infrastructure.web.dto.parts.WheelsDto;
+import peipo.ru.cardealership.infrastructure.web.dto.parts.requests.CreateWheelsRequest;
 
 @Component
 @RequiredArgsConstructor

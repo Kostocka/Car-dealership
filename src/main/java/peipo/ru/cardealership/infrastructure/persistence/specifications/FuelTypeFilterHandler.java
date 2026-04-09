@@ -21,6 +21,9 @@ public class FuelTypeFilterHandler implements FilterHandler
         FuelTypeFilter fuelTypeFilter = (FuelTypeFilter) spec;
 
         return (root, criteriaQuery, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("carModel").get("engine").get("fuelType").get("fuelTypeType"), fuelTypeFilter.getType());
+                criteriaBuilder.equal(
+                        root.get("carModel").get("engine").get("fuelType").get("fuelTypeType"),
+                        fuelTypeFilter.getType()
+                );
     }
 }

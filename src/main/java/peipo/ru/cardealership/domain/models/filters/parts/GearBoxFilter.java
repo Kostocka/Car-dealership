@@ -1,12 +1,10 @@
 package peipo.ru.cardealership.domain.models.filters.parts;
 
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.models.filters.Filter;
-import peipo.ru.cardealership.domain.vo.GearBoxType;
-
-import java.util.Objects;
 
 @AllArgsConstructor
 @Getter

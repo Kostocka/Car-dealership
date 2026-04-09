@@ -1,12 +1,10 @@
 package peipo.ru.cardealership.infrastructure.persistence.entity.testdrive;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 
 @Entity
 @Table(name = "test_drive")

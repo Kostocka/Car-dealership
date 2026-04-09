@@ -1,6 +1,5 @@
 package peipo.ru.cardealership.infrastructure.web.dto.mappers.orders;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import peipo.ru.cardealership.domain.models.orders.StockCarOrder;
@@ -25,12 +24,15 @@ public class StockOrderMapper
 
     private String getStatename(StockOrderState state)
     {
-        if (state instanceof StockCreatedState) return "CREATED";
-        if (state instanceof StockCancelledState) return "CANCELLED";
-        if (state instanceof StockPaidState) return "PAID";
-        if (state instanceof StockCompletedState) return  "COMPLETED";
-        if (state instanceof StockManagerApprovedState) return  "WAREHOUSE APPROVED";
-        return "UNKNOWN";
+        return switch (state)
+        {
+            case StockCreatedState stockCreatedState -> "CREATED";
+            case StockCancelledState stockCancelledState -> "CANCELLED";
+            case StockPaidState stockPaidState -> "PAID";
+            case StockCompletedState stockCompletedState -> "COMPLETED";
+            case StockManagerApprovedState stockManagerApprovedState -> "WAREHOUSE APPROVED";
+            case null, default -> "UNKNOWN";
+        };
     }
 }
 

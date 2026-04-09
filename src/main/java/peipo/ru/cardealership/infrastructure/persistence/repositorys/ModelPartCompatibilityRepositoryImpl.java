@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 import peipo.ru.cardealership.domain.repository.ModelPartCompatibilityRepository;
 import peipo.ru.cardealership.domain.vo.id.CarModelId;
 import peipo.ru.cardealership.domain.vo.id.PartId;
-import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.ModelPartCompatibilityJpaRepository;
 import peipo.ru.cardealership.infrastructure.persistence.entity.rules.ModelPartCompatibilityEntity;
 import peipo.ru.cardealership.infrastructure.persistence.entity.rules.ModelPartCompatibilityId;
+import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.ModelPartCompatibilityJpaRepository;
 
 @Repository
 @RequiredArgsConstructor

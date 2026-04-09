@@ -1,6 +1,6 @@
 package peipo.ru.cardealership.infrastructure.web.controllers;
 
-
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import peipo.ru.cardealership.application.usecases.orders.CreateStockOrderUseCase;
@@ -11,8 +11,6 @@ import peipo.ru.cardealership.domain.vo.id.ClientId;
 import peipo.ru.cardealership.infrastructure.web.dto.mappers.orders.StockOrderMapper;
 import peipo.ru.cardealership.infrastructure.web.dto.orders.CreateStockOrderRequest;
 import peipo.ru.cardealership.infrastructure.web.dto.orders.StockCarOrderDto;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/orders/stock")

@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import peipo.ru.cardealership.domain.repository.PartPriceRepository;
 import peipo.ru.cardealership.domain.vo.Money;
 import peipo.ru.cardealership.domain.vo.id.PartId;
-import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.PartPriceJpaRepository;
 import peipo.ru.cardealership.infrastructure.persistence.entity.stock.PartPriceEntity;
+import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.PartPriceJpaRepository;
 
 @Repository
 @RequiredArgsConstructor

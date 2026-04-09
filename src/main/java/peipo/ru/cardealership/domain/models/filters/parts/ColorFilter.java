@@ -1,8 +1,6 @@
 package peipo.ru.cardealership.domain.models.filters.parts;
 
-import java.awt.Color;
 import java.util.Objects;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import peipo.ru.cardealership.domain.models.CarModel;

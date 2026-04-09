@@ -1,13 +1,11 @@
 package peipo.ru.cardealership.infrastructure.persistence.entity.cars;
 
-
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import peipo.ru.cardealership.domain.vo.DrivetrainType;
 import peipo.ru.cardealership.infrastructure.persistence.entity.parts.*;
-
-import java.util.UUID;
 
 @Setter
 @Getter

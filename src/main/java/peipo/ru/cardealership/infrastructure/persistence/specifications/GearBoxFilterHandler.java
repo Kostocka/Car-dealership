@@ -21,6 +21,9 @@ public class GearBoxFilterHandler implements FilterHandler
         GearBoxFilter gearBoxFilter = (GearBoxFilter) spec;
 
         return (root, criteriaQuery, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("carModel").get("gearBox").get("gearBoxType"), gearBoxFilter.getType());
+                criteriaBuilder.equal(
+                        root.get("carModel").get("gearBox").get("gearBoxType"),
+                        gearBoxFilter.getType()
+                );
     }
 }

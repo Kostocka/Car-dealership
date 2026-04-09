@@ -9,9 +9,9 @@ import peipo.ru.cardealership.domain.vo.id.CarId;
 import peipo.ru.cardealership.domain.vo.id.ClientId;
 import peipo.ru.cardealership.domain.vo.id.EmployeeId;
 import peipo.ru.cardealership.domain.vo.id.OrderId;
-import peipo.ru.cardealership.infrastructure.persistence.mapper.cars.CarMapper;
 import peipo.ru.cardealership.infrastructure.persistence.entity.order.StockCarOrderEntity;
 import peipo.ru.cardealership.infrastructure.persistence.entity.order.StockOrderStateEnum;
+import peipo.ru.cardealership.infrastructure.persistence.mapper.cars.CarMapper;
 
 @Mapper(componentModel = "spring", uses = CarMapper.class)
 public class StockOrderMapper
@@ -51,12 +51,14 @@ public class StockOrderMapper
 
     protected StockOrderStateEnum toStateEnam(StockOrderState stockOrderState)
     {
-        if(stockOrderState instanceof StockCreatedState) return StockOrderStateEnum.Created;
-        if (stockOrderState instanceof StockManagerApprovedState) return StockOrderStateEnum.Approved;
-        if (stockOrderState instanceof StockCancelledState) return StockOrderStateEnum.Cancelled;
-        if (stockOrderState instanceof  StockCancelledState) return StockOrderStateEnum.Cancelled;
-        if (stockOrderState instanceof StockPaidState) return StockOrderStateEnum.Paid;
+        return switch (stockOrderState)
+        {
+            case StockCreatedState stockCreatedState -> StockOrderStateEnum.Created;
+            case StockManagerApprovedState stockManagerApprovedState -> StockOrderStateEnum.Approved;
+            case StockCancelledState stockCancelledState -> StockOrderStateEnum.Cancelled;
+            case StockPaidState stockPaidState -> StockOrderStateEnum.Paid;
+            case null, default -> throw new DomainValidationException("Unknown StockOrderState" + stockOrderState);
+        };
 
-        throw new DomainValidationException("Unknown StockOrderState" + stockOrderState);
     }
 }

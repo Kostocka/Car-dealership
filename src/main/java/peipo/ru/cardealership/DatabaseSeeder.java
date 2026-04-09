@@ -1,10 +1,10 @@
 package peipo.ru.cardealership;
 
+import jakarta.transaction.Transactional;
 import java.awt.*;
 import java.math.BigDecimal;
-
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import peipo.ru.cardealership.application.usecases.models.AddCarModelUseCase;
 import peipo.ru.cardealership.application.usecases.models.AddCarUseCase;
@@ -36,19 +36,27 @@ public class DatabaseSeeder
     private final AddCarUseCase addCarUseCase;
     private final AddCarToTestDrive addCarToTestDriveUseCase;
 
+    @Autowired
+    private final DatabaseCleaner cleaner;
+
     @Transactional
     public void seed()
     {
+        cleaner.clean();
         Body sedan = new Body(PartId.generate(), BodyType.SEDAN);
         Body estate = new Body(PartId.generate(), BodyType.ESTATE);
         bodyCreatePartUseCase.execute(sedan);
         bodyCreatePartUseCase.execute(estate);
 
 
-        Engine engine184 = new Engine(PartId.generate(), FuelType.GASOLINE, new EnginePower(184), new EngineVolume(2));
-        Engine engine258 = new Engine(PartId.generate(), FuelType.GASOLINE, new EnginePower(258), new EngineVolume(3));
-        Engine engine100 = new Engine(PartId.generate(), FuelType.ELECTRIC, new EnginePower(100), new EngineVolume(3));
-        Engine engine600 = new Engine(PartId.generate(), FuelType.GASOLINE, new EnginePower(600), new EngineVolume(4));
+        Engine engine184 =
+                new Engine(PartId.generate(), FuelType.GASOLINE, new EnginePower(184), new EngineVolume(2));
+        Engine engine258 =
+                new Engine(PartId.generate(), FuelType.GASOLINE, new EnginePower(258), new EngineVolume(3));
+        Engine engine100 =
+                new Engine(PartId.generate(), FuelType.ELECTRIC, new EnginePower(100), new EngineVolume(3));
+        Engine engine600 =
+                new Engine(PartId.generate(), FuelType.GASOLINE, new EnginePower(600), new EngineVolume(4));
         engineCreatePartUseCase.execute(engine184);
         engineCreatePartUseCase.execute(engine258);
         engineCreatePartUseCase.execute(engine100);

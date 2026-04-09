@@ -35,7 +35,8 @@ public class ConfiguredOrderRepositoryImpl implements ConfiguredOrderRepository
     @Override
     public ConfiguredCarOrder save(ConfiguredCarOrder entity)
     {
-        return configuredOrderMapper.toDomain(configuredOrderJpaRepository.save(configuredOrderMapper.toEntity(entity)));
+        return configuredOrderMapper
+                .toDomain(configuredOrderJpaRepository.save(configuredOrderMapper.toEntity(entity)));
     }
 
     @Override

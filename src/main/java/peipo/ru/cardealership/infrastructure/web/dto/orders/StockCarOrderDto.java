@@ -1,8 +1,7 @@
 package peipo.ru.cardealership.infrastructure.web.dto.orders;
 
-import lombok.*;
-
 import java.util.UUID;
+import lombok.*;
 
 @Getter
 @Setter

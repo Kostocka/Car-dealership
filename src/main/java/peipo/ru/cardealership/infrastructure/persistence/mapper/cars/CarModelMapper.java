@@ -1,5 +1,6 @@
 package peipo.ru.cardealership.infrastructure.persistence.mapper.cars;
 
+import java.awt.*;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import peipo.ru.cardealership.domain.models.CarModel;
@@ -8,8 +9,6 @@ import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarConfigur
 import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarModelEntity;
 import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.parts.*;
 import peipo.ru.cardealership.infrastructure.persistence.mapper.parts.*;
-
-import java.awt.*;
 
 @Mapper(
         componentModel = "spring",
@@ -55,22 +54,6 @@ public abstract class CarModelMapper
         );
     }
 
-    public CarModelEntity toEntity(CarModel domain)
-    {
-        CarModelEntity carModelEntity = new CarModelEntity();
-        carModelEntity.setId(domain.getModelId().id());
-        carModelEntity.setBrand(domain.getBrand());
-        carModelEntity.setModel(domain.getModel());
-        carModelEntity.setBody(bodyMapper.toEntity(domain.getBody()));
-        carModelEntity.setEngine(engineMapper.toEntity(domain.getEngine()));
-        carModelEntity.setGearBox(gearBoxMapper.toEntity(domain.getGearBox()));
-        carModelEntity.setInterior(interiorMapper.toEntity(domain.getInterior()));
-        carModelEntity.setWheels(wheelsMapper.toEntity(domain.getWheels()));
-        carModelEntity.setColor(domain.getColor().toString());
-        carModelEntity.setDrivetrainType(domain.getDrivetrainType());
-        return carModelEntity;
-    }
-
     public CarModel toDomain(CarConfigurationEmbeddable entity)
     {
         return new CarModel(
@@ -85,6 +68,22 @@ public abstract class CarModelMapper
                 entity.getDrivetrainType(),
                 entity.getColor()
         );
+    }
+
+    public CarModelEntity toEntity(CarModel domain)
+    {
+        CarModelEntity carModelEntity = new CarModelEntity();
+        carModelEntity.setId(domain.getModelId().id());
+        carModelEntity.setBrand(domain.getBrand());
+        carModelEntity.setModel(domain.getModel());
+        carModelEntity.setBody(bodyMapper.toEntity(domain.getBody()));
+        carModelEntity.setEngine(engineMapper.toEntity(domain.getEngine()));
+        carModelEntity.setGearBox(gearBoxMapper.toEntity(domain.getGearBox()));
+        carModelEntity.setInterior(interiorMapper.toEntity(domain.getInterior()));
+        carModelEntity.setWheels(wheelsMapper.toEntity(domain.getWheels()));
+        carModelEntity.setColor(domain.getColor().toString());
+        carModelEntity.setDrivetrainType(domain.getDrivetrainType());
+        return carModelEntity;
     }
 
     public CarConfigurationEmbeddable toEmbeddable(CarModel domain)

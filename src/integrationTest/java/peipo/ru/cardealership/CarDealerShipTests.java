@@ -8,14 +8,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import peipo.ru.cardealership.domain.vo.BodyType;
+import peipo.ru.cardealership.infrastructure.web.dto.MoneyDto;
+import peipo.ru.cardealership.infrastructure.web.dto.cars.CarConfigurationDto;
 import peipo.ru.cardealership.infrastructure.web.dto.cars.CarResponseDto;
+import peipo.ru.cardealership.infrastructure.web.dto.orders.ConfiguredCarOrderDto;
+import peipo.ru.cardealership.infrastructure.web.dto.orders.CreateConfiguredOrderRequest;
 import peipo.ru.cardealership.infrastructure.web.dto.parts.BodyDto;
+import peipo.ru.cardealership.infrastructure.web.dto.parts.requests.AddStockRequest;
 import peipo.ru.cardealership.infrastructure.web.dto.parts.requests.CreateBodyRequest;
 import peipo.ru.cardealership.infrastructure.web.dto.testdrives.CreateTestDriveRequestDto;
 import peipo.ru.cardealership.infrastructure.web.dto.testdrives.TestDriveResponseDto;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.UUID;
@@ -80,14 +85,35 @@ class CarDealerShipTests
     }
 
     @Test
-    void createBody() {
+    void shouldCreateBodyAndGetIt()
+    {
         CreateBodyRequest request = new CreateBodyRequest();
-        request.setBodyType(BodyType.CUV);
+        request.setBodyType(BodyType.SEDAN);
 
-        ResponseEntity<BodyDto> response =
-                testRestTemplate.postForEntity("/parts/bodies", request, BodyDto.class);
+        testRestTemplate.postForEntity("/parts/bodies", request, Void.class);
+
+        ResponseEntity<BodyDto[]> response =
+                testRestTemplate.getForEntity("/parts/bodies", BodyDto[].class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody().length > 0);
+    }
+
+    @Test
+    void shouldSetAndGetPrice()
+    {
+        UUID partId = UUID.randomUUID();
+
+        testRestTemplate.postForEntity("/parts/" + partId + "/price",
+                new MoneyDto(BigDecimal.valueOf(100)),
+                Void.class);
+
+        MoneyDto price = testRestTemplate.getForObject(
+                "/parts/" + partId + "/price",
+                MoneyDto.class
+        );
+
+        assertEquals(100, price.getPartPrice().intValue());
     }
 
     @Test
@@ -99,27 +125,50 @@ class CarDealerShipTests
     }
 
     @Test
-    void schemaIsValid() throws Exception {
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5433/cardealership",
-                "user",
-                "user")) {
+    void createConfiguredOrder()
+    {
+        ResponseEntity<CarConfigurationDto[]> response =
+            testRestTemplate.getForEntity("/car-models", CarConfigurationDto[].class);
 
-            DatabaseMetaData meta = conn.getMetaData();
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertTrue(response.getBody().length > 0);
 
-            asserTableExists(meta, "car");
-            asserTableExists(meta, "car_model");
-            asserTableExists(meta, "engine");
-            asserTableExists(meta, "body");
-            asserTableExists(meta, "wheels");
-            asserTableExists(meta, "gearbox");
-            asserTableExists(meta, "interior");
-        }
+        CarConfigurationDto baseModel = response.getBody()[0];
+
+        addStock(baseModel.getBody().getId(), 10);
+        addStock(baseModel.getEngine().getId(), 10);
+        addStock(baseModel.getGearBox().getId(), 10);
+        addStock(baseModel.getInterior().getId(), 10);
+        addStock(baseModel.getWheels().getId(), 10);
+
+        CreateConfiguredOrderRequest request = new CreateConfiguredOrderRequest();
+        request.setClientId(UUID.randomUUID());
+        request.setConfiguration(baseModel);
+
+        ResponseEntity<ConfiguredCarOrderDto> orderResponse =
+                testRestTemplate.postForEntity("/orders/configured", request, ConfiguredCarOrderDto.class);
+
+        assertEquals(HttpStatus.OK, orderResponse.getStatusCode());
+        assertNotNull(orderResponse.getBody());
+
+        ConfiguredCarOrderDto order = orderResponse.getBody();
+        assertEquals(baseModel.getBrand(), order.getConfiguration().getBrand());
+        assertEquals(baseModel.getModel(), order.getConfiguration().getModel());
+
+        ResponseEntity<ConfiguredCarOrderDto[]> listResponse =
+                testRestTemplate.getForEntity("/orders/configured", ConfiguredCarOrderDto[].class);
+
+        assertEquals(HttpStatus.OK, listResponse.getStatusCode());
+        assertNotNull(listResponse.getBody());
+        assertTrue(listResponse.getBody().length > 0);
     }
 
-    private void asserTableExists(DatabaseMetaData meta, String tableName) throws Exception
+    private void addStock(UUID partId, int quantity)
     {
-        ResultSet rs = meta.getTables(null, null, tableName, new String[]{"TABLE"});
-        assertTrue(rs.next());
+        AddStockRequest req = new AddStockRequest();
+        req.setQuantity(quantity);
+
+        testRestTemplate.postForEntity("/parts/" + partId + "/stock", req, Void.class);
     }
 }

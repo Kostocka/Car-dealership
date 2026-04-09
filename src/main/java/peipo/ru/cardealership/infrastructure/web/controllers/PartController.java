@@ -1,5 +1,7 @@
 package peipo.ru.cardealership.infrastructure.web.controllers;
 
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import peipo.ru.cardealership.application.usecases.parts.*;
@@ -7,13 +9,10 @@ import peipo.ru.cardealership.domain.models.parts.*;
 import peipo.ru.cardealership.domain.vo.Money;
 import peipo.ru.cardealership.domain.vo.id.CarModelId;
 import peipo.ru.cardealership.domain.vo.id.PartId;
+import peipo.ru.cardealership.infrastructure.web.dto.MoneyDto;
 import peipo.ru.cardealership.infrastructure.web.dto.mappers.parts.*;
 import peipo.ru.cardealership.infrastructure.web.dto.parts.*;
-import peipo.ru.cardealership.infrastructure.web.dto.MoneyDto;
 import peipo.ru.cardealership.infrastructure.web.dto.parts.requests.*;
-
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/parts")
@@ -142,12 +141,18 @@ public class PartController
     @PostMapping("/part-to-part")
     public void addPartsCompabiliti(@RequestBody AddPartCompatibilityRequest request)
     {
-        addPartCompatibilityUseCase.execute(new PartId(request.getFirstPart()), new PartId(request.getSecondPart()));
+        addPartCompatibilityUseCase.execute(
+                new PartId(request.getFirstPart()),
+                new PartId(request.getSecondPart())
+        );
     }
 
     @PostMapping("/part-to-model")
     public void addPartToModelCompabiliti(@RequestBody AddModelPartCompatibilityRequest request)
     {
-        addModelPartCompatibilityUseCase.execute(new PartId(request.getPartId()), new CarModelId(request.getModelId()));
+        addModelPartCompatibilityUseCase.execute(
+                new PartId(request.getPartId()),
+                new CarModelId(request.getModelId())
+        );
     }
 }

@@ -2,7 +2,6 @@ package peipo.ru.cardealership.infrastructure.persistence.repositorys;
 
 import java.util.List;
 import java.util.Optional;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peipo.ru.cardealership.domain.models.TestDrive;

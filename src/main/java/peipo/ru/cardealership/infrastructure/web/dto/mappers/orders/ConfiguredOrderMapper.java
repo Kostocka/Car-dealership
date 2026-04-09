@@ -27,11 +27,14 @@ public class ConfiguredOrderMapper
 
     private String getStatename(ConfiguredOrderState state)
     {
-        if (state instanceof ConfiguredCreatedState) return "CREATED";
-        if (state instanceof ConfiguredCancelledState) return "CANCELLED";
-        if (state instanceof ConfiguredPaidState) return "PAID";
-        if (state instanceof ConfiguredCompletedState) return  "COMPLETED";
-        if (state instanceof ConfiguredWarehouseApprovedState) return  "WAREHOUSE APPROVED";
-        return "UNKNOWN";
+        return switch (state)
+        {
+            case ConfiguredCreatedState configuredCreatedState -> "CREATED";
+            case ConfiguredCancelledState configuredCancelledState -> "CANCELLED";
+            case ConfiguredPaidState configuredPaidState -> "PAID";
+            case ConfiguredCompletedState configuredCompletedState -> "COMPLETED";
+            case ConfiguredWarehouseApprovedState configuredWarehouseApprovedState -> "WAREHOUSE APPROVED";
+            case null, default -> "UNKNOWN";
+        };
     }
 }

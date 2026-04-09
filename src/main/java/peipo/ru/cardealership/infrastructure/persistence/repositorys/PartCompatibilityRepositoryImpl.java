@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peipo.ru.cardealership.domain.repository.PartCompatibilityRepository;
 import peipo.ru.cardealership.domain.vo.id.PartId;
-import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.PartCompatibilityJpaRepository;
 import peipo.ru.cardealership.infrastructure.persistence.entity.rules.PartCompatibilityEntity;
 import peipo.ru.cardealership.infrastructure.persistence.entity.rules.PartCompatibilityId;
+import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.PartCompatibilityJpaRepository;
 
 @Repository
 @RequiredArgsConstructor

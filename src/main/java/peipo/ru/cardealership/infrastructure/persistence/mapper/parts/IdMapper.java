@@ -15,24 +15,9 @@ public interface IdMapper
         return carId.id();
     }
 
-    default CarId mapCarId(UUID carId)
-    {
-        return new CarId(carId);
-    }
-
     default PartId map(UUID id)
     {
         return new PartId(id);
-    }
-
-    default UUID map(PartId id)
-    {
-        return id.id();
-    }
-
-    default OrderId mapOrderId(UUID id)
-    {
-        return new OrderId(id);
     }
 
     default UUID map(OrderId id)
@@ -40,13 +25,28 @@ public interface IdMapper
         return id.id();
     }
 
-    default CarModelId mapCarModelId(UUID carModelId)
-    {
-        return new CarModelId(carModelId);
-    }
-
     default UUID map(CarModelId carModelId)
     {
         return carModelId.id();
+    }
+
+    default UUID map(PartId id)
+    {
+        return id.id();
+    }
+
+    default CarId mapCarId(UUID carId)
+    {
+        return new CarId(carId);
+    }
+
+    default OrderId mapOrderId(UUID id)
+    {
+        return new OrderId(id);
+    }
+
+    default CarModelId mapCarModelId(UUID carModelId)
+    {
+        return new CarModelId(carModelId);
     }
 }

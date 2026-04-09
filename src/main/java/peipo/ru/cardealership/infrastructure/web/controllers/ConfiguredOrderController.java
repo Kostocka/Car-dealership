@@ -1,5 +1,6 @@
 package peipo.ru.cardealership.infrastructure.web.controllers;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import peipo.ru.cardealership.application.usecases.orders.CreateConfiguredOrderUseCase;
@@ -12,8 +13,6 @@ import peipo.ru.cardealership.infrastructure.web.dto.mappers.orders.ConfiguredOr
 import peipo.ru.cardealership.infrastructure.web.dto.orders.ConfiguredCarOrderDto;
 import peipo.ru.cardealership.infrastructure.web.dto.orders.CreateConfiguredOrderRequest;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/orders/configured")
 @RequiredArgsConstructor
@@ -25,7 +24,8 @@ public class ConfiguredOrderController
     private final CarModelDtoMapper carModelMapper;
 
     @PostMapping
-    public ConfiguredCarOrderDto createOrder(@RequestBody CreateConfiguredOrderRequest createConfiguredOrderRequest)
+    public ConfiguredCarOrderDto createOrder(
+            @RequestBody CreateConfiguredOrderRequest createConfiguredOrderRequest)
     {
         ClientId clientId = new ClientId(createConfiguredOrderRequest.getClientId());
         CarModel model = carModelMapper.toDomain(createConfiguredOrderRequest.getConfiguration());

@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import peipo.ru.cardealership.infrastructure.persistence.entity.BaseEntity;
 
-
 @MappedSuperclass
 @Getter
 @Setter

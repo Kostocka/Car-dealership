@@ -2,7 +2,6 @@ package peipo.ru.cardealership.infrastructure.persistence.repositorys;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
 import peipo.ru.cardealership.domain.repository.EmployeeRepository;
 import peipo.ru.cardealership.domain.vo.id.EmployeeId;

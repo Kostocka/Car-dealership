@@ -1,13 +1,19 @@
 package peipo.ru.cardealership.infrastructure.web.controllers;
 
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import peipo.ru.cardealership.application.usecases.models.AddCarModelUseCase;
 import peipo.ru.cardealership.application.usecases.models.GetCarModelByIdUseCase;
+import peipo.ru.cardealership.application.usecases.models.GetCarModelsUseCase;
 import peipo.ru.cardealership.domain.models.CarModel;
+import peipo.ru.cardealership.domain.models.filters.Filter;
 import peipo.ru.cardealership.domain.vo.id.CarModelId;
+import peipo.ru.cardealership.infrastructure.web.dto.CarFilterDto;
+import peipo.ru.cardealership.infrastructure.web.dto.cars.CarConfigurationDto;
 import peipo.ru.cardealership.infrastructure.web.dto.cars.CarModelResponceDto;
+import peipo.ru.cardealership.infrastructure.web.dto.cars.CarResponseDto;
 import peipo.ru.cardealership.infrastructure.web.dto.cars.CreateCarRequest;
 import peipo.ru.cardealership.infrastructure.web.dto.mappers.cars.CarModelDtoMapper;
 
@@ -18,6 +24,7 @@ public class CarModelController
 {
     private final AddCarModelUseCase addCarModelUseCase;
     private final GetCarModelByIdUseCase getCarModelByIdUseCase;
+    private final GetCarModelsUseCase carModelsUseCase;
     private final CarModelDtoMapper carModelDtoMapper;
 
     @PostMapping
@@ -32,5 +39,13 @@ public class CarModelController
     {
         CarModel model =  getCarModelByIdUseCase.execute(new CarModelId(id));
         return carModelDtoMapper.toModelDto(model);
+    }
+
+    @GetMapping()
+    public List<CarConfigurationDto> getAllCars()
+    {
+        return carModelsUseCase.execute().stream()
+                .map(carModelDtoMapper::toDto)
+                .toList();
     }
 }
