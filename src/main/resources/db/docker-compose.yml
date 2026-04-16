@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: car_dealership_db
+    environment:
+      POSTGRES_DB: cardealership
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+    ports:
+      - "5433:5432"
