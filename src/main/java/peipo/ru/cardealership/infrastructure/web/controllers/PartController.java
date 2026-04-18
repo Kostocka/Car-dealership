@@ -9,6 +9,7 @@ import peipo.ru.cardealership.domain.models.parts.*;
 import peipo.ru.cardealership.domain.vo.Money;
 import peipo.ru.cardealership.domain.vo.id.CarModelId;
 import peipo.ru.cardealership.domain.vo.id.PartId;
+import peipo.ru.cardealership.infrastructure.security.RolesAllowed;
 import peipo.ru.cardealership.infrastructure.web.dto.MoneyDto;
 import peipo.ru.cardealership.infrastructure.web.dto.mappers.parts.*;
 import peipo.ru.cardealership.infrastructure.web.dto.parts.*;
@@ -44,6 +45,7 @@ public class PartController
     private final AddModelPartCompatibilityUseCase addModelPartCompatibilityUseCase;
     private final AddPartCompatibilityUseCase addPartCompatibilityUseCase;
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping("/bodies")
     public List<BodyDto> getBodies()
     {
@@ -52,6 +54,7 @@ public class PartController
                 .toList();
     }
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping("/engines")
     public List<EngineDto> getEngines()
     {
@@ -60,6 +63,7 @@ public class PartController
                 .toList();
     }
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping("/gearboxes")
     public List<GearBoxDto> getGearBoxes()
     {
@@ -68,6 +72,7 @@ public class PartController
                 .toList();
     }
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping("/wheels")
     public List<WheelsDto> getWheels()
     {
@@ -76,6 +81,7 @@ public class PartController
                 .toList();
     }
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping("/interiors")
     public List<InteriorDto> getInteriors()
     {
@@ -84,12 +90,14 @@ public class PartController
                 .toList();
     }
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping("/{partId}/price")
     public void setPartPrice(@PathVariable UUID partId, @RequestBody MoneyDto priceDto)
     {
         setPartPriceUseCase.execute(new PartId(partId), priceDto.toMoney());
     }
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping("/{partId}/price")
     public MoneyDto getPrice(@PathVariable UUID partId)
     {
@@ -97,12 +105,14 @@ public class PartController
         return new MoneyDto(price.value());
     }
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping("/{partId}/stock")
     public void addStock(@PathVariable UUID partId, @RequestBody AddStockRequest request)
     {
         addPartStockUseCase.execute(new PartId(partId), request.getQuantity());
     }
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping("/bodies")
     public BodyDto createBody(@RequestBody CreateBodyRequest request)
     {
@@ -110,6 +120,7 @@ public class PartController
         return bodyDtoMapper.toDto(createBodyUseCase.execute(body));
     }
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping("/engines")
     public EngineDto createEngine(@RequestBody CreateEngineRequest request)
     {
@@ -117,6 +128,7 @@ public class PartController
         return engineDtoMapper.toDto(createEngineUseCase.execute(engine));
     }
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping("/gearboxes")
     public GearBoxDto createGearBox(@RequestBody CreateGearBoxRequest request)
     {
@@ -124,6 +136,7 @@ public class PartController
         return gearBoxDtoMapper.toDto(createGearBoxUseCase.execute(gearBox));
     }
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping("/interiors")
     public InteriorDto createInterior(@RequestBody CreateInteriorRequest request)
     {
@@ -131,6 +144,7 @@ public class PartController
         return interiorDtoMapper.toDto(createInteriorUseCase.execute(interior));
     }
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping("/wheels")
     public WheelsDto createWheels(@RequestBody CreateWheelsRequest request)
     {
@@ -138,8 +152,9 @@ public class PartController
         return wheelsDtoMapper.toDto(createWheelsUseCase.execute(wheels));
     }
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping("/part-to-part")
-    public void addPartsCompabiliti(@RequestBody AddPartCompatibilityRequest request)
+    public void addPartsCompatibility(@RequestBody AddPartCompatibilityRequest request)
     {
         addPartCompatibilityUseCase.execute(
                 new PartId(request.getFirstPart()),
@@ -147,8 +162,9 @@ public class PartController
         );
     }
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping("/part-to-model")
-    public void addPartToModelCompabiliti(@RequestBody AddModelPartCompatibilityRequest request)
+    public void addPartToModelCompatibility(@RequestBody AddModelPartCompatibilityRequest request)
     {
         addModelPartCompatibilityUseCase.execute(
                 new PartId(request.getPartId()),
