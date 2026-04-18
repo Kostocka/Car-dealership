@@ -10,6 +10,7 @@ import peipo.ru.cardealership.application.usecases.testdrives.RemoveCarFromTestD
 import peipo.ru.cardealership.domain.models.TestDrive;
 import peipo.ru.cardealership.domain.vo.id.CarId;
 import peipo.ru.cardealership.domain.vo.id.ClientId;
+import peipo.ru.cardealership.infrastructure.security.RolesAllowed;
 import peipo.ru.cardealership.infrastructure.web.dto.mappers.TestDriveMapper;
 import peipo.ru.cardealership.infrastructure.web.dto.testdrives.AddCarToTestDriveRequest;
 import peipo.ru.cardealership.infrastructure.web.dto.testdrives.CreateTestDriveRequestDto;
@@ -28,6 +29,7 @@ public class TestDriveController
 
     private final TestDriveMapper testDriveMapper;
 
+    @RolesAllowed({"MANAGER", "ADMIN"})
     @GetMapping
     public List<TestDriveResponseDto> getAllTestDrives()
     {
@@ -36,6 +38,7 @@ public class TestDriveController
                 .toList();
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @PostMapping("/requests")
     public TestDriveResponseDto createTestDriveRequest(@RequestBody CreateTestDriveRequestDto request)
     {
@@ -46,12 +49,14 @@ public class TestDriveController
         return testDriveMapper.toDto(testDrive);
     }
 
+    @RolesAllowed({"MANAGER", "ADMIN"})
     @PostMapping("/cars")
     public void addCarToTestDrive(@RequestBody AddCarToTestDriveRequest request)
     {
         addCarToTestDrive.execute(new CarId(request.getCarId()));
     }
 
+    @RolesAllowed({"MANAGER", "ADMIN"})
     @DeleteMapping("/cars")
     public void removeCarFromTestDrive(@RequestBody RemoveCarFromTestDriveRequest request)
     {

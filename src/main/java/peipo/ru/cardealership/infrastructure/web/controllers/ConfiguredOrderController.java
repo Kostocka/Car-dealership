@@ -8,6 +8,7 @@ import peipo.ru.cardealership.application.usecases.orders.GetConfiguredOrdersUse
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.models.orders.ConfiguredCarOrder;
 import peipo.ru.cardealership.domain.vo.id.ClientId;
+import peipo.ru.cardealership.infrastructure.security.RolesAllowed;
 import peipo.ru.cardealership.infrastructure.web.dto.mappers.cars.CarModelDtoMapper;
 import peipo.ru.cardealership.infrastructure.web.dto.mappers.orders.ConfiguredOrderMapper;
 import peipo.ru.cardealership.infrastructure.web.dto.orders.ConfiguredCarOrderDto;
@@ -23,6 +24,7 @@ public class ConfiguredOrderController
     private final ConfiguredOrderMapper orderDtoMapper;
     private final CarModelDtoMapper carModelMapper;
 
+    @RolesAllowed({"USER", "ADMIN"})
     @PostMapping
     public ConfiguredCarOrderDto createOrder(
             @RequestBody CreateConfiguredOrderRequest createConfiguredOrderRequest)
@@ -34,6 +36,7 @@ public class ConfiguredOrderController
         return orderDtoMapper.toDto(order);
     }
 
+    @RolesAllowed({"MANAGER", "ADMIN"})
     @GetMapping
     public List<ConfiguredCarOrderDto> getOrders()
     {

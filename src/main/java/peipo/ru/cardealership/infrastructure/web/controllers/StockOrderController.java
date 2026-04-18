@@ -8,6 +8,7 @@ import peipo.ru.cardealership.application.usecases.orders.GetStockOrdersUseCase;
 import peipo.ru.cardealership.domain.models.orders.StockCarOrder;
 import peipo.ru.cardealership.domain.vo.id.CarId;
 import peipo.ru.cardealership.domain.vo.id.ClientId;
+import peipo.ru.cardealership.infrastructure.security.RolesAllowed;
 import peipo.ru.cardealership.infrastructure.web.dto.mappers.orders.StockOrderMapper;
 import peipo.ru.cardealership.infrastructure.web.dto.orders.CreateStockOrderRequest;
 import peipo.ru.cardealership.infrastructure.web.dto.orders.StockCarOrderDto;
@@ -21,6 +22,7 @@ public class StockOrderController
     private final GetStockOrdersUseCase getStockOrdersUseCase;
     private final StockOrderMapper stockOrderMapper;
 
+    @RolesAllowed({"USER", "ADMIN"})
     @PostMapping
     public StockCarOrderDto createOrder(@RequestBody CreateStockOrderRequest createStockOrderRequest)
     {
@@ -31,6 +33,7 @@ public class StockOrderController
         return stockOrderMapper.toDto(order);
     }
 
+    @RolesAllowed({"MANAGER", "ADMIN"})
     @GetMapping
     public List<StockCarOrderDto> getOrders()
     {
