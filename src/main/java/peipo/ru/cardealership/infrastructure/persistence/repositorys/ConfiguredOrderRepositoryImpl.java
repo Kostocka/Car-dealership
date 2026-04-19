@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peipo.ru.cardealership.domain.models.orders.ConfiguredCarOrder;
 import peipo.ru.cardealership.domain.repository.ConfiguredOrderRepository;
+import peipo.ru.cardealership.domain.vo.id.ClientId;
 import peipo.ru.cardealership.domain.vo.id.OrderId;
 import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.ConfiguredOrderJpaRepository;
 import peipo.ru.cardealership.infrastructure.persistence.mapper.order.ConfiguredOrderMapper;
@@ -21,6 +22,13 @@ public class ConfiguredOrderRepositoryImpl implements ConfiguredOrderRepository
     public Optional<ConfiguredCarOrder> findById(OrderId id)
     {
         return configuredOrderJpaRepository.findById(id.id()).map(configuredOrderMapper::toDomain);
+    }
+
+    @Override
+    public List<ConfiguredCarOrder> findByClientId(ClientId clientId)
+    {
+        return configuredOrderJpaRepository.findByClientId(clientId.id()).stream()
+                .map(configuredOrderMapper::toDomain).toList();
     }
 
     @Override

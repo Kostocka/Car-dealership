@@ -126,6 +126,7 @@ public abstract class ConfiguredOrderMapper
             case ConfiguredCancelledState configuredCancelledState -> ConfiguredOrderStateEnum.Cancelled;
             case ConfiguredPaidState configuredPaidState -> ConfiguredOrderStateEnum.Paid;
             case ConfiguredReadyForPickupState configuredReadyForPickupState -> ConfiguredOrderStateEnum.ReadyForPick;
+            case ConfiguredCompletedState configuredCompletedState -> ConfiguredOrderStateEnum.Finished;
 
             case null, default -> throw new DomainValidationException("Unknown StockOrderState" + configuredOrderState);
         };

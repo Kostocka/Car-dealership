@@ -1,9 +1,9 @@
 package peipo.ru.cardealership.infrastructure.persistence.entity.order;
 
+import java.util.UUID;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarEntity;
 
 @Entity
 @Table(name = "stock_car_order")
@@ -11,9 +11,8 @@ import peipo.ru.cardealership.infrastructure.persistence.entity.cars.CarEntity;
 @Setter
 public class StockCarOrderEntity extends OrderEntity
 {
-    @OneToOne
-    @JoinColumn(name = "car_id")
-    private CarEntity car;
+    @Column(name = "car_id")
+    private UUID carId;
 
     @Enumerated(EnumType.STRING)
     private StockOrderStateEnum orderState;

@@ -1,6 +1,5 @@
 package peipo.ru.cardealership.infrastructure.web.dto.orders;
 
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +12,5 @@ import peipo.ru.cardealership.infrastructure.web.dto.cars.CarConfigurationDto;
 @AllArgsConstructor
 public class CreateConfiguredOrderRequest
 {
-    private UUID clientId;
     private CarConfigurationDto configuration;
 }

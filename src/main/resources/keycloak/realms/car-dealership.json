@@ -21,6 +21,17 @@
       "realmRoles": ["USER"]
     },
     {
+      "username": "user2",
+      "enabled": true,
+      "email": "user2@example.com",
+      "firstName": "User",
+      "lastName": "Two",
+      "createdTimestamp": 1680000000000,
+      "credentials": [{ "type": "password", "value": "user2" }],
+      "realmRoles": ["USER"]
+    }
+    ,
+    {
       "username": "manager1",
       "enabled": true,
       "firstName": "Manager",
@@ -59,12 +70,12 @@
       "secret": "secret",
       "directAccessGrantsEnabled": true,
       "protocol": "openid-connect",
-      "standardFlowEnabled": false,
+      "standardFlowEnabled": true,
       "serviceAccountsEnabled": false,
+      "defaultClientScopes": ["openid", "profile", "roles"],
       "attributes": {
         "access.token.claim.roles": "true"
-      },
-      "defaultClientScopes": ["roles"]
+      }
     }
   ],
   "clientScopes": [
@@ -82,6 +93,38 @@
             "access.token.claim": "true",
             "claim.name": "realm_access.roles",
             "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "name": "profile",
+      "protocol": "openid-connect",
+      "protocolMappers": [
+        {
+          "name": "preferred-username",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "username",
+            "claim.name": "preferred_username",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "id",
+            "claim.name": "sub",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true"
           }
         }
       ]

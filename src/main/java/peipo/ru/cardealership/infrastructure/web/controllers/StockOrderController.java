@@ -1,10 +1,11 @@
 package peipo.ru.cardealership.infrastructure.web.controllers;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import peipo.ru.cardealership.domain.exception.EntityNotFoundException;
 import peipo.ru.cardealership.domain.models.orders.StockCarOrder;
@@ -28,9 +29,9 @@ public class StockOrderController
     @RolesAllowed({"USER", "ADMIN"})
     @PostMapping
     public StockCarOrderDto createOrder(@RequestBody CreateStockOrderRequest createStockOrderRequest,
-                                        Principal principal)
+                                        @AuthenticationPrincipal Jwt jwt)
     {
-        ClientId clientId = new ClientId(UUID.fromString(principal.getName()));
+        ClientId clientId = new ClientId(UUID.fromString(jwt.getSubject()));
         CarId carId = new CarId(createStockOrderRequest.getCarId());
 
         StockCarOrder order = stockOrderService.createStockOrder(clientId, carId);
@@ -39,7 +40,8 @@ public class StockOrderController
 
     @RolesAllowed({"USER", "MANAGER", "ADMIN"})
     @GetMapping("/{orderId}")
-    public StockCarOrderDto getOrder(@PathVariable UUID orderId, Principal principal,
+    public StockCarOrderDto getOrder(@PathVariable UUID orderId,
+                                     @AuthenticationPrincipal Jwt jwt,
                                      Authentication authentication)
     {
         StockCarOrder order = stockOrderService.getStockCarOrderById(new OrderId(orderId))
@@ -48,10 +50,10 @@ public class StockOrderController
         if (authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_USER")))
         {
-            UUID clientUuid = UUID.fromString(principal.getName());
+            UUID clientUuid = UUID.fromString(jwt.getSubject());
             if (!order.getClientId().id().equals(clientUuid))
             {
-                throw new SecurityException("You don't have enough rights");
+                throw new SecurityException("You are not the owner of this order");
             }
         }
 
@@ -60,14 +62,14 @@ public class StockOrderController
 
     @RolesAllowed({"USER", "MANAGER", "ADMIN"})
     @GetMapping
-    public List<StockCarOrderDto> getOrders(Principal principal, Authentication authentication)
+    public List<StockCarOrderDto> getOrders(@AuthenticationPrincipal Jwt jwt, Authentication authentication)
     {
         List<StockCarOrder> orders;
 
         if (authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_USER")))
         {
-            ClientId clientId = new ClientId(UUID.fromString(principal.getName()));
+            ClientId clientId = new ClientId(UUID.fromString(jwt.getSubject()));
             orders = stockOrderService.getStockCarOrderByClient(clientId);
         } else
         {
@@ -80,7 +82,8 @@ public class StockOrderController
     @RolesAllowed({"USER", "MANAGER", "ADMIN"})
     @PostMapping("/{orderId}/cancel")
     public StockCarOrderDto cancelOrder(@PathVariable UUID orderId,
-                                        Principal principal, Authentication authentication)
+                                        @AuthenticationPrincipal Jwt jwt,
+                                        Authentication authentication)
     {
         StockCarOrder order = stockOrderService.getStockCarOrderById(new OrderId(orderId))
                 .orElseThrow(() -> new EntityNotFoundException("Order not found"));
@@ -88,7 +91,7 @@ public class StockOrderController
         if (authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_USER")))
         {
-            UUID clientUuid = UUID.fromString(principal.getName());
+            UUID clientUuid = UUID.fromString(jwt.getSubject());
             if (!order.getClientId().id().equals(clientUuid))
             {
                 throw new SecurityException("You are not the owner of this order");
@@ -109,7 +112,7 @@ public class StockOrderController
         return stockOrderMapper.toDto(order);
     }
 
-    @RolesAllowed({"MANAGER", "ADMIN"})
+    @RolesAllowed({"USER", "ADMIN"})
     @PostMapping("/{orderId}/pay")
     public StockCarOrderDto payOrder(@PathVariable UUID orderId)
     {

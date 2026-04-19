@@ -1,7 +1,10 @@
 package peipo.ru.cardealership.infrastructure.web.controllers;
 
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import peipo.ru.cardealership.application.usecases.testdrives.AddCarToTestDrive;
 import peipo.ru.cardealership.application.usecases.testdrives.CreateTestDriveRequest;
@@ -40,10 +43,11 @@ public class TestDriveController
 
     @RolesAllowed({"USER", "ADMIN"})
     @PostMapping("/requests")
-    public TestDriveResponseDto createTestDriveRequest(@RequestBody CreateTestDriveRequestDto request)
+    public TestDriveResponseDto createTestDriveRequest(@RequestBody CreateTestDriveRequestDto request,
+                                                       @AuthenticationPrincipal Jwt jwt)
     {
         TestDrive testDrive = createTestDriveRequest.execute(
-                new ClientId(request.getClientId()),
+                new ClientId(UUID.fromString(jwt.getSubject())),
                 new CarId(request.getCarId())
         );
         return testDriveMapper.toDto(testDrive);

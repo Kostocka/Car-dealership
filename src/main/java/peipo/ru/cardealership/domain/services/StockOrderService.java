@@ -2,7 +2,7 @@ package peipo.ru.cardealership.domain.services;
 
 import java.util.List;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import peipo.ru.cardealership.domain.exception.EntityNotFoundException;
 import peipo.ru.cardealership.domain.models.Car;
@@ -15,7 +15,7 @@ import peipo.ru.cardealership.domain.vo.id.EmployeeId;
 import peipo.ru.cardealership.domain.vo.id.OrderId;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class StockOrderService
 {
     private StockOrderRepository stockOrderRepository;
@@ -59,15 +59,18 @@ public class StockOrderService
     public void approveOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.approve();
+        stockOrderRepository.save(stockCarOrder);
     }
 
     public void payOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.pay();
+        stockOrderRepository.save(stockCarOrder);
     }
 
     public void finishOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.finish();
+        stockOrderRepository.save(stockCarOrder);
     }
 }
