@@ -59,12 +59,18 @@ public class StockOrderMapper
     {
         return switch (stockOrderState)
         {
-            case StockCreatedState stockCreatedState -> StockOrderStateEnum.Created;
-            case StockManagerApprovedState stockManagerApprovedState -> StockOrderStateEnum.Approved;
-            case StockCancelledState stockCancelledState -> StockOrderStateEnum.Cancelled;
-            case StockPaidState stockPaidState -> StockOrderStateEnum.Paid;
-            case StockCompletedState stockCompletedState -> StockOrderStateEnum.Finished;
-            case null, default -> throw new DomainValidationException("Unknown StockOrderState" + stockOrderState);
+            case StockCreatedState stockCreatedState
+                    -> StockOrderStateEnum.Created;
+            case StockManagerApprovedState stockManagerApprovedState
+                    -> StockOrderStateEnum.Approved;
+            case StockCancelledState stockCancelledState
+                    -> StockOrderStateEnum.Cancelled;
+            case StockPaidState stockPaidState
+                    -> StockOrderStateEnum.Paid;
+            case StockCompletedState stockCompletedState
+                    -> StockOrderStateEnum.Finished;
+            case null, default
+                    -> throw new DomainValidationException("Unknown StockOrderState" + stockOrderState);
         };
 
     }

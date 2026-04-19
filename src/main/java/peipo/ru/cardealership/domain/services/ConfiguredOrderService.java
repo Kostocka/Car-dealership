@@ -29,7 +29,8 @@ public class ConfiguredOrderService
 
         EmployeeId managerId = employeeAssignmentService.assignManager();
 
-        ConfiguredCarOrder order = new ConfiguredCarOrder(OrderId.generate(), clientId, managerId, configuration);
+        ConfiguredCarOrder order =
+                new ConfiguredCarOrder(OrderId.generate(), clientId, managerId, configuration);
         configuredOrderRepository.save(order);
         return order;
     }

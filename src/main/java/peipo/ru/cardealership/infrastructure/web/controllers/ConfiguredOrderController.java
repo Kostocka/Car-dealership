@@ -64,7 +64,8 @@ public class ConfiguredOrderController
 
     @RolesAllowed({"USER", "MANAGER", "ADMIN"})
     @GetMapping
-    public List<ConfiguredCarOrderDto> getOrders(@AuthenticationPrincipal Jwt jwt, Authentication authentication)
+    public List<ConfiguredCarOrderDto> getOrders(@AuthenticationPrincipal Jwt jwt,
+                                                 Authentication authentication)
     {
         List<ConfiguredCarOrder> orders;
         if (authentication.getAuthorities().stream()
