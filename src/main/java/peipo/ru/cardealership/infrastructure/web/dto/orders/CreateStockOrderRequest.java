@@ -12,6 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CreateStockOrderRequest
 {
-    private UUID clientId;
     private UUID carId;
 }

@@ -121,13 +121,21 @@ public abstract class ConfiguredOrderMapper
     {
         return switch (configuredOrderState)
         {
-            case ConfiguredCreatedState configuredCreatedState -> ConfiguredOrderStateEnum.Created;
-            case ConfiguredWarehouseApprovedState configuredWarehouseApprovedState -> ConfiguredOrderStateEnum.Approved;
-            case ConfiguredCancelledState configuredCancelledState -> ConfiguredOrderStateEnum.Cancelled;
-            case ConfiguredPaidState configuredPaidState -> ConfiguredOrderStateEnum.Paid;
-            case ConfiguredReadyForPickupState configuredReadyForPickupState -> ConfiguredOrderStateEnum.ReadyForPick;
+            case ConfiguredCreatedState configuredCreatedState
+                    -> ConfiguredOrderStateEnum.Created;
+            case ConfiguredWarehouseApprovedState configuredWarehouseApprovedState
+                    -> ConfiguredOrderStateEnum.Approved;
+            case ConfiguredCancelledState configuredCancelledState
+                    -> ConfiguredOrderStateEnum.Cancelled;
+            case ConfiguredPaidState configuredPaidState
+                    -> ConfiguredOrderStateEnum.Paid;
+            case ConfiguredReadyForPickupState configuredReadyForPickupState
+                    -> ConfiguredOrderStateEnum.ReadyForPick;
+            case ConfiguredCompletedState configuredCompletedState
+                    -> ConfiguredOrderStateEnum.Finished;
 
-            case null, default -> throw new DomainValidationException("Unknown StockOrderState" + configuredOrderState);
+            case null, default
+                    -> throw new DomainValidationException("Unknown StockOrderState" + configuredOrderState);
         };
     }
 }

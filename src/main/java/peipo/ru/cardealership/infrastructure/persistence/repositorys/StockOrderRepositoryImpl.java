@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peipo.ru.cardealership.domain.models.orders.StockCarOrder;
 import peipo.ru.cardealership.domain.repository.StockOrderRepository;
+import peipo.ru.cardealership.domain.vo.id.ClientId;
 import peipo.ru.cardealership.domain.vo.id.OrderId;
 import peipo.ru.cardealership.infrastructure.persistence.jparepositorys.StockOrderJpaRepository;
 import peipo.ru.cardealership.infrastructure.persistence.mapper.order.StockOrderMapper;
@@ -22,6 +23,13 @@ public class StockOrderRepositoryImpl implements StockOrderRepository
     {
         return stockOrderJpaRepository.findById(id.id())
                 .map(stockOrderMapper::toDomain);
+    }
+
+    @Override
+    public List<StockCarOrder> findByClientId(ClientId clientId)
+    {
+        return stockOrderJpaRepository.findByClientId(clientId.id())
+                .stream().map(stockOrderMapper::toDomain).toList();
     }
 
     @Override

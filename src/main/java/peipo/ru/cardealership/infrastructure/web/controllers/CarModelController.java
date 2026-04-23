@@ -10,6 +10,7 @@ import peipo.ru.cardealership.application.usecases.models.GetCarModelsUseCase;
 import peipo.ru.cardealership.domain.models.CarModel;
 import peipo.ru.cardealership.domain.models.filters.Filter;
 import peipo.ru.cardealership.domain.vo.id.CarModelId;
+import peipo.ru.cardealership.infrastructure.security.RolesAllowed;
 import peipo.ru.cardealership.infrastructure.web.dto.CarFilterDto;
 import peipo.ru.cardealership.infrastructure.web.dto.cars.CarConfigurationDto;
 import peipo.ru.cardealership.infrastructure.web.dto.cars.CarModelResponceDto;
@@ -27,6 +28,7 @@ public class CarModelController
     private final GetCarModelsUseCase carModelsUseCase;
     private final CarModelDtoMapper carModelDtoMapper;
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping
     public CarModelResponceDto addCarModel(@RequestBody CreateCarRequest createCarRequest)
     {
@@ -34,6 +36,7 @@ public class CarModelController
         return carModelDtoMapper.toModelDto(addCarModelUseCase.execute(model));
     }
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping("/{id}")
     public CarModelResponceDto getCarModelById(@PathVariable UUID id)
     {
@@ -41,6 +44,7 @@ public class CarModelController
         return carModelDtoMapper.toModelDto(model);
     }
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping()
     public List<CarConfigurationDto> getAllCars()
     {

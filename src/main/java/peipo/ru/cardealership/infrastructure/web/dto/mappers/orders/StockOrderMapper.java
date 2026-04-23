@@ -30,7 +30,7 @@ public class StockOrderMapper
             case StockCancelledState stockCancelledState -> "CANCELLED";
             case StockPaidState stockPaidState -> "PAID";
             case StockCompletedState stockCompletedState -> "COMPLETED";
-            case StockManagerApprovedState stockManagerApprovedState -> "WAREHOUSE APPROVED";
+            case StockManagerApprovedState stockManagerApprovedState -> "MANAGER APPROVED";
             case null, default -> "UNKNOWN";
         };
     }

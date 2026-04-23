@@ -13,6 +13,7 @@ import peipo.ru.cardealership.domain.models.filters.Filter;
 import peipo.ru.cardealership.domain.vo.id.CarId;
 import peipo.ru.cardealership.infrastructure.persistence.mapper.FilterMapper;
 import peipo.ru.cardealership.infrastructure.persistence.mapper.cars.CarMapper;
+import peipo.ru.cardealership.infrastructure.security.RolesAllowed;
 import peipo.ru.cardealership.infrastructure.web.dto.CarFilterDto;
 import peipo.ru.cardealership.infrastructure.web.dto.cars.CarResponseDto;
 import peipo.ru.cardealership.infrastructure.web.dto.cars.CreateCarRequest;
@@ -33,6 +34,7 @@ public class CarController
     private final FilterMapper filterMapper;
     private final CarFilterMapper carFilterMapper;
 
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
     @PostMapping
     public CarResponseDto addCar(@RequestBody CreateCarRequest createCarRequest)
     {
@@ -40,6 +42,7 @@ public class CarController
         return carDtoMapper.toDto(addCarUseCase.execute(carDomain));
     }
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping("/{id}")
     public CarResponseDto getCar(@PathVariable UUID id)
     {
@@ -47,6 +50,7 @@ public class CarController
         return carDtoMapper.toDto(car);
     }
 
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping("/filter")
     public List<CarResponseDto> getAllCars(CarFilterDto carFilterDto)
     {

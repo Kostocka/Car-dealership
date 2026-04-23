@@ -34,6 +34,7 @@ public class ConfiguredOrderMapper
             case ConfiguredPaidState configuredPaidState -> "PAID";
             case ConfiguredCompletedState configuredCompletedState -> "COMPLETED";
             case ConfiguredWarehouseApprovedState configuredWarehouseApprovedState -> "WAREHOUSE APPROVED";
+            case ConfiguredReadyForPickupState configuredReadyForPickupState -> "READY FOR PICKUP";
             case null, default -> "UNKNOWN";
         };
     }
