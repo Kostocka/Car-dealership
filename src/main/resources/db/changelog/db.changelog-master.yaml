@@ -1,8 +1,0 @@
-databaseChangeLog:
-  - changeSet:
-      id: 1
-      author: peipo
-      changes:
-        - sqlFile:
-            path: db/migration/schema.sql
-            relativeToChangelogFile: false

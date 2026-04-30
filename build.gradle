@@ -1,106 +1,42 @@
 plugins {
     id 'java'
-    id 'idea'
-    id 'org.springframework.boot' version '3.3.0'
-    id 'io.spring.dependency-management' version '1.1.3'
+    id 'io.spring.dependency-management' version '1.1.5'
 }
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
-ext {
-    lombokVersion = '1.18.42'
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+allprojects {
+    repositories {
+        mavenCentral()
     }
 }
 
-repositories {
-    mavenCentral()
-}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.testcontainers:junit-jupiter:1.19.7'
-
-    testImplementation 'org.testcontainers:postgresql:1.19.7'
-    testImplementation 'org.postgresql:postgresql:42.7.4'
-    implementation 'org.postgresql:postgresql:42.7.4'
-
-    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
-    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-
-    compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.keycloak:keycloak-spring-boot-starter:21.1.1'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
-
-    implementation 'org.mapstruct:mapstruct:1.6.3'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
-
-    implementation 'org.liquibase:liquibase-core'
-}
-
-configurations {
-    integrationTestImplementation.extendsFrom testImplementation
-    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
-
-    integrationTestCompileOnly.extendsFrom testCompileOnly
-    integrationTestAnnotationProcessor.extendsFrom testAnnotationProcessor
-}
-
-sourceSets {
-    integrationTest {
-        java.srcDir file('src/integrationTest/java')
-        resources.srcDir file('src/integrationTest/resources')
-        compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
-        runtimeClasspath += output + compileClasspath
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:3.3.0"
+        }
     }
-}
 
-idea {
-    module {
-        testSources.from sourceSets.integrationTest.java.srcDirs
-        testResources.from sourceSets.integrationTest.resources.srcDirs
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
     }
-}
 
-tasks.register('integrationTest', Test) {
-    description = 'Runs integration tests.'
-    group = 'verification'
-    testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    classpath = sourceSets.integrationTest.runtimeClasspath
-    useJUnitPlatform()
-    shouldRunAfter test
-    testLogging {
-        events 'passed', 'skipped', 'failed'
+    dependencies {
+        compileOnly "org.projectlombok:lombok:1.18.42"
+        annotationProcessor "org.projectlombok:lombok:1.18.42"
+
+        testImplementation platform('org.junit:junit-bom:5.10.0')
+        testImplementation 'org.junit.jupiter:junit-jupiter'
     }
-}
 
-tasks.named('processIntegrationTestResources') {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-}
-
-test {
-    useJUnitPlatform()
-    testLogging {
-        events 'passed', 'skipped', 'failed'
+    test {
+        useJUnitPlatform()
     }
 }
