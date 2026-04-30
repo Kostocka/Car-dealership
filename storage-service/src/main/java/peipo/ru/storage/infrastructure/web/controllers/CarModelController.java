@@ -1,0 +1,51 @@
+package peipo.ru.storage.infrastructure.web.controllers;
+
+import java.util.List;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import peipo.ru.storage.application.usecases.models.AddCarModelUseCase;
+import peipo.ru.storage.application.usecases.models.GetCarModelByIdUseCase;
+import peipo.ru.storage.application.usecases.models.GetCarModelsUseCase;
+import peipo.ru.storage.domain.models.CarModel;
+import peipo.ru.common.security.RolesAllowed;
+import peipo.ru.storage.infrastructure.web.dto.cars.CarConfigurationDto;
+import peipo.ru.storage.infrastructure.web.dto.cars.CarModelResponceDto;
+import peipo.ru.storage.infrastructure.web.dto.cars.CreateCarRequest;
+import peipo.ru.storage.infrastructure.web.dto.mappers.cars.CarModelDtoMapper;
+
+@RestController
+@RequestMapping("/car-models")
+@RequiredArgsConstructor
+public class CarModelController
+{
+    private final AddCarModelUseCase addCarModelUseCase;
+    private final GetCarModelByIdUseCase getCarModelByIdUseCase;
+    private final GetCarModelsUseCase carModelsUseCase;
+    private final CarModelDtoMapper carModelDtoMapper;
+
+    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
+    @PostMapping
+    public CarModelResponceDto addCarModel(@RequestBody CreateCarRequest createCarRequest)
+    {
+        CarModel model = carModelDtoMapper.toDomain(createCarRequest.getConfiguration());
+        return carModelDtoMapper.toModelDto(addCarModelUseCase.execute(model));
+    }
+
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
+    @GetMapping("/{id}")
+    public CarModelResponceDto getCarModelById(@PathVariable UUID id)
+    {
+        CarModel model =  getCarModelByIdUseCase.execute(new CarModelId(id));
+        return carModelDtoMapper.toModelDto(model);
+    }
+
+    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
+    @GetMapping()
+    public List<CarConfigurationDto> getAllCars()
+    {
+        return carModelsUseCase.execute().stream()
+                .map(carModelDtoMapper::toDto)
+                .toList();
+    }
+}
