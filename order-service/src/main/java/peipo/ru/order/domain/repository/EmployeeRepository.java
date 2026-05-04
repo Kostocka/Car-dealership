@@ -1,7 +1,7 @@
 package peipo.ru.order.domain.repository;
 
 import java.util.List;
-import peipo.ru.order.domain.vo.id.EmployeeId;
+import peipo.ru.common.vo.id.EmployeeId;
 
 public interface EmployeeRepository
 {

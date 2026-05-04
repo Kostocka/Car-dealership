@@ -18,11 +18,6 @@ public interface IdMapper
         return new PartId(id);
     }
 
-    default UUID map(CarModelId carModelId)
-    {
-        return carModelId.id();
-    }
-
     default UUID map(PartId id)
     {
         return id.id();
@@ -31,10 +26,5 @@ public interface IdMapper
     default CarId mapCarId(UUID carId)
     {
         return new CarId(carId);
-    }
-
-    default CarModelId mapCarModelId(UUID carModelId)
-    {
-        return new CarModelId(carModelId);
     }
 }

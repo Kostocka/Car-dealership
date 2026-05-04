@@ -1,4 +1,4 @@
-package peipo.ru.order.domain.vo.id;
+package peipo.ru.common.vo.id;
 
 import java.util.UUID;
 

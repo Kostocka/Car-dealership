@@ -5,9 +5,9 @@ import lombok.Setter;
 import peipo.ru.order.domain.models.CarConfiguration;
 import peipo.ru.order.domain.models.orders.states.ConfiguredOrderState;
 import peipo.ru.order.domain.models.orders.states.configured.ConfiguredCreatedState;
-import peipo.ru.order.domain.vo.id.ClientId;
-import peipo.ru.order.domain.vo.id.EmployeeId;
-import peipo.ru.order.domain.vo.id.OrderId;
+import peipo.ru.common.vo.id.ClientId;
+import peipo.ru.common.vo.id.EmployeeId;
+import peipo.ru.common.vo.id.OrderId;
 
 @Getter
 public class ConfiguredCarOrder extends Order

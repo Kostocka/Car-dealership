@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peipo.ru.order.domain.models.orders.StockCarOrder;
 import peipo.ru.order.domain.repository.StockOrderRepository;
-import peipo.ru.order.domain.vo.id.ClientId;
-import peipo.ru.order.domain.vo.id.OrderId;
+import peipo.ru.common.vo.id.ClientId;
+import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.order.infrastructure.persistence.jparepositorys.StockOrderJpaRepository;
 import peipo.ru.order.infrastructure.persistence.mapper.order.StockOrderMapper;
 

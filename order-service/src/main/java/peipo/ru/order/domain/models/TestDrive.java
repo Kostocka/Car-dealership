@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import peipo.ru.common.vo.id.CarId;
-import peipo.ru.order.domain.vo.id.ClientId;
+import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.order.domain.vo.id.TestDriveId;
 
 @Getter

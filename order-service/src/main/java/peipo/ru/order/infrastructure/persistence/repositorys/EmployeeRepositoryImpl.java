@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import peipo.ru.order.domain.repository.EmployeeRepository;
-import peipo.ru.order.domain.vo.id.EmployeeId;
+import peipo.ru.common.vo.id.EmployeeId;
 
 @Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository

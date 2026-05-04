@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import peipo.ru.order.domain.models.employees.EmployeeAssignmentStrategy;
 import peipo.ru.order.domain.repository.EmployeeRepository;
-import peipo.ru.order.domain.vo.id.EmployeeId;
+import peipo.ru.common.vo.id.EmployeeId;
 
 @Service
 @AllArgsConstructor

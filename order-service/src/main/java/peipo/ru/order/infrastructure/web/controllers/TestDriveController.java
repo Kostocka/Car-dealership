@@ -11,7 +11,7 @@ import peipo.ru.order.application.usecases.testdrives.CreateTestDriveRequest;
 import peipo.ru.order.application.usecases.testdrives.GetTestDrives;
 import peipo.ru.order.application.usecases.testdrives.RemoveCarFromTestDrive;
 import peipo.ru.order.domain.models.TestDrive;
-import peipo.ru.order.domain.vo.id.ClientId;
+import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.common.exception.security.RolesAllowed;
 import peipo.ru.order.infrastructure.web.dto.mappers.TestDriveMapper;
 import peipo.ru.order.infrastructure.web.dto.testdrives.AddCarToTestDriveRequest;
