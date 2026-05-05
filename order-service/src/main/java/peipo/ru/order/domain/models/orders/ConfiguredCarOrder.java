@@ -2,7 +2,7 @@ package peipo.ru.order.domain.models.orders;
 
 import lombok.Getter;
 import lombok.Setter;
-import peipo.ru.order.domain.models.CarConfiguration;
+import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.order.domain.models.orders.states.ConfiguredOrderState;
 import peipo.ru.order.domain.models.orders.states.configured.ConfiguredCreatedState;
 import peipo.ru.common.vo.id.ClientId;

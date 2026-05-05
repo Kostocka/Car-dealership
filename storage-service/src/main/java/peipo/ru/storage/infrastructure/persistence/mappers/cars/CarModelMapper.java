@@ -3,6 +3,7 @@ package peipo.ru.storage.infrastructure.persistence.mappers.cars;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import peipo.ru.storage.domain.models.CarModel;
+import peipo.ru.storage.domain.vo.CarModelId;
 import peipo.ru.storage.infrastructure.persistence.entity.cars.CarConfigurationEmbeddable;
 import peipo.ru.storage.infrastructure.persistence.entity.cars.CarModelEntity;
 import peipo.ru.storage.infrastructure.persistence.mappers.parts.*;

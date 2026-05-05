@@ -1,9 +1,8 @@
-package peipo.ru.order.domain.models;
+package peipo.ru.common.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import peipo.ru.common.vo.DrivetrainType;
 import peipo.ru.common.vo.id.PartId;
 
 @Getter

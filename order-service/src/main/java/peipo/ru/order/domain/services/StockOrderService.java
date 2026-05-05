@@ -57,6 +57,7 @@ public class StockOrderService
         return stockOrderRepository.findByClientId(clientId);
     }
 
+    @Transactional
     public void cancelOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.cancel();
@@ -67,6 +68,7 @@ public class StockOrderService
         );
     }
 
+    @Transactional
     public void approveOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.approve();
@@ -77,6 +79,7 @@ public class StockOrderService
         );
     }
 
+    @Transactional
     public void payOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.pay();
@@ -87,6 +90,7 @@ public class StockOrderService
         );
     }
 
+    @Transactional
     public void finishOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.finish();

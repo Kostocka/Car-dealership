@@ -20,7 +20,6 @@ import peipo.ru.storage.infrastructure.web.dto.mappers.cars.CarModelDtoMapper;
 public class CarModelController
 {
     private final AddCarModelUseCase addCarModelUseCase;
-    private final GetCarModelByIdUseCase getCarModelByIdUseCase;
     private final GetCarModelsUseCase carModelsUseCase;
     private final CarModelDtoMapper carModelDtoMapper;
 

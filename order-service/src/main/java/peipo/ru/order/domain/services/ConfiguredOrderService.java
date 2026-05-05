@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import peipo.ru.order.domain.models.CarModel;
-import peipo.ru.order.domain.models.CarConfiguration;
-import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
-import peipo.ru.order.domain.repository.ConfiguredOrderRepository;
+import org.springframework.transaction.annotation.Transactional;
+import peipo.ru.common.contracts.events.EventBus;
+import peipo.ru.common.contracts.events.orders.configured.*;
+import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.common.vo.id.EmployeeId;
 import peipo.ru.common.vo.id.OrderId;
-import peipo.ru.storage.domain.services.ConfiguratorService;
-import peipo.ru.storage.domain.services.InventoryService;
+import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
+import peipo.ru.order.domain.repository.ConfiguredOrderRepository;
 
 @Service
 @AllArgsConstructor
@@ -20,19 +20,21 @@ public class ConfiguredOrderService
 {
     private ConfiguredOrderRepository configuredOrderRepository;
     private EmployeeAssignmentService employeeAssignmentService;
+    private EventBus eventBus;
 
+    @Transactional
     public ConfiguredCarOrder createConfiguredCarOrder(ClientId clientId, CarConfiguration configuration)
     {
-        configuratorService.validateConfiguration(configuration);
-        inventoryService.checkAvailability(configuration);
-
-        inventoryService.reserveParts(configuration);
-
         EmployeeId managerId = employeeAssignmentService.assignManager();
 
         ConfiguredCarOrder order =
                 new ConfiguredCarOrder(OrderId.generate(), clientId, managerId, configuration);
         configuredOrderRepository.save(order);
+
+        eventBus.publish(
+                new ConfiguredOrderCreatedEvent(order.getOrderId(), clientId, configuration)
+        );
+
         return order;
     }
 
@@ -51,33 +53,58 @@ public class ConfiguredOrderService
         return configuredOrderRepository.findByClientId(clientId);
     }
 
+    @Transactional
     public void cancelOrder(ConfiguredCarOrder configuredCarOrder)
     {
         configuredCarOrder.cancel();
         configuredOrderRepository.save(configuredCarOrder);
+
+        eventBus.publish(
+                new ConfiguredOrderCancelledEvent(configuredCarOrder.getOrderId())
+        );
     }
 
+    @Transactional
     public void approveOrder(ConfiguredCarOrder configuredCarOrder)
     {
         configuredCarOrder.approve();
         configuredOrderRepository.save(configuredCarOrder);
+
+        eventBus.publish(
+                new ConfiguredOrderApprovedEvent(configuredCarOrder.getOrderId())
+        );
     }
 
+    @Transactional
     public void payOrder(ConfiguredCarOrder configuredCarOrder)
     {
         configuredCarOrder.pay();
         configuredOrderRepository.save(configuredCarOrder);
+
+        eventBus.publish(
+                new ConfiguredOrderPaidEvent(configuredCarOrder.getOrderId())
+        );
     }
 
+    @Transactional
     public void deliverOrder(ConfiguredCarOrder configuredCarOrder)
     {
         configuredCarOrder.deliver();
         configuredOrderRepository.save(configuredCarOrder);
+
+        eventBus.publish(
+                new ConfiguredOrderDeliveredEvent(configuredCarOrder.getOrderId())
+        );
     }
 
+    @Transactional
     public void finishOrder(ConfiguredCarOrder configuredCarOrder)
     {
         configuredCarOrder.finish();
         configuredOrderRepository.save(configuredCarOrder);
+
+        eventBus.publish(
+                new ConfiguredOrderFinishedEvent(configuredCarOrder.getOrderId())
+        );
     }
 }

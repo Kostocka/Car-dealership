@@ -9,12 +9,15 @@ import peipo.ru.storage.domain.models.parts.GearBox;
 import peipo.ru.storage.domain.models.parts.Interior;
 import peipo.ru.storage.domain.models.parts.Wheels;
 import peipo.ru.common.vo.DrivetrainType;
+import peipo.ru.storage.domain.vo.CarModelId;
 
 @Getter
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class CarModel
 {
+    private CarModelId modelId;
+
     private final String brand;
     private final String model;
 
