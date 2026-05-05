@@ -2,6 +2,7 @@ package peipo.ru.order.application.usecases.testdrives;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import peipo.ru.common.vo.id.CarId;
 import peipo.ru.order.domain.repository.TestDriveCarRepository;
 
 @Service

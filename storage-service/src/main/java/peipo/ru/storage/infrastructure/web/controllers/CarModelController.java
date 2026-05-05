@@ -33,14 +33,6 @@ public class CarModelController
     }
 
     @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
-    @GetMapping("/{id}")
-    public CarModelResponceDto getCarModelById(@PathVariable UUID id)
-    {
-        CarModel model =  getCarModelByIdUseCase.execute(new CarModelId(id));
-        return carModelDtoMapper.toModelDto(model);
-    }
-
-    @RolesAllowed({"USER", "WAREHOUSE_ADMIN", "MANAGER", "ADMIN"})
     @GetMapping()
     public List<CarConfigurationDto> getAllCars()
     {

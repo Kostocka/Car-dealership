@@ -1,11 +1,12 @@
 package peipo.ru.order.domain.services;
 
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import peipo.ru.common.contracts.events.EventBus;
-import peipo.ru.common.contracts.events.StockCarOrderCreatedEvent;
+import peipo.ru.common.contracts.events.orders.stock.*;
 import peipo.ru.common.vo.id.CarId;
 import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.common.vo.id.EmployeeId;
@@ -21,6 +22,7 @@ public class StockOrderService
     private EmployeeAssignmentService employeeAssignmentService;
     private EventBus eventBus;
 
+    @Transactional
     public StockCarOrder createStockOrder(ClientId clientId, CarId carId)
     {
         EmployeeId manager = employeeAssignmentService.assignManager();
@@ -59,23 +61,39 @@ public class StockOrderService
     {
         stockCarOrder.cancel();
         stockOrderRepository.save(stockCarOrder);
+
+        eventBus.publish(
+                new StockCarOrderCancelledEvent(stockCarOrder.getOrderId())
+        );
     }
 
     public void approveOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.approve();
         stockOrderRepository.save(stockCarOrder);
+
+        eventBus.publish(
+                new StockCarOrderApprovedEvent(stockCarOrder.getOrderId())
+        );
     }
 
     public void payOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.pay();
         stockOrderRepository.save(stockCarOrder);
+
+        eventBus.publish(
+                new StockCarOrderPaidEvent(stockCarOrder.getOrderId())
+        );
     }
 
     public void finishOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.finish();
         stockOrderRepository.save(stockCarOrder);
+
+        eventBus.publish(
+                new StockCarOrderFinishedEvent(stockCarOrder.getOrderId())
+        );
     }
 }

@@ -4,10 +4,11 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import peipo.ru.common.exception.DomainValidationException;
+import peipo.ru.common.vo.id.CarId;
+import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.order.domain.models.TestDrive;
 import peipo.ru.order.domain.repository.TestDriveCarRepository;
 import peipo.ru.order.domain.repository.TestDriveRepository;
-import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.order.domain.vo.id.TestDriveId;
 
 @Service
