@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.storage.domain.AssemblyStatus;
 
@@ -14,8 +15,10 @@ public class AssemblyOrder
     private final UUID id;
     private final OrderId sourceOrderId;
 
+    private final CarConfiguration configuration;
+
     private final Instant createdAt;
-    private final Instant updatedAt;
+    private Instant updatedAt;
 
     private AssemblyStatus status;
     private boolean removed;
@@ -28,5 +31,11 @@ public class AssemblyOrder
     public void markFailed()
     {
         this.status = AssemblyStatus.FAIL;
+    }
+
+    public void markCancelled()
+    {
+        this.removed = true;
+        this.updatedAt = Instant.now();
     }
 }

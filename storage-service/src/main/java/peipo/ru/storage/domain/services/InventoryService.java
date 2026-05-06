@@ -3,8 +3,8 @@ package peipo.ru.storage.domain.services;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import peipo.ru.common.exception.DomainValidationException;
-import peipo.ru.storage.domain.models.CarModel;
-import peipo.ru.storage.domain.models.parts.Part;
+import peipo.ru.common.vo.CarConfiguration;
+import peipo.ru.common.vo.id.PartId;
 import peipo.ru.storage.domain.repository.PartStockRepository;
 
 @Service
@@ -13,34 +13,50 @@ public class InventoryService
 {
     private PartStockRepository partStockRepository;
 
-    private void checkPart(Part part)
+    public void reserveParts(CarConfiguration carConfiguration)
     {
-        if (partStockRepository.getQuantity(part.getId()) <= 0)
+        checkAvailability(carConfiguration);
+
+        reservePart(carConfiguration.getBody());
+        reservePart(carConfiguration.getEngine());
+        reservePart(carConfiguration.getGearBox());
+        reservePart(carConfiguration.getInterior());
+        reservePart(carConfiguration.getWheels());
+    }
+
+    public void deReserveParts(CarConfiguration carConfiguration)
+    {
+        deReservePart(carConfiguration.getBody());
+        deReservePart(carConfiguration.getEngine());
+        deReservePart(carConfiguration.getGearBox());
+        deReservePart(carConfiguration.getInterior());
+        deReservePart(carConfiguration.getWheels());
+    }
+
+    private void checkPart(PartId part)
+    {
+        if (partStockRepository.getQuantity(part) <= 0)
         {
-            throw new DomainValidationException("Part not available " + part.getId());
+            throw new DomainValidationException("Part not available " + part);
         }
     }
 
-    private void reservePart(Part part)
+    private void reservePart(PartId part)
     {
-        partStockRepository.decrease(part.getId(), 1);
+        partStockRepository.decrease(part, 1);
     }
 
-    public void checkAvailability(CarModel carModel)
+    private void deReservePart(PartId part)
     {
-        checkPart(carModel.getBody());
-        checkPart(carModel.getEngine());
-        checkPart(carModel.getGearBox());
-        checkPart(carModel.getInterior());
-        checkPart(carModel.getWheels());
+        partStockRepository.increase(part, 1);
     }
 
-    public void reserveParts(CarModel carModel)
+    private void checkAvailability(CarConfiguration carConfiguration)
     {
-        reservePart(carModel.getBody());
-        reservePart(carModel.getEngine());
-        reservePart(carModel.getGearBox());
-        reservePart(carModel.getInterior());
-        reservePart(carModel.getWheels());
+        checkPart(carConfiguration.getBody());
+        checkPart(carConfiguration.getEngine());
+        checkPart(carConfiguration.getGearBox());
+        checkPart(carConfiguration.getInterior());
+        checkPart(carConfiguration.getWheels());
     }
 }
