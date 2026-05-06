@@ -3,12 +3,12 @@ package peipo.ru.storage.domain.models;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import peipo.ru.common.vo.DrivetrainType;
 import peipo.ru.storage.domain.models.parts.Body;
 import peipo.ru.storage.domain.models.parts.Engine;
 import peipo.ru.storage.domain.models.parts.GearBox;
 import peipo.ru.storage.domain.models.parts.Interior;
 import peipo.ru.storage.domain.models.parts.Wheels;
-import peipo.ru.common.vo.DrivetrainType;
 import peipo.ru.storage.domain.vo.CarModelId;
 
 @Getter

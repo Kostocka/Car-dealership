@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peipo.ru.storage.domain.repository.ModelPartCompatibilityRepository;
 import peipo.ru.common.vo.id.PartId;
+import peipo.ru.storage.domain.vo.CarModelId;
 import peipo.ru.storage.infrastructure.persistence.entity.rules.ModelPartCompatibilityEntity;
 import peipo.ru.storage.infrastructure.persistence.entity.rules.ModelPartCompatibilityId;
 import peipo.ru.storage.infrastructure.persistence.jparepositorys.ModelPartCompatibilityJpaRepository;
