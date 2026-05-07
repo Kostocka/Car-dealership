@@ -32,9 +32,7 @@ public class ConfiguredOrderService
                 new ConfiguredCarOrder(OrderId.generate(), clientId, managerId, configuration);
         configuredOrderRepository.save(order);
 
-        eventBus.publish(
-                new ConfiguredOrderCreatedEvent(order.getOrderId(), clientId, configuration)
-        );
+        eventBus.publish(new ConfiguredOrderCreatedEvent(order.getOrderId(), clientId, configuration));
 
         return order;
     }
@@ -60,9 +58,7 @@ public class ConfiguredOrderService
         configuredCarOrder.cancel();
         configuredOrderRepository.save(configuredCarOrder);
 
-        eventBus.publish(
-                new ConfiguredOrderCancelledEvent(configuredCarOrder.getOrderId())
-        );
+        eventBus.publish(new ConfiguredOrderCancelledEvent(configuredCarOrder.getOrderId()));
     }
 
     @Transactional
@@ -71,9 +67,7 @@ public class ConfiguredOrderService
         configuredCarOrder.pay();
         configuredOrderRepository.save(configuredCarOrder);
 
-        eventBus.publish(
-                new ConfiguredOrderPaidEvent(configuredCarOrder.getOrderId())
-        );
+        eventBus.publish(new ConfiguredOrderPaidEvent(configuredCarOrder.getOrderId()));
     }
 
     @Transactional
@@ -82,5 +76,15 @@ public class ConfiguredOrderService
         configuredCarOrder.finish();
 
         configuredOrderRepository.save(configuredCarOrder);
+    }
+
+    @Transactional
+    public void deliverOrder(ConfiguredCarOrder configuredCarOrder)
+    {
+        configuredCarOrder.deliver();
+
+        configuredOrderRepository.save(configuredCarOrder);
+
+        eventBus.publish(new ConfiguredOrderDeliveredEvent(configuredCarOrder.getOrderId()));
     }
 }

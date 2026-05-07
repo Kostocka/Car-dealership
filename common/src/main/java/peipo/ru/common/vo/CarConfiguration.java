@@ -3,21 +3,23 @@ package peipo.ru.common.vo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import peipo.ru.common.vo.id.PartId;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder(toBuilder = true)
 public class CarConfiguration
 {
-    private final String brand;
-    private final String model;
+    private String brand;
+    private String model;
 
-    private final PartId body;
-    private final PartId engine;
-    private final PartId gearBox;
-    private final PartId interior;
-    private final PartId wheels;
-    private final DrivetrainType drivetrainType;
-    private final String color;
+    private PartId body;
+    private PartId engine;
+    private PartId gearBox;
+    private PartId interior;
+    private PartId wheels;
+    private DrivetrainType drivetrainType;
+    private String color;
 }

@@ -102,10 +102,6 @@ public class ConfiguredAssemblyOrderService
         assembly.markDelivered();
 
         assemblyOrderRepository.save(assembly);
-
-        eventBus.publish(
-                new ConfiguredOrderDeliveredEvent(orderId)
-        );
     }
 
     @Transactional

@@ -125,6 +125,19 @@ public class ConfiguredOrderController
     }
 
     @RolesAllowed({"MANAGER", "ADMIN"})
+    @PostMapping("/{orderId}/deliver")
+    public ConfiguredCarOrderDto deliverOrder(@PathVariable UUID orderId,
+                                          @AuthenticationPrincipal Jwt jwt,
+                                          Authentication authentication)
+    {
+        ConfiguredCarOrder order = configuredOrderService.getConfiguredCarOrderById(new OrderId(orderId))
+                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
+
+        configuredOrderService.deliverOrder(order);
+        return orderDtoMapper.toDto(order);
+    }
+
+    @RolesAllowed({"MANAGER", "ADMIN"})
     @PostMapping("/{orderId}/finish")
     public ConfiguredCarOrderDto finishOrder(@PathVariable UUID orderId)
     {

@@ -31,14 +31,7 @@ public class StockOrderService
         StockCarOrder order = new StockCarOrder(OrderId.generate(), clientId, manager, carId);
         stockOrderRepository.save(order);
 
-        eventBus.publish(
-                new StockCarOrderCreatedEvent(
-                        order.getOrderId(),
-                        clientId,
-                        manager,
-                        carId
-                )
-        );
+        eventBus.publish(new StockCarOrderCreatedEvent(order.getOrderId(), clientId, manager, carId));
 
         return order;
     }
@@ -64,9 +57,7 @@ public class StockOrderService
         stockCarOrder.cancel();
         stockOrderRepository.save(stockCarOrder);
 
-        eventBus.publish(
-                new StockCarOrderCancelledEvent(stockCarOrder.getOrderId())
-        );
+        eventBus.publish(new StockCarOrderCancelledEvent(stockCarOrder.getOrderId()));
     }
 
     @Transactional
@@ -75,9 +66,7 @@ public class StockOrderService
         stockCarOrder.pay();
         stockOrderRepository.save(stockCarOrder);
 
-        eventBus.publish(
-                new StockCarOrderPaidEvent(stockCarOrder.getOrderId())
-        );
+        eventBus.publish(new StockCarOrderPaidEvent(stockCarOrder.getOrderId()));
     }
 
     @Transactional

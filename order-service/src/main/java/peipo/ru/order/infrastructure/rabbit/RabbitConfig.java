@@ -71,6 +71,6 @@ public class RabbitConfig
         return BindingBuilder
                 .bind(orderQueue)
                 .to(exchange)
-                .with("*.order.deliverd");
+                .with("*.order.delivered");
     }
 }
