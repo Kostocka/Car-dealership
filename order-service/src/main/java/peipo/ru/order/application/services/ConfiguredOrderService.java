@@ -1,4 +1,4 @@
-package peipo.ru.order.domain.services;
+package peipo.ru.order.application.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +13,7 @@ import peipo.ru.common.vo.id.EmployeeId;
 import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
 import peipo.ru.order.domain.repository.ConfiguredOrderRepository;
+import peipo.ru.order.domain.services.EmployeeAssignmentService;
 
 @Service
 @AllArgsConstructor
@@ -65,17 +66,6 @@ public class ConfiguredOrderService
     }
 
     @Transactional
-    public void approveOrder(ConfiguredCarOrder configuredCarOrder)
-    {
-        configuredCarOrder.approve();
-        configuredOrderRepository.save(configuredCarOrder);
-
-        eventBus.publish(
-                new ConfiguredOrderApprovedEvent(configuredCarOrder.getOrderId())
-        );
-    }
-
-    @Transactional
     public void payOrder(ConfiguredCarOrder configuredCarOrder)
     {
         configuredCarOrder.pay();
@@ -87,24 +77,10 @@ public class ConfiguredOrderService
     }
 
     @Transactional
-    public void deliverOrder(ConfiguredCarOrder configuredCarOrder)
-    {
-        configuredCarOrder.deliver();
-        configuredOrderRepository.save(configuredCarOrder);
-
-        eventBus.publish(
-                new ConfiguredOrderDeliveredEvent(configuredCarOrder.getOrderId())
-        );
-    }
-
-    @Transactional
     public void finishOrder(ConfiguredCarOrder configuredCarOrder)
     {
         configuredCarOrder.finish();
-        configuredOrderRepository.save(configuredCarOrder);
 
-        eventBus.publish(
-                new ConfiguredOrderFinishedEvent(configuredCarOrder.getOrderId())
-        );
+        configuredOrderRepository.save(configuredCarOrder);
     }
 }

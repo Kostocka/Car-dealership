@@ -4,5 +4,8 @@ public enum AssemblyStatus
 {
     CREATED,
     ASSEMBLED,
+    DELIVERING,
+    DELIVERED,
+    CANCELLED,
     FAIL
 }

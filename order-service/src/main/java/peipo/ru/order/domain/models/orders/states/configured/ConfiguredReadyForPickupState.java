@@ -27,7 +27,7 @@ public class ConfiguredReadyForPickupState implements ConfiguredOrderState
     @Override
     public void finish(ConfiguredCarOrder order)
     {
-        order.setState(new ConfiguredReadyForPickupState());
+        order.setState(new ConfiguredCompletedState());
     }
 
     @Override

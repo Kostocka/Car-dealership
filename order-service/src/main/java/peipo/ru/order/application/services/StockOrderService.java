@@ -1,4 +1,4 @@
-package peipo.ru.order.domain.services;
+package peipo.ru.order.application.services;
 
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -13,6 +13,7 @@ import peipo.ru.common.vo.id.EmployeeId;
 import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.order.domain.models.orders.StockCarOrder;
 import peipo.ru.order.domain.repository.StockOrderRepository;
+import peipo.ru.order.domain.services.EmployeeAssignmentService;
 
 @Service
 @AllArgsConstructor

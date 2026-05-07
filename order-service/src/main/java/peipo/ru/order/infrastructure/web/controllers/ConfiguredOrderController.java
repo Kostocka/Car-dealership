@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import peipo.ru.common.exception.EntityNotFoundException;
 import peipo.ru.order.domain.models.CarModel;
 import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
-import peipo.ru.order.domain.services.ConfiguredOrderService;
+import peipo.ru.order.application.services.ConfiguredOrderService;
 import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.common.exception.security.RolesAllowed;

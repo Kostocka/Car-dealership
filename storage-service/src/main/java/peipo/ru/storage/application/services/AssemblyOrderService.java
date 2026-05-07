@@ -4,8 +4,10 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import peipo.ru.common.contracts.events.EventBus;
 import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderAcceptedEvent;
+import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderDeliveredEvent;
 import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderRejectedEvent;
 import peipo.ru.common.exception.EntityNotFoundException;
 import peipo.ru.common.vo.CarConfiguration;
@@ -28,6 +30,7 @@ public class AssemblyOrderService
     private final EventBus eventBus;
     private final CarConfigurationMapper mapper;
 
+    @Transactional
     public void start(OrderId orderId, CarConfiguration configuration)
     {
         AssemblyOrder assembly = new AssemblyOrder(
@@ -70,6 +73,43 @@ public class AssemblyOrderService
         }
     }
 
+    @Transactional
+    public void startDelivery(OrderId orderId)
+    {
+        AssemblyOrder assembly =
+                assemblyOrderRepository.findByOrderId(orderId)
+                        .orElseThrow(
+                                () -> new EntityNotFoundException(
+                                        "Assembly order not found"
+                                )
+                        );
+
+        assembly.markDelivering();
+
+        assemblyOrderRepository.save(assembly);
+    }
+
+    @Transactional
+    public void completeDelivery(OrderId orderId)
+    {
+        AssemblyOrder assembly =
+                assemblyOrderRepository.findByOrderId(orderId)
+                        .orElseThrow(
+                                () -> new EntityNotFoundException(
+                                        "Assembly order not found"
+                                )
+                        );
+
+        assembly.markDelivered();
+
+        assemblyOrderRepository.save(assembly);
+
+        eventBus.publish(
+                new ConfiguredOrderDeliveredEvent(orderId)
+        );
+    }
+
+    @Transactional
     public void cancel(OrderId orderId)
     {
         AssemblyOrder assembly = assemblyOrderRepository.findByOrderId(orderId).orElseThrow(
