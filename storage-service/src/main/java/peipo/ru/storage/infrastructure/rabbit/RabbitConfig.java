@@ -27,11 +27,29 @@ public class RabbitConfig
     }
 
     @Bean
-    public Binding storageBinding(Queue storageQueue, TopicExchange exchange)
+    public Binding storageCreatedBinding(Queue storageQueue, TopicExchange exchange)
     {
         return BindingBuilder
                 .bind(storageQueue)
                 .to(exchange)
-                .with("*.order.*");
+                .with("*.order.created");
+    }
+
+    @Bean
+    public Binding storagePaidBinding(Queue storageQueue, TopicExchange exchange)
+    {
+        return BindingBuilder
+                .bind(storageQueue)
+                .to(exchange)
+                .with("*.order.paid");
+    }
+
+    @Bean
+    public Binding storageCancelledBinding(Queue storageQueue, TopicExchange exchange)
+    {
+        return BindingBuilder
+                .bind(storageQueue)
+                .to(exchange)
+                .with("*.order.cancelled");
     }
 }

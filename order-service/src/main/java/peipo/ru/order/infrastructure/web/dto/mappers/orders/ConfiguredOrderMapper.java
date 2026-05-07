@@ -5,14 +5,14 @@ import org.springframework.stereotype.Component;
 import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
 import peipo.ru.order.domain.models.orders.states.ConfiguredOrderState;
 import peipo.ru.order.domain.models.orders.states.configured.*;
-import peipo.ru.order.infrastructure.web.dto.mappers.cars.CarModelDtoMapper;
+import peipo.ru.order.infrastructure.web.dto.mappers.CarConfigurationDtoMapper;
 import peipo.ru.order.infrastructure.web.dto.orders.ConfiguredCarOrderDto;
 
 @Component
 @RequiredArgsConstructor
 public class ConfiguredOrderMapper
 {
-    private final CarModelDtoMapper carModelMapper;
+    private final CarConfigurationDtoMapper carModelMapper;
 
     public ConfiguredCarOrderDto toDto(ConfiguredCarOrder configuredCarOrder)
     {

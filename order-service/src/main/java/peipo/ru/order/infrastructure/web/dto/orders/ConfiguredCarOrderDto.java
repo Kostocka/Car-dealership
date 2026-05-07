@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import peipo.ru.order.infrastructure.web.dto.cars.CarConfigurationDto;
+import peipo.ru.order.infrastructure.web.dto.CarConfigurationDto;
 
 @Getter
 @Setter

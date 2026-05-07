@@ -8,12 +8,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import peipo.ru.common.exception.EntityNotFoundException;
-import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
-import peipo.ru.order.application.services.ConfiguredOrderService;
+import peipo.ru.common.security.RolesAllowed;
+import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.common.vo.id.OrderId;
-import peipo.ru.common.security.RolesAllowed;
-import peipo.ru.order.infrastructure.web.dto.mappers.cars.CarModelDtoMapper;
+import peipo.ru.order.application.services.ConfiguredOrderService;
+import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
+import peipo.ru.order.infrastructure.web.dto.mappers.CarConfigurationDtoMapper;
 import peipo.ru.order.infrastructure.web.dto.mappers.orders.ConfiguredOrderMapper;
 import peipo.ru.order.infrastructure.web.dto.orders.ConfiguredCarOrderDto;
 import peipo.ru.order.infrastructure.web.dto.orders.CreateConfiguredOrderRequest;
@@ -24,7 +25,7 @@ import peipo.ru.order.infrastructure.web.dto.orders.CreateConfiguredOrderRequest
 public class ConfiguredOrderController
 {
     private final ConfiguredOrderMapper orderDtoMapper;
-    private final CarModelDtoMapper carModelMapper;
+    private final CarConfigurationDtoMapper carModelMapper;
     private final ConfiguredOrderService configuredOrderService;
 
     @RolesAllowed({"USER", "ADMIN"})
@@ -34,7 +35,7 @@ public class ConfiguredOrderController
             @AuthenticationPrincipal Jwt jwt)
     {
         ClientId clientId = new ClientId(UUID.fromString(jwt.getSubject()));
-        CarModel model = carModelMapper.toDomain(createConfiguredOrderRequest.getConfiguration());
+        CarConfiguration model = carModelMapper.toDomain(createConfiguredOrderRequest.getConfiguration());
 
         ConfiguredCarOrder order = configuredOrderService.createConfiguredCarOrder(clientId, model);
         return orderDtoMapper.toDto(order);
@@ -102,17 +103,6 @@ public class ConfiguredOrderController
         return orderDtoMapper.toDto(order);
     }
 
-    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
-    @PostMapping("/{orderId}/approve")
-    public ConfiguredCarOrderDto approveOrder(@PathVariable UUID orderId)
-    {
-        ConfiguredCarOrder order = configuredOrderService.getConfiguredCarOrderById(new OrderId(orderId))
-                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
-
-        configuredOrderService.approveOrder(order);
-        return orderDtoMapper.toDto(order);
-    }
-
     @RolesAllowed({"USER", "ADMIN"})
     @PostMapping("/{orderId}/pay")
     public ConfiguredCarOrderDto payOrder(@PathVariable UUID orderId,
@@ -131,17 +121,6 @@ public class ConfiguredOrderController
             }
         }
         configuredOrderService.payOrder(order);
-        return orderDtoMapper.toDto(order);
-    }
-
-    @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})
-    @PostMapping("/{orderId}/deliver")
-    public ConfiguredCarOrderDto deliverOrder(@PathVariable UUID orderId)
-    {
-        ConfiguredCarOrder order = configuredOrderService.getConfiguredCarOrderById(new OrderId(orderId))
-                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
-
-        configuredOrderService.deliverOrder(order);
         return orderDtoMapper.toDto(order);
     }
 

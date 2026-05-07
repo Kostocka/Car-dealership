@@ -13,6 +13,8 @@ import peipo.ru.common.contracts.events.orders.stock.StockCarOrderAcceptedEvent;
 import peipo.ru.common.contracts.events.orders.stock.StockCarOrderRejectedEvent;
 import peipo.ru.common.contracts.events.orders.stock.StockCarReadyForPickupEvent;
 
+import java.io.Console;
+
 @Component
 @AllArgsConstructor
 public class RabbitEventConsumer
@@ -25,8 +27,11 @@ public class RabbitEventConsumer
     {
         JsonNode json = mapper.readTree(payload);
 
-        String eventType =
-                json.get("eventType").asText();
+        System.out.println(json.toString());
+
+        String eventType = json.get("eventType").asText();
+
+        JsonNode data = json.get("payload");
 
         Class<?> clazz = switch (eventType)
         {
@@ -36,7 +41,7 @@ public class RabbitEventConsumer
             case "stock.order.rejected" ->
                     StockCarOrderRejectedEvent.class;
 
-            case "stock.order.ready_for_pickup" ->
+            case "stock.order.ready.for.pickup" ->
                     StockCarReadyForPickupEvent.class;
 
             case "configured.order.accepted" ->
@@ -54,7 +59,7 @@ public class RabbitEventConsumer
         };
 
         Object event =
-                mapper.readValue(payload, clazz);
+                mapper.treeToValue(data, clazz);
 
         publisher.publishEvent(event);
     }

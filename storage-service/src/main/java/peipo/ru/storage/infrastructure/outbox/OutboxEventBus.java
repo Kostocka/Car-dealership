@@ -9,6 +9,7 @@ import peipo.ru.common.contracts.events.EventBus;
 import peipo.ru.storage.infrastructure.outbox.entity.OutboxEventEntity;
 import peipo.ru.storage.infrastructure.outbox.repository.OutboxJpaRepository;
 import peipo.ru.storage.infrastructure.outbox.serializer.EventSerializer;
+import peipo.ru.storage.infrastructure.rabbit.EventEnvelope;
 
 @Component
 @RequiredArgsConstructor
@@ -20,13 +21,17 @@ public class OutboxEventBus implements EventBus
     @Override
     public void publish(DomainEvent event)
     {
-        OutboxEventEntity e = new OutboxEventEntity();
+        EventEnvelope envelope = new EventEnvelope(
+                event.eventType(),
+                event.aggregateId(),
+                event
+        );
 
+        OutboxEventEntity e = new OutboxEventEntity();
         e.setId(UUID.randomUUID());
-        e.setAggregateType(event.getClass().getSimpleName());
         e.setAggregateId(event.aggregateId());
         e.setEventType(event.eventType());
-        e.setPayload(serializer.toJson(event));
+        e.setPayload(serializer.toJson(envelope));
         e.setCreatedAt(Instant.now());
         e.setProcessed(false);
 

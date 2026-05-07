@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class ConfiguredOrderRejectedEvent implements DomainEvent
+public class ConfiguredOrderRejectedEvent extends DomainEvent
 {
     private final OrderId orderId;
     private final String reason;

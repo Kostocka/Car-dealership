@@ -11,7 +11,7 @@ public class EventSerializer
 {
     private final ObjectMapper objectMapper;
 
-    public String toJson(DomainEvent event)
+    public String toJson(Object event)
     {
         try
         {

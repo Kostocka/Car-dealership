@@ -2,22 +2,19 @@ package peipo.ru.order.infrastructure.persistence.mapper.order;
 
 import org.mapstruct.Mapper;
 import peipo.ru.common.exception.DomainValidationException;
-import peipo.ru.order.domain.models.orders.StockCarOrder;
-import peipo.ru.order.domain.models.orders.states.StockOrderState;
-import peipo.ru.order.domain.models.orders.states.stocks.*;
-import peipo.ru.order.domain.repository.CarRepository;
+import peipo.ru.common.vo.id.CarId;
 import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.common.vo.id.EmployeeId;
 import peipo.ru.common.vo.id.OrderId;
+import peipo.ru.order.domain.models.orders.StockCarOrder;
+import peipo.ru.order.domain.models.orders.states.StockOrderState;
+import peipo.ru.order.domain.models.orders.states.stocks.*;
 import peipo.ru.order.infrastructure.persistence.entity.order.StockCarOrderEntity;
 import peipo.ru.order.infrastructure.persistence.entity.order.StockOrderStateEnum;
-import peipo.ru.order.infrastructure.persistence.mapper.cars.CarMapper;
 
-@Mapper(componentModel = "spring", uses = CarMapper.class)
+@Mapper(componentModel = "spring")
 public class StockOrderMapper
 {
-    private CarRepository carRepository;
-
     public StockCarOrder toDomain(StockCarOrderEntity stockCarOrderEntity)
     {
         StockCarOrder order = new StockCarOrder(
@@ -51,6 +48,7 @@ public class StockOrderMapper
             case Cancelled -> new StockCancelledState();
             case Finished -> new StockCompletedState();
             case Paid ->  new StockPaidState();
+            case ReadyForPickup -> new StockReadyForPickupState();
         };
     }
 
@@ -68,6 +66,8 @@ public class StockOrderMapper
                     -> StockOrderStateEnum.Paid;
             case StockCompletedState stockCompletedState
                     -> StockOrderStateEnum.Finished;
+            case StockReadyForPickupState  stockReadyForPickupState
+                -> StockOrderStateEnum.ReadyForPickup;
             case null, default
                     -> throw new DomainValidationException("Unknown StockOrderState" + stockOrderState);
         };

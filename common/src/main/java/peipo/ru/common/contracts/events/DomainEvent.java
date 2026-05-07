@@ -2,9 +2,9 @@ package peipo.ru.common.contracts.events;
 
 import java.util.UUID;
 
-public interface DomainEvent
+public abstract class DomainEvent
 {
-    UUID aggregateId();
+    public abstract UUID aggregateId();
 
-    String eventType();
+    public abstract String eventType();
 }

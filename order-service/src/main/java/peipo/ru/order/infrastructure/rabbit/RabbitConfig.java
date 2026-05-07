@@ -27,7 +27,7 @@ public class RabbitConfig
     }
 
     @Bean
-    public Binding orderBinding(
+    public Binding orderAcceptedBinding(
             Queue orderQueue,
             TopicExchange exchange
     )
@@ -35,6 +35,42 @@ public class RabbitConfig
         return BindingBuilder
                 .bind(orderQueue)
                 .to(exchange)
-                .with("*.order.*");
+                .with("*.order.accepted");
+    }
+
+    @Bean
+    public Binding orderRejectedBinding(
+            Queue orderQueue,
+            TopicExchange exchange
+    )
+    {
+        return BindingBuilder
+                .bind(orderQueue)
+                .to(exchange)
+                .with("*.order.rejected");
+    }
+
+    @Bean
+    public Binding orderReadyForPickupBinding(
+            Queue orderQueue,
+            TopicExchange exchange
+    )
+    {
+        return BindingBuilder
+                .bind(orderQueue)
+                .to(exchange)
+                .with("*.order.ready.for.pickup");
+    }
+
+    @Bean
+    public Binding orderDeliverdBinding(
+            Queue orderQueue,
+            TopicExchange exchange
+    )
+    {
+        return BindingBuilder
+                .bind(orderQueue)
+                .to(exchange)
+                .with("*.order.deliverd");
     }
 }

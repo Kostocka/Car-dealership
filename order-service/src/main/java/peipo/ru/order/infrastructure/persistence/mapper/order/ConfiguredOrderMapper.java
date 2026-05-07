@@ -1,104 +1,71 @@
 package peipo.ru.order.infrastructure.persistence.mapper.order;
 
 import org.mapstruct.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import peipo.ru.common.exception.DomainValidationException;
-import peipo.ru.order.domain.models.CarModel;
-import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
-import peipo.ru.order.domain.models.orders.states.ConfiguredOrderState;
-import peipo.ru.order.domain.models.orders.states.configured.*;
-import peipo.ru.order.domain.vo.id.CarModelId;
+import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.common.vo.id.EmployeeId;
 import peipo.ru.common.vo.id.OrderId;
-import peipo.ru.order.infrastructure.persistence.entity.cars.CarConfigurationEmbeddable;
+import peipo.ru.common.vo.id.PartId;
+import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
+import peipo.ru.order.domain.models.orders.states.ConfiguredOrderState;
+import peipo.ru.order.domain.models.orders.states.configured.*;
 import peipo.ru.order.infrastructure.persistence.entity.order.ConfiguredCarOrderEntity;
 import peipo.ru.order.infrastructure.persistence.entity.order.ConfiguredOrderStateEnum;
 
 @Mapper(componentModel = "spring")
 public abstract class ConfiguredOrderMapper
 {
-    @Autowired
-    protected EngineJpaRepository engineJpaRepository;
-
-    @Autowired
-    protected BodyJpaRepository bodyJpaRepository;
-
-    @Autowired
-    protected GearBoxJpaRepository gearBoxJpaRepository;
-
-    @Autowired
-    protected InteriorJpaRepository interiorJpaRepository;
-
-    @Autowired
-    protected WheelsJpaRepository wheelsJpaRepository;
-
-    @Autowired
-    protected EngineMapper engineMapper;
-
-    @Autowired
-    protected BodyMapper bodyMapper;
-
-    @Autowired
-    protected GearBoxMapper gearBoxMapper;
-
-    @Autowired
-    protected InteriorMapper interiorMapper;
-
-    @Autowired
-    protected WheelsMapper wheelsMapper;
-
-    public ConfiguredCarOrder toDomain(ConfiguredCarOrderEntity configuredCarOrderEntity)
-    {
-        CarConfigurationEmbeddable emb = configuredCarOrderEntity.getConfiguration();
-
-        CarModel model = new CarModel(
-                new CarModelId(emb.getModelId()),
-                emb.getBrand(),
-                emb.getModel(),
-                bodyMapper.toDomain(emb.getBody()),
-                engineMapper.toDomain(emb.getEngine()),
-                gearBoxMapper.toDomain(emb.getGearBox()),
-                interiorMapper.toDomain(emb.getInterior()),
-                wheelsMapper.toDomain(emb.getWheels()),
-                emb.getDrivetrainType(),
-                emb.getColor()
-        );
-
-        var order = new ConfiguredCarOrder(
-                new OrderId(configuredCarOrderEntity.getId()),
-                new ClientId(configuredCarOrderEntity.getClientId()),
-                new EmployeeId(configuredCarOrderEntity.getManagerId()),
-                model
-        );
-        order.setState(toState(configuredCarOrderEntity.getOrderState()));
-
-        return order;
-    }
-
     public ConfiguredCarOrderEntity toEntity(ConfiguredCarOrder domain)
     {
-        ConfiguredCarOrderEntity entity = new ConfiguredCarOrderEntity();
-        entity.setId(domain.getOrderId().id());
-        entity.setClientId(domain.getClientId().id());
-        entity.setManagerId(domain.getManagerId().id());
-        entity.setOrderState(toStateEnum(domain.getState()));
+        CarConfiguration c = domain.getConfiguration();
 
-        CarConfigurationEmbeddable emb = new CarConfigurationEmbeddable();
-        emb.setModelId(domain.getConfiguration().getModelId().id());
-        emb.setBrand(domain.getConfiguration().getBrand());
-        emb.setModel(domain.getConfiguration().getModel());
-        emb.setBody(bodyMapper.toEntity(domain.getConfiguration().getBody()));
-        emb.setEngine(engineMapper.toEntity(domain.getConfiguration().getEngine()));
-        emb.setGearBox(gearBoxMapper.toEntity(domain.getConfiguration().getGearBox()));
-        emb.setInterior(interiorMapper.toEntity(domain.getConfiguration().getInterior()));
-        emb.setWheels(wheelsMapper.toEntity(domain.getConfiguration().getWheels()));
-        emb.setDrivetrainType(domain.getConfiguration().getDrivetrainType());
-        emb.setColor(domain.getConfiguration().getColor().toString());
+        ConfiguredCarOrderEntity e = new ConfiguredCarOrderEntity();
 
-        entity.setConfiguration(emb);
+        e.setId(domain.getOrderId().id());
+        e.setClientId(domain.getClientId().id());
+        e.setManagerId(domain.getManagerId().id());
 
-        return entity;
+        e.setBrand(c.getBrand());
+        e.setModel(c.getModel());
+        e.setBody(c.getBody().id());
+        e.setEngine(c.getEngine().id());
+        e.setGearBox(c.getGearBox().id());
+        e.setInterior(c.getInterior().id());
+        e.setWheels(c.getWheels().id());
+        e.setDrivetrainType(c.getDrivetrainType());
+        e.setColor(c.getColor());
+
+        e.setOrderState(toStateEnum(domain.getState()));
+
+        return e;
+    }
+
+    public ConfiguredCarOrder toDomain(ConfiguredCarOrderEntity e)
+    {
+        CarConfiguration config = CarConfiguration.builder()
+                .brand(e.getBrand())
+                .model(e.getModel())
+                .body(new PartId(e.getBody()))
+                .engine(new PartId(e.getEngine()))
+                .gearBox(new PartId(e.getGearBox()))
+                .interior(new PartId(e.getInterior()))
+                .wheels(new PartId(e.getWheels()))
+                .drivetrainType(e.getDrivetrainType())
+                .color(e.getColor())
+                .build();
+
+        ConfiguredCarOrder order =
+                new ConfiguredCarOrder(
+                        new OrderId(e.getId()),
+                        new ClientId(e.getClientId()),
+                        new EmployeeId(e.getManagerId()),
+                        config
+                );
+
+        order.setState(toState(e.getOrderState()));
+
+        return order;
     }
 
     protected ConfiguredOrderState toState(ConfiguredOrderStateEnum configuredOrderState)

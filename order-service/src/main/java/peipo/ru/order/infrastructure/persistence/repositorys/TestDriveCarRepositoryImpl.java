@@ -2,6 +2,7 @@ package peipo.ru.order.infrastructure.persistence.repositorys;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import peipo.ru.common.vo.id.CarId;
 import peipo.ru.order.domain.repository.TestDriveCarRepository;
 import peipo.ru.order.infrastructure.persistence.entity.testdrive.TestDriveCarEntity;
 import peipo.ru.order.infrastructure.persistence.jparepositorys.TestDriveCarJpaRepository;

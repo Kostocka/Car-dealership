@@ -3,6 +3,7 @@ package peipo.ru.storage.infrastructure.web.dto.mappers.cars;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import peipo.ru.storage.domain.models.CarModel;
+import peipo.ru.storage.domain.vo.CarModelId;
 import peipo.ru.storage.infrastructure.web.dto.cars.CarConfigurationDto;
 import peipo.ru.storage.infrastructure.web.dto.cars.CarModelResponceDto;
 import peipo.ru.storage.infrastructure.web.dto.mappers.parts.*;

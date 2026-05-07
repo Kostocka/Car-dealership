@@ -6,5 +6,6 @@ public enum StockOrderStateEnum
     Approved,
     Paid,
     Cancelled,
-    Finished
+    Finished,
+    ReadyForPickup,
 }

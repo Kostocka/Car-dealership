@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class ConfiguredOrderCreatedEvent implements DomainEvent
+public class ConfiguredOrderCreatedEvent extends DomainEvent
 {
     private final OrderId orderId;
     private final ClientId clientId;

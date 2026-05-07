@@ -47,8 +47,6 @@ public class StockAssemblyOrderService
                     carId
             );
 
-            assemblyOrderRepository.save(assembly);
-
             inventoryService.reserveCar(carId, orderId);
 
             assembly.markAssembled();

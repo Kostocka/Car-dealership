@@ -9,19 +9,19 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class ConfiguredOrderAcceptedEvent implements DomainEvent
+public class ConfiguredOrderAcceptedEvent extends DomainEvent
 {
     private final OrderId orderId;
-
-    @Override
-    public UUID aggregateId()
-    {
-        return orderId.id();
-    }
 
     @Override
     public String eventType()
     {
         return "configured.order.accepted";
+    }
+
+    @Override
+    public UUID aggregateId()
+    {
+        return orderId.id();
     }
 }

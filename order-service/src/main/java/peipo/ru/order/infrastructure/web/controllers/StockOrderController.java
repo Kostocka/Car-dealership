@@ -102,16 +102,6 @@ public class StockOrderController
         return stockOrderMapper.toDto(order);
     }
 
-    @RolesAllowed({"MANAGER", "ADMIN"})
-    @PostMapping("/{orderId}/approve")
-    public StockCarOrderDto approveOrder(@PathVariable UUID orderId)
-    {
-        StockCarOrder order = stockOrderService.getStockCarOrderById(new OrderId(orderId))
-                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
-        stockOrderService.approveOrder(order);
-        return stockOrderMapper.toDto(order);
-    }
-
     @RolesAllowed({"USER", "ADMIN"})
     @PostMapping("/{orderId}/pay")
     public StockCarOrderDto payOrder(@PathVariable UUID orderId)
