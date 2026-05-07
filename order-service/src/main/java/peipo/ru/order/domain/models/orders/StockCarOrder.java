@@ -42,4 +42,9 @@ public class StockCarOrder extends Order
     {
         state.cancel(this);
     }
+
+    public void pickup()
+    {
+        state.readyForPickup(this);
+    }
 }

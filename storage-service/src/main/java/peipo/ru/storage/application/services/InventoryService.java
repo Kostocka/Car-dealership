@@ -1,17 +1,26 @@
-package peipo.ru.storage.domain.services;
+package peipo.ru.storage.application.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import peipo.ru.common.exception.DomainValidationException;
 import peipo.ru.common.vo.CarConfiguration;
+import peipo.ru.common.vo.id.CarId;
+import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.common.vo.id.PartId;
+import peipo.ru.storage.domain.models.CarReservation;
+import peipo.ru.storage.domain.models.ReservationStatus;
+import peipo.ru.storage.domain.repository.CarReservationRepository;
 import peipo.ru.storage.domain.repository.PartStockRepository;
+
+import java.time.Instant;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class InventoryService
 {
     private PartStockRepository partStockRepository;
+    private CarReservationRepository carReservationRepository;
 
     public void reserveParts(CarConfiguration carConfiguration)
     {
@@ -31,6 +40,33 @@ public class InventoryService
         deReservePart(carConfiguration.getGearBox());
         deReservePart(carConfiguration.getInterior());
         deReservePart(carConfiguration.getWheels());
+    }
+
+    public void reserveCar(CarId carId, OrderId orderId)
+    {
+        if (carReservationRepository.existsActiveByCarId(carId))
+        {
+            throw new DomainValidationException("Car already reserved");
+        }
+
+        CarReservation reservation = new CarReservation(
+                UUID.randomUUID(),
+                carId,
+                orderId,
+                Instant.now(),
+                ReservationStatus.ACTIVE
+        );
+
+        carReservationRepository.save(reservation);
+    }
+
+    public void releaseReservation(OrderId orderId)
+    {
+        CarReservation reservation = carReservationRepository.findByOrderId(orderId)
+                .orElseThrow();
+
+        reservation.setStatus(ReservationStatus.RELEASED);
+        carReservationRepository.save(reservation);
     }
 
     private void checkPart(PartId part)

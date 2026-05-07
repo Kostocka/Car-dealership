@@ -20,9 +20,15 @@ public class StockPaidState implements StockOrderState
     }
 
     @Override
+    public void readyForPickup(StockCarOrder order)
+    {
+        order.setState(new StockReadyForPickupState());
+    }
+
+    @Override
     public void finish(StockCarOrder order)
     {
-        order.setState(new StockCompletedState());
+        throw new DomainValidationException("Car not ready for pickup");
     }
 
     @Override

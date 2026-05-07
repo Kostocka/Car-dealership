@@ -4,36 +4,43 @@ import peipo.ru.common.exception.DomainValidationException;
 import peipo.ru.order.domain.models.orders.StockCarOrder;
 import peipo.ru.order.domain.models.orders.states.StockOrderState;
 
-public class StockManagerApprovedState implements StockOrderState
+public class StockReadyForPickupState implements StockOrderState
 {
-
     @Override
     public void approve(StockCarOrder order)
     {
-        throw new DomainValidationException("Already approved");
+        throw new DomainValidationException(
+                "Already approved"
+        );
     }
 
     @Override
     public void pay(StockCarOrder order)
     {
-        order.setState(new StockPaidState());
+        throw new DomainValidationException(
+                "Already paid"
+        );
     }
 
     @Override
     public void readyForPickup(StockCarOrder order)
     {
-        throw new DomainValidationException("Not paid");
+        throw new DomainValidationException(
+                "Already ready for pickup"
+        );
     }
 
     @Override
     public void finish(StockCarOrder order)
     {
-        throw new DomainValidationException("Not paid");
+        order.setState(new StockCompletedState());
     }
 
     @Override
     public void cancel(StockCarOrder order)
     {
-        order.setState(new StockCancelledState());
+        throw new DomainValidationException(
+                "already finished"
+        );
     }
 }

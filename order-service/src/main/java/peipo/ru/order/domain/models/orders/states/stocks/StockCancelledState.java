@@ -6,7 +6,6 @@ import peipo.ru.order.domain.models.orders.states.StockOrderState;
 
 public class StockCancelledState implements StockOrderState
 {
-
     @Override
     public void approve(StockCarOrder order)
     {
@@ -15,6 +14,12 @@ public class StockCancelledState implements StockOrderState
 
     @Override
     public void pay(StockCarOrder order)
+    {
+        throw new DomainValidationException("Canceled");
+    }
+
+    @Override
+    public void readyForPickup(StockCarOrder order)
     {
         throw new DomainValidationException("Canceled");
     }

@@ -70,17 +70,6 @@ public class StockOrderService
     }
 
     @Transactional
-    public void approveOrder(StockCarOrder stockCarOrder)
-    {
-        stockCarOrder.approve();
-        stockOrderRepository.save(stockCarOrder);
-
-        eventBus.publish(
-                new StockCarOrderApprovedEvent(stockCarOrder.getOrderId())
-        );
-    }
-
-    @Transactional
     public void payOrder(StockCarOrder stockCarOrder)
     {
         stockCarOrder.pay();
@@ -96,9 +85,5 @@ public class StockOrderService
     {
         stockCarOrder.finish();
         stockOrderRepository.save(stockCarOrder);
-
-        eventBus.publish(
-                new StockCarOrderFinishedEvent(stockCarOrder.getOrderId())
-        );
     }
 }

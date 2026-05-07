@@ -11,12 +11,10 @@ import peipo.ru.storage.domain.AssemblyStatus;
 
 @Getter
 @AllArgsConstructor
-public class AssemblyOrder
+public abstract class AssemblyOrder
 {
     private final UUID id;
     private final OrderId sourceOrderId;
-
-    private final CarConfiguration configuration;
 
     private final Instant createdAt;
     private Instant updatedAt;

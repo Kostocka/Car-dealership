@@ -20,6 +20,12 @@ public class StockCreatedState implements StockOrderState
     }
 
     @Override
+    public void readyForPickup(StockCarOrder order)
+    {
+        throw new DomainValidationException("Order not approved");
+    }
+
+    @Override
     public void finish(StockCarOrder order)
     {
         throw new DomainValidationException("Order not approved");

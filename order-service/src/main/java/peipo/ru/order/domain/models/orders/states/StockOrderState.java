@@ -8,6 +8,8 @@ public interface StockOrderState
 
     void pay(StockCarOrder order);
 
+    void readyForPickup(StockCarOrder order);
+
     void finish(StockCarOrder order);
 
     void cancel(StockCarOrder order);

@@ -1,0 +1,11 @@
+package peipo.ru.storage.domain.repository;
+
+import java.util.Optional;
+import java.util.UUID;
+import peipo.ru.common.vo.id.OrderId;
+import peipo.ru.storage.domain.models.StockAssemblyOrder;
+
+public interface StockAssemblyOrderRepository extends Repository<StockAssemblyOrder, UUID>
+{
+    Optional<StockAssemblyOrder> findByOrderId(OrderId orderId);
+}

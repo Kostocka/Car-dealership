@@ -20,6 +20,12 @@ public class StockCompletedState implements StockOrderState
     }
 
     @Override
+    public void readyForPickup(StockCarOrder order)
+    {
+        throw new DomainValidationException("Already Completed");
+    }
+
+    @Override
     public void finish(StockCarOrder order)
     {
         throw new DomainValidationException("Already Completed");
