@@ -1,17 +1,21 @@
 package peipo.ru.common.contracts.events.orders.configured;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import peipo.ru.common.contracts.events.DomainEvent;
 import peipo.ru.common.vo.id.OrderId;
 
 import java.util.UUID;
 
 @Getter
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class ConfiguredOrderAcceptedEvent extends DomainEvent
 {
-    private final OrderId orderId;
+    private OrderId orderId;
 
     @Override
     public String eventType()

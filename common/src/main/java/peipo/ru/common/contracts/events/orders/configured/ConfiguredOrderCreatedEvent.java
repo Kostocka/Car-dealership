@@ -1,7 +1,9 @@
 package peipo.ru.common.contracts.events.orders.configured;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import peipo.ru.common.contracts.events.DomainEvent;
 import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.ClientId;
@@ -11,11 +13,13 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class ConfiguredOrderCreatedEvent extends DomainEvent
 {
-    private final OrderId orderId;
-    private final ClientId clientId;
-    private final CarConfiguration configuration;
+    private OrderId orderId;
+    private ClientId clientId;
+    private CarConfiguration configuration;
 
     @Override
     public UUID aggregateId()
