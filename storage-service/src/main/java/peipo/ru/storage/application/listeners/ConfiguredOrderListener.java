@@ -7,25 +7,25 @@ import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderCancell
 import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderCreatedEvent;
 import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderPaidEvent;
 import peipo.ru.storage.application.mappers.CarConfigurationMapper;
-import peipo.ru.storage.application.services.AssemblyOrderService;
+import peipo.ru.storage.application.services.ConfiguredAssemblyOrderService;
 
 @Component
 @AllArgsConstructor
 public class ConfiguredOrderListener
 {
-    private final AssemblyOrderService assemblyOrderService;
+    private final ConfiguredAssemblyOrderService configuredAssemblyOrderService;
     private final CarConfigurationMapper mapper;
 
     @EventListener
     public void handle(ConfiguredOrderCreatedEvent event)
     {
-        assemblyOrderService.start(event.getOrderId(), event.getConfiguration());
+        configuredAssemblyOrderService.start(event.getOrderId(), event.getConfiguration());
     }
 
     @EventListener
     public void handle(ConfiguredOrderPaidEvent event)
     {
-        assemblyOrderService.startDelivery(
+        configuredAssemblyOrderService.startDelivery(
                 event.getOrderId()
         );
     }
@@ -33,6 +33,6 @@ public class ConfiguredOrderListener
     @EventListener
     public void handle(ConfiguredOrderCancelledEvent event)
     {
-        assemblyOrderService.cancel(event.getOrderId());
+        configuredAssemblyOrderService.cancel(event.getOrderId());
     }
 }

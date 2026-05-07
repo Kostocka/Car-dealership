@@ -14,33 +14,32 @@ import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.storage.application.mappers.CarConfigurationMapper;
 import peipo.ru.storage.domain.AssemblyStatus;
-import peipo.ru.storage.domain.models.AssemblyOrder;
 import peipo.ru.storage.domain.models.CarModel;
-import peipo.ru.storage.domain.repository.AssemblyOrderRepository;
+import peipo.ru.storage.domain.models.ConfiguredAssemblyOrder;
+import peipo.ru.storage.domain.repository.ConfiguredAssemblyOrderRepository;
 import peipo.ru.storage.domain.services.ConfiguratorService;
-import peipo.ru.storage.domain.services.InventoryService;
 
 @Service
 @AllArgsConstructor
-public class AssemblyOrderService
+public class ConfiguredAssemblyOrderService
 {
     private final ConfiguratorService configuratorService;
     private final InventoryService inventoryService;
-    private final AssemblyOrderRepository assemblyOrderRepository;
+    private final ConfiguredAssemblyOrderRepository assemblyOrderRepository;
     private final EventBus eventBus;
     private final CarConfigurationMapper mapper;
 
     @Transactional
     public void start(OrderId orderId, CarConfiguration configuration)
     {
-        AssemblyOrder assembly = new AssemblyOrder(
+        ConfiguredAssemblyOrder assembly = new ConfiguredAssemblyOrder(
                 UUID.randomUUID(),
                 orderId,
-                configuration,
                 Instant.now(),
                 Instant.now(),
                 AssemblyStatus.CREATED,
-                false
+                false,
+                configuration
         );
 
         assemblyOrderRepository.save(assembly);
@@ -76,7 +75,7 @@ public class AssemblyOrderService
     @Transactional
     public void startDelivery(OrderId orderId)
     {
-        AssemblyOrder assembly =
+        ConfiguredAssemblyOrder assembly =
                 assemblyOrderRepository.findByOrderId(orderId)
                         .orElseThrow(
                                 () -> new EntityNotFoundException(
@@ -92,7 +91,7 @@ public class AssemblyOrderService
     @Transactional
     public void completeDelivery(OrderId orderId)
     {
-        AssemblyOrder assembly =
+        ConfiguredAssemblyOrder assembly =
                 assemblyOrderRepository.findByOrderId(orderId)
                         .orElseThrow(
                                 () -> new EntityNotFoundException(
@@ -112,7 +111,7 @@ public class AssemblyOrderService
     @Transactional
     public void cancel(OrderId orderId)
     {
-        AssemblyOrder assembly = assemblyOrderRepository.findByOrderId(orderId).orElseThrow(
+        ConfiguredAssemblyOrder assembly = assemblyOrderRepository.findByOrderId(orderId).orElseThrow(
                 () -> new EntityNotFoundException("Assembly order with order id " + orderId + " not found")
         );
 

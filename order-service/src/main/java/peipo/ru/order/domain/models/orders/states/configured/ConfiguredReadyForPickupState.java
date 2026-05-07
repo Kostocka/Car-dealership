@@ -33,6 +33,6 @@ public class ConfiguredReadyForPickupState implements ConfiguredOrderState
     @Override
     public void cancel(ConfiguredCarOrder order)
     {
-        order.setState(new ConfiguredCancelledState());
+        throw new DomainValidationException("Already finished");
     }
 }

@@ -8,10 +8,10 @@ import lombok.Setter;
 import peipo.ru.storage.domain.AssemblyStatus;
 
 @Entity
-@Table(name = "assembly_orders")
+@Table(name = "configured_assembly_orders")
 @Getter
 @Setter
-public class AssemblyOrderEntity
+public class ConfiguredAssemblyOrderEntity
 {
     @Id
     private UUID id;

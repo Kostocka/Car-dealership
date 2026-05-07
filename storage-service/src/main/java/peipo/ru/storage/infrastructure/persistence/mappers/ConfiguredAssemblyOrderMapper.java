@@ -5,13 +5,14 @@ import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.common.vo.id.PartId;
 import peipo.ru.storage.domain.models.AssemblyOrder;
+import peipo.ru.storage.domain.models.ConfiguredAssemblyOrder;
 import peipo.ru.storage.infrastructure.persistence.entity.assembly.AssemblyOrderConfigurationEmbeddable;
-import peipo.ru.storage.infrastructure.persistence.entity.assembly.AssemblyOrderEntity;
+import peipo.ru.storage.infrastructure.persistence.entity.assembly.ConfiguredAssemblyOrderEntity;
 
 @Component
-public class AssemblyOrderMapper
+public class ConfiguredAssemblyOrderMapper
 {
-    public AssemblyOrder toDomain(AssemblyOrderEntity entity)
+    public ConfiguredAssemblyOrder toDomain(ConfiguredAssemblyOrderEntity entity)
     {
         CarConfiguration configuration =
                 new CarConfiguration(
@@ -28,18 +29,18 @@ public class AssemblyOrderMapper
                         entity.getConfiguration().getColor()
                 );
 
-        return new AssemblyOrder(
+        return new ConfiguredAssemblyOrder(
                 entity.getId(),
                 new OrderId(entity.getSourceOrderId()),
-                configuration,
                 entity.getCreatedAt(),
                 entity.getUpdatedAt(),
                 entity.getStatus(),
-                entity.isRemoved()
+                entity.isRemoved(),
+                configuration
         );
     }
 
-    public AssemblyOrderEntity toEntity(AssemblyOrder domain)
+    public ConfiguredAssemblyOrderEntity toEntity(ConfiguredAssemblyOrder domain)
     {
         AssemblyOrderConfigurationEmbeddable emb =
                 new AssemblyOrderConfigurationEmbeddable();
@@ -56,7 +57,7 @@ public class AssemblyOrderMapper
         emb.setColor(domain.getConfiguration().getColor());
         emb.setDrivetrainType(domain.getConfiguration().getDrivetrainType());
 
-        AssemblyOrderEntity entity = new AssemblyOrderEntity();
+        ConfiguredAssemblyOrderEntity entity = new ConfiguredAssemblyOrderEntity();
 
         entity.setId(domain.getId());
         entity.setSourceOrderId(domain.getSourceOrderId().id());

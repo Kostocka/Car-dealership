@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8082
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/storage_db
+    url: jdbc:postgresql://localhost:5434/order_db
     username: user
     password: user
 
@@ -14,8 +14,6 @@ spring:
 
   liquibase:
     enabled: false
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    drop-first: false
 
   rabbitmq:
     host: localhost

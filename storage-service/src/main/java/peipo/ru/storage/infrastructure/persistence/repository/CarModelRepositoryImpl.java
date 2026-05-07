@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peipo.ru.storage.domain.models.CarModel;
 import peipo.ru.storage.domain.repository.CarModelRepository;
+import peipo.ru.storage.domain.vo.CarModelId;
 import peipo.ru.storage.infrastructure.persistence.jparepositorys.CarModelJpaRepository;
 import peipo.ru.storage.infrastructure.persistence.mappers.cars.CarModelMapper;
 
@@ -42,5 +43,12 @@ public class CarModelRepositoryImpl implements CarModelRepository
     public void delete(CarModelId id)
     {
         carModelJpaRepository.deleteById(id.id());
+    }
+
+    @Override
+    public Optional<CarModelId> findIdByBrandAndModel(String brand, String model)
+    {
+        return carModelJpaRepository.findByBrandAndModel(brand, model)
+                .map(carModelEntity -> new CarModelId(carModelEntity.getId()));
     }
 }

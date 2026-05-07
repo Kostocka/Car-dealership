@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import peipo.ru.common.exception.EntityNotFoundException;
 import peipo.ru.storage.domain.models.CarModel;
 import peipo.ru.storage.domain.repository.CarModelRepository;
+import peipo.ru.storage.domain.vo.CarModelId;
 
 @Service
 @AllArgsConstructor

@@ -1,13 +1,15 @@
-package peipo.ru.order;
+package peipo.ru.storage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableScheduling
 @SpringBootApplication(scanBasePackages = "peipo.ru")
-public class OrderApplication
+public class StorageServiceApplication
 {
     public static void main(String[] args)
     {
-        SpringApplication.run(OrderApplication.class);
+        SpringApplication.run(StorageServiceApplication.class, args);
     }
 }
