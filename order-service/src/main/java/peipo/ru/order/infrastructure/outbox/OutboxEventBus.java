@@ -1,5 +1,7 @@
 package peipo.ru.order.infrastructure.outbox;
 
+import java.time.Instant;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import peipo.ru.common.contracts.events.DomainEvent;
@@ -8,9 +10,6 @@ import peipo.ru.order.infrastructure.outbox.entity.OutboxEventEntity;
 import peipo.ru.order.infrastructure.outbox.repository.OutboxJpaRepository;
 import peipo.ru.order.infrastructure.outbox.serializer.EventSerializer;
 import peipo.ru.order.infrastructure.rabbit.EventEnvelope;
-
-import java.time.Instant;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor

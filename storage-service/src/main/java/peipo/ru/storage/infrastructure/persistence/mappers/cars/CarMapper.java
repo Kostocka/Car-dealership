@@ -2,8 +2,8 @@ package peipo.ru.storage.infrastructure.persistence.mappers.cars;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import peipo.ru.storage.domain.models.Car;
 import peipo.ru.common.vo.id.CarId;
+import peipo.ru.storage.domain.models.Car;
 import peipo.ru.storage.infrastructure.persistence.entity.cars.CarEntity;
 
 @Component

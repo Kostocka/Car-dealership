@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import peipo.ru.common.vo.id.PartId;
 import peipo.ru.storage.domain.models.parts.GearBox;
 import peipo.ru.storage.domain.repository.PartRepository;
-import peipo.ru.common.vo.id.PartId;
 import peipo.ru.storage.infrastructure.persistence.jparepositorys.parts.GearBoxJpaRepository;
 import peipo.ru.storage.infrastructure.persistence.mappers.parts.GearBoxMapper;
 

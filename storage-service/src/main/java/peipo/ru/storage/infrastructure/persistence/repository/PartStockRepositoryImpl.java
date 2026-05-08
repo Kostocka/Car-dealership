@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peipo.ru.common.exception.DomainValidationException;
 import peipo.ru.common.exception.EntityNotFoundException;
-import peipo.ru.storage.domain.repository.PartStockRepository;
 import peipo.ru.common.vo.id.PartId;
+import peipo.ru.storage.domain.repository.PartStockRepository;
 import peipo.ru.storage.infrastructure.persistence.entity.stock.PartStockEntity;
 import peipo.ru.storage.infrastructure.persistence.jparepositorys.PartStockJpaRepository;
 

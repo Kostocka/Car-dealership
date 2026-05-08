@@ -7,6 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import peipo.ru.common.dto.orders.ConfiguredCarOrderDto;
+import peipo.ru.common.dto.orders.CreateConfiguredOrderRequest;
 import peipo.ru.common.exception.EntityNotFoundException;
 import peipo.ru.common.security.RolesAllowed;
 import peipo.ru.common.vo.CarConfiguration;
@@ -16,8 +18,6 @@ import peipo.ru.order.application.services.ConfiguredOrderService;
 import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
 import peipo.ru.order.infrastructure.web.dto.mappers.CarConfigurationDtoMapper;
 import peipo.ru.order.infrastructure.web.dto.mappers.orders.ConfiguredOrderMapper;
-import peipo.ru.order.infrastructure.web.dto.orders.ConfiguredCarOrderDto;
-import peipo.ru.order.infrastructure.web.dto.orders.CreateConfiguredOrderRequest;
 
 @RestController
 @RequestMapping("/orders/configured")

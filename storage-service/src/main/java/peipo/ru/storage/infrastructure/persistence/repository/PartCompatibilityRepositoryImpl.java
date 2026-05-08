@@ -2,8 +2,8 @@ package peipo.ru.storage.infrastructure.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import peipo.ru.storage.domain.repository.PartCompatibilityRepository;
 import peipo.ru.common.vo.id.PartId;
+import peipo.ru.storage.domain.repository.PartCompatibilityRepository;
 import peipo.ru.storage.infrastructure.persistence.entity.rules.PartCompatibilityEntity;
 import peipo.ru.storage.infrastructure.persistence.entity.rules.PartCompatibilityId;
 import peipo.ru.storage.infrastructure.persistence.jparepositorys.PartCompatibilityJpaRepository;

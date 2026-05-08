@@ -2,8 +2,8 @@ package peipo.ru.order.infrastructure.web.dto.mappers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import peipo.ru.common.dto.testdrives.TestDriveResponseDto;
 import peipo.ru.order.domain.models.TestDrive;
-import peipo.ru.order.infrastructure.web.dto.testdrives.TestDriveResponseDto;
 
 @Component
 @RequiredArgsConstructor

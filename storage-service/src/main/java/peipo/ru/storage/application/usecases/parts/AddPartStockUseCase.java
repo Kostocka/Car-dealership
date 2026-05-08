@@ -2,8 +2,8 @@ package peipo.ru.storage.application.usecases.parts;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import peipo.ru.storage.domain.repository.PartStockRepository;
 import peipo.ru.common.vo.id.PartId;
+import peipo.ru.storage.domain.repository.PartStockRepository;
 
 @Service
 @AllArgsConstructor

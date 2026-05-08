@@ -31,23 +31,17 @@ public class RabbitEventConsumer
 
         Class<?> clazz = switch (eventType)
         {
-            case "stock.order.created" ->
-                    StockCarOrderCreatedEvent.class;
+            case "stock.order.created" -> StockCarOrderCreatedEvent.class;
 
-            case "stock.order.paid" ->
-                    StockCarOrderPaidEvent.class;
+            case "stock.order.paid" -> StockCarOrderPaidEvent.class;
 
-            case "stock.order.cancelled" ->
-                    StockCarOrderCancelledEvent.class;
+            case "stock.order.cancelled" -> StockCarOrderCancelledEvent.class;
 
-            case "configured.order.created" ->
-                    ConfiguredOrderCreatedEvent.class;
+            case "configured.order.created" -> ConfiguredOrderCreatedEvent.class;
 
-            case "configured.order.paid" ->
-                    ConfiguredOrderPaidEvent.class;
+            case "configured.order.paid" -> ConfiguredOrderPaidEvent.class;
 
-            case "configured.order.cancelled" ->
-                    ConfiguredOrderCancelledEvent.class;
+            case "configured.order.cancelled" -> ConfiguredOrderCancelledEvent.class;
 
             default -> throw new RuntimeException(
                     "Unknown event type " + eventType

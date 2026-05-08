@@ -42,6 +42,7 @@ public class ConfiguredOrderListener
                 );
 
         order.cancel();
+        order.setCancellationReason(event.getReason());
 
         repository.save(order);
     }

@@ -3,7 +3,6 @@ package peipo.ru.order.infrastructure.outbox.serializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import peipo.ru.common.contracts.events.DomainEvent;
 
 @Component
 @RequiredArgsConstructor

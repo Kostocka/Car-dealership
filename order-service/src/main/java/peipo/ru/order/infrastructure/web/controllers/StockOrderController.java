@@ -7,6 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import peipo.ru.common.dto.orders.CreateStockOrderRequest;
+import peipo.ru.common.dto.orders.StockCarOrderDto;
 import peipo.ru.common.exception.EntityNotFoundException;
 import peipo.ru.common.security.RolesAllowed;
 import peipo.ru.common.vo.id.CarId;
@@ -15,8 +17,6 @@ import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.order.application.services.StockOrderService;
 import peipo.ru.order.domain.models.orders.StockCarOrder;
 import peipo.ru.order.infrastructure.web.dto.mappers.orders.StockOrderMapper;
-import peipo.ru.order.infrastructure.web.dto.orders.CreateStockOrderRequest;
-import peipo.ru.order.infrastructure.web.dto.orders.StockCarOrderDto;
 
 @RestController
 @RequestMapping("/orders/stock")

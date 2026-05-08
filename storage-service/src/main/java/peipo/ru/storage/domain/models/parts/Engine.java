@@ -1,10 +1,10 @@
 package peipo.ru.storage.domain.models.parts;
 
 import lombok.Getter;
-import peipo.ru.storage.domain.vo.EnginePower;
-import peipo.ru.storage.domain.vo.EngineVolume;
 import peipo.ru.common.vo.FuelType;
 import peipo.ru.common.vo.id.PartId;
+import peipo.ru.storage.domain.vo.EnginePower;
+import peipo.ru.storage.domain.vo.EngineVolume;
 
 @Getter
 public class Engine extends Part

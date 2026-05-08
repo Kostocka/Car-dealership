@@ -2,10 +2,10 @@ package peipo.ru.storage.domain.models.rules;
 
 import java.util.function.Function;
 import lombok.AllArgsConstructor;
+import peipo.ru.common.vo.id.PartId;
 import peipo.ru.storage.domain.exception.IncompatibleComponentException;
 import peipo.ru.storage.domain.models.CarModel;
 import peipo.ru.storage.domain.repository.PartCompatibilityRepository;
-import peipo.ru.common.vo.id.PartId;
 
 @AllArgsConstructor
 public class PartPairCompatibilityRule implements CompatibilityRule

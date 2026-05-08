@@ -1,14 +1,14 @@
 package peipo.ru.order.infrastructure.web.dto.mappers;
 
 import org.springframework.stereotype.Component;
+import peipo.ru.common.dto.ConfiguredCarRequest;
 import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.PartId;
-import peipo.ru.order.infrastructure.web.dto.CarConfigurationDto;
 
 @Component
 public class CarConfigurationDtoMapper
 {
-    public CarConfiguration toDomain(CarConfigurationDto dto)
+    public CarConfiguration toDomain(ConfiguredCarRequest dto)
     {
         return CarConfiguration.builder()
                 .brand(dto.getBrand())
@@ -23,9 +23,9 @@ public class CarConfigurationDtoMapper
                 .build();
     }
 
-    public CarConfigurationDto toDto(CarConfiguration configuration)
+    public ConfiguredCarRequest toDto(CarConfiguration configuration)
     {
-        return new CarConfigurationDto(
+        return new ConfiguredCarRequest(
                 configuration.getBrand(),
                 configuration.getModel(),
                 configuration.getBody().id(),

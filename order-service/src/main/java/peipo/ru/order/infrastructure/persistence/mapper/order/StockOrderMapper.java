@@ -25,6 +25,7 @@ public class StockOrderMapper
         );
 
         order.setState(toState(stockCarOrderEntity.getOrderState()));
+        order.setCancellationReason(stockCarOrderEntity.getCancellationReason());
         return order;
     }
 
@@ -36,6 +37,7 @@ public class StockOrderMapper
         stockCarOrderEntity.setId(stockCarOrder.getOrderId().id());
         stockCarOrderEntity.setClientId(stockCarOrder.getClientId().id());
         stockCarOrderEntity.setManagerId(stockCarOrder.getManagerId().id());
+        stockCarOrderEntity.setCancellationReason(stockCarOrder.getCancellationReason());
         return stockCarOrderEntity;
     }
 

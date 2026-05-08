@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.common.vo.id.PartId;
-import peipo.ru.storage.domain.models.AssemblyOrder;
 import peipo.ru.storage.domain.models.ConfiguredAssemblyOrder;
 import peipo.ru.storage.infrastructure.persistence.entity.assembly.AssemblyOrderConfigurationEmbeddable;
 import peipo.ru.storage.infrastructure.persistence.entity.assembly.ConfiguredAssemblyOrderEntity;

@@ -13,8 +13,6 @@ import peipo.ru.common.contracts.events.orders.stock.StockCarOrderAcceptedEvent;
 import peipo.ru.common.contracts.events.orders.stock.StockCarOrderRejectedEvent;
 import peipo.ru.common.contracts.events.orders.stock.StockCarReadyForPickupEvent;
 
-import java.io.Console;
-
 @Component
 @AllArgsConstructor
 public class RabbitEventConsumer
@@ -35,23 +33,17 @@ public class RabbitEventConsumer
 
         Class<?> clazz = switch (eventType)
         {
-            case "stock.order.accepted" ->
-                    StockCarOrderAcceptedEvent.class;
+            case "stock.order.accepted" -> StockCarOrderAcceptedEvent.class;
 
-            case "stock.order.rejected" ->
-                    StockCarOrderRejectedEvent.class;
+            case "stock.order.rejected" -> StockCarOrderRejectedEvent.class;
 
-            case "stock.order.ready.for.pickup" ->
-                    StockCarReadyForPickupEvent.class;
+            case "stock.order.ready.for.pickup" -> StockCarReadyForPickupEvent.class;
 
-            case "configured.order.accepted" ->
-                    ConfiguredOrderAcceptedEvent.class;
+            case "configured.order.accepted" -> ConfiguredOrderAcceptedEvent.class;
 
-            case "configured.order.rejected" ->
-                    ConfiguredOrderRejectedEvent.class;
+            case "configured.order.rejected" -> ConfiguredOrderRejectedEvent.class;
 
-            case "configured.order.delivered" ->
-                    ConfiguredOrderDeliveredEvent.class;
+            case "configured.order.delivered" -> ConfiguredOrderDeliveredEvent.class;
 
             default -> throw new RuntimeException(
                     "Unknown event type " + eventType

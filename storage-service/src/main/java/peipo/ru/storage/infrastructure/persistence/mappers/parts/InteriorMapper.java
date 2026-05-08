@@ -1,8 +1,8 @@
 package peipo.ru.storage.infrastructure.persistence.mappers.parts;
 
 import org.mapstruct.Mapper;
-import peipo.ru.storage.domain.models.parts.Interior;
 import peipo.ru.common.vo.id.PartId;
+import peipo.ru.storage.domain.models.parts.Interior;
 import peipo.ru.storage.infrastructure.persistence.entity.cars.parts.InteriorEntity;
 
 @Mapper(componentModel = "spring")

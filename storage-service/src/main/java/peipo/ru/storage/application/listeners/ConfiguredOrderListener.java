@@ -7,7 +7,6 @@ import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderCancell
 import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderCreatedEvent;
 import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderDeliveredEvent;
 import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderPaidEvent;
-import peipo.ru.storage.application.mappers.CarConfigurationMapper;
 import peipo.ru.storage.application.services.ConfiguredAssemblyOrderService;
 
 @Component
@@ -15,7 +14,6 @@ import peipo.ru.storage.application.services.ConfiguredAssemblyOrderService;
 public class ConfiguredOrderListener
 {
     private final ConfiguredAssemblyOrderService configuredAssemblyOrderService;
-    private final CarConfigurationMapper mapper;
 
     @EventListener
     public void handle(ConfiguredOrderCreatedEvent event)

@@ -37,6 +37,7 @@ public abstract class ConfiguredOrderMapper
         e.setColor(c.getColor());
 
         e.setOrderState(toStateEnum(domain.getState()));
+        e.setCancellationReason(domain.getCancellationReason());
 
         return e;
     }
@@ -64,6 +65,7 @@ public abstract class ConfiguredOrderMapper
                 );
 
         order.setState(toState(e.getOrderState()));
+        order.setCancellationReason(e.getCancellationReason());
 
         return order;
     }

@@ -26,8 +26,9 @@ public class CarConfigurationMapper
     {
         CarModelId modelId = carModelRepository
                 .findIdByBrandAndModel(config.getBrand(), config.getModel()).orElseThrow(
-                    () -> new EntityNotFoundException("CarModel with id " + config.getBrand() + " " + config.getModel() + " not found")
-            );
+                    () -> new EntityNotFoundException(
+                            "CarModel with id " + config.getBrand() + " " + config.getModel() + " not found")
+                );
 
         Body body = bodyRepository.findById(config.getBody()).orElseThrow(
                 () -> new EntityNotFoundException("body not found")

@@ -4,16 +4,16 @@ import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import peipo.ru.common.dto.MoneyDto;
+import peipo.ru.common.dto.parts.*;
+import peipo.ru.common.dto.parts.requests.*;
 import peipo.ru.common.security.RolesAllowed;
 import peipo.ru.common.vo.Money;
 import peipo.ru.common.vo.id.PartId;
 import peipo.ru.storage.application.usecases.parts.*;
 import peipo.ru.storage.domain.models.parts.*;
 import peipo.ru.storage.domain.vo.CarModelId;
-import peipo.ru.storage.infrastructure.web.dto.MoneyDto;
 import peipo.ru.storage.infrastructure.web.dto.mappers.parts.*;
-import peipo.ru.storage.infrastructure.web.dto.parts.*;
-import peipo.ru.storage.infrastructure.web.dto.parts.requests.*;
 
 @RestController
 @RequestMapping("/parts")

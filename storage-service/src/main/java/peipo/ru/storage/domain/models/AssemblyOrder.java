@@ -4,8 +4,6 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.OrderId;
 import peipo.ru.storage.domain.AssemblyStatus;
 

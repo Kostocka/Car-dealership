@@ -1,17 +1,15 @@
 package peipo.ru.storage.infrastructure.web.controllers;
 
 import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import peipo.ru.common.dto.cars.CarConfigurationDto;
+import peipo.ru.common.dto.cars.CarModelResponceDto;
+import peipo.ru.common.dto.cars.CreateCarRequest;
+import peipo.ru.common.security.RolesAllowed;
 import peipo.ru.storage.application.usecases.models.AddCarModelUseCase;
-import peipo.ru.storage.application.usecases.models.GetCarModelByIdUseCase;
 import peipo.ru.storage.application.usecases.models.GetCarModelsUseCase;
 import peipo.ru.storage.domain.models.CarModel;
-import peipo.ru.common.security.RolesAllowed;
-import peipo.ru.storage.infrastructure.web.dto.cars.CarConfigurationDto;
-import peipo.ru.storage.infrastructure.web.dto.cars.CarModelResponceDto;
-import peipo.ru.storage.infrastructure.web.dto.cars.CreateCarRequest;
 import peipo.ru.storage.infrastructure.web.dto.mappers.cars.CarModelDtoMapper;
 
 @RestController

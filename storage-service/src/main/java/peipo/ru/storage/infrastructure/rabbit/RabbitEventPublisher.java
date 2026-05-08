@@ -16,7 +16,7 @@ public class RabbitEventPublisher
     private final OutboxJpaRepository jpa;
     private final RabbitTemplate rabbitTemplate;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 2000)
     @Transactional
     public void publish()
     {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import peipo.ru.common.dto.CarFilterDto;
 import peipo.ru.storage.domain.models.CarModel;
 import peipo.ru.storage.domain.models.filters.AndFilter;
 import peipo.ru.storage.domain.models.filters.Filter;
@@ -11,7 +12,6 @@ import peipo.ru.storage.domain.models.filters.parts.BrandFilter;
 import peipo.ru.storage.domain.models.filters.parts.EnginePowerFilter;
 import peipo.ru.storage.domain.models.filters.parts.GearBoxFilter;
 import peipo.ru.storage.domain.models.filters.parts.ModelFilter;
-import peipo.ru.storage.infrastructure.web.dto.CarFilterDto;
 
 @Component
 @RequiredArgsConstructor

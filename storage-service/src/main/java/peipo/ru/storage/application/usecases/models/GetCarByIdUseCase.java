@@ -3,9 +3,9 @@ package peipo.ru.storage.application.usecases.models;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import peipo.ru.common.exception.EntityNotFoundException;
+import peipo.ru.common.vo.id.CarId;
 import peipo.ru.storage.domain.models.Car;
 import peipo.ru.storage.domain.repository.CarRepository;
-import peipo.ru.common.vo.id.CarId;
 
 @Service
 @AllArgsConstructor

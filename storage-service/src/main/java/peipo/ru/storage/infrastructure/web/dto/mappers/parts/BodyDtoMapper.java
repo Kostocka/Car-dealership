@@ -2,10 +2,10 @@ package peipo.ru.storage.infrastructure.web.dto.mappers.parts;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import peipo.ru.storage.domain.models.parts.Body;
+import peipo.ru.common.dto.parts.BodyDto;
+import peipo.ru.common.dto.parts.requests.CreateBodyRequest;
 import peipo.ru.common.vo.id.PartId;
-import peipo.ru.storage.infrastructure.web.dto.parts.BodyDto;
-import peipo.ru.storage.infrastructure.web.dto.parts.requests.CreateBodyRequest;
+import peipo.ru.storage.domain.models.parts.Body;
 
 @Component
 @RequiredArgsConstructor

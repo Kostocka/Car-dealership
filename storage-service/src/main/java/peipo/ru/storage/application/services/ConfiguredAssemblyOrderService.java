@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import peipo.ru.common.contracts.events.EventBus;
 import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderAcceptedEvent;
-import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderDeliveredEvent;
 import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderRejectedEvent;
 import peipo.ru.common.exception.EntityNotFoundException;
 import peipo.ru.common.vo.CarConfiguration;

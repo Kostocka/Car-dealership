@@ -1,5 +1,6 @@
 package peipo.ru.common.contracts.events.orders.stock;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,8 +10,6 @@ import peipo.ru.common.vo.id.CarId;
 import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.common.vo.id.EmployeeId;
 import peipo.ru.common.vo.id.OrderId;
-
-import java.util.UUID;
 
 @Getter
 @Builder

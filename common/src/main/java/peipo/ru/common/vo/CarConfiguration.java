@@ -20,6 +20,8 @@ public class CarConfiguration
     private PartId gearBox;
     private PartId interior;
     private PartId wheels;
+
     private DrivetrainType drivetrainType;
+
     private String color;
 }

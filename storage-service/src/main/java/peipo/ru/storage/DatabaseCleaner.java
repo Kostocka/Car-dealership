@@ -23,8 +23,10 @@ public class DatabaseCleaner
                 String.class
         );
 
-        String truncateQuery = "TRUNCATE TABLE " +
-                String.join(", ", tables) +
+        String truncateQuery = "TRUNCATE TABLE "
+                +
+                String.join(", ", tables)
+                +
                 " CASCADE";
 
         jdbcTemplate.execute(truncateQuery);

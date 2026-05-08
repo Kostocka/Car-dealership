@@ -2,11 +2,11 @@ package peipo.ru.order.infrastructure.web.dto.mappers.orders;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import peipo.ru.common.dto.orders.ConfiguredCarOrderDto;
 import peipo.ru.order.domain.models.orders.ConfiguredCarOrder;
 import peipo.ru.order.domain.models.orders.states.ConfiguredOrderState;
 import peipo.ru.order.domain.models.orders.states.configured.*;
 import peipo.ru.order.infrastructure.web.dto.mappers.CarConfigurationDtoMapper;
-import peipo.ru.order.infrastructure.web.dto.orders.ConfiguredCarOrderDto;
 
 @Component
 @RequiredArgsConstructor

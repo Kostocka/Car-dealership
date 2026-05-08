@@ -2,10 +2,10 @@ package peipo.ru.order.infrastructure.web.dto.mappers.orders;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import peipo.ru.common.dto.orders.StockCarOrderDto;
 import peipo.ru.order.domain.models.orders.StockCarOrder;
 import peipo.ru.order.domain.models.orders.states.StockOrderState;
 import peipo.ru.order.domain.models.orders.states.stocks.*;
-import peipo.ru.order.infrastructure.web.dto.orders.StockCarOrderDto;
 
 @Component
 @RequiredArgsConstructor
@@ -31,6 +31,7 @@ public class StockOrderMapper
             case StockPaidState stockPaidState -> "PAID";
             case StockCompletedState stockCompletedState -> "COMPLETED";
             case StockManagerApprovedState stockManagerApprovedState -> "MANAGER APPROVED";
+            case StockReadyForPickupState stockReadyForPickupState -> "READY FOR PICKUP";
             case null, default -> "UNKNOWN";
         };
     }
