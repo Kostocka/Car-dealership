@@ -5,6 +5,7 @@ import java.awt.*;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import peipo.ru.common.vo.*;
 import peipo.ru.common.vo.id.CarId;
@@ -36,13 +37,25 @@ public class DatabaseSeeder
     private final AddCarModelUseCase addCarModelUseCase;
     private final AddCarUseCase addCarUseCase;
 
-    @Autowired
-    private final DatabaseCleaner cleaner;
+    private final JdbcTemplate jdbcTemplate;
 
     @Transactional
     public void seed()
     {
-        cleaner.clean();
+        Boolean alreadySeeded = jdbcTemplate.query(
+                "select count(*) from seed_history where seed_name = 'storage-seed'",
+                rs ->
+                {
+                    rs.next();
+                    return rs.getInt(1) > 0;
+                }
+        );
+
+        if (alreadySeeded)
+        {
+            return;
+        }
+
         Body sedan = new Body(PartId.generate(), BodyType.SEDAN);
         Body estate = new Body(PartId.generate(), BodyType.ESTATE);
         bodyCreatePartUseCase.execute(sedan);
@@ -168,6 +181,9 @@ public class DatabaseSeeder
         Car audiRs = new Car(CarId.generate(), audiRs6);
         addCarUseCase.execute(audiRs);
 
+        jdbcTemplate.update(
+                "insert into seed_history(id, seed_name, created_at) values (gen_random_uuid(), 'storage-seed', now())"
+        );
     }
 
 }

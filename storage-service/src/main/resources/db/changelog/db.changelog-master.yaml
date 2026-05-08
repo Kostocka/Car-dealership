@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: peipo
+      changes:
+        - sqlFile:
+            path: db/changelog/migrations/allmigrations.sql
+            relativeToChangelogFile: false
