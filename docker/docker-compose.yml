@@ -35,6 +35,10 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: keycloak
+      KC_HOSTNAME_PORT: 8081
+      KC_HTTP_ENABLED: true
+
     volumes:
       - ./keycloak/realms:/opt/keycloak/data/import:ro
     command:
@@ -46,3 +50,13 @@ services:
     depends_on:
       - postgres-storage
       - postgres-order
+
+  storage-service:
+    build: ../storage-service
+    container_name: storage_service
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    depends_on:
+      - postgres-storage
+      - rabbitmq

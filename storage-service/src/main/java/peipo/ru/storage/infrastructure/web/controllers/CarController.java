@@ -15,8 +15,6 @@ import peipo.ru.storage.application.usecases.models.GetCarsUseCase;
 import peipo.ru.storage.domain.models.Car;
 import peipo.ru.storage.domain.models.CarModel;
 import peipo.ru.storage.domain.models.filters.Filter;
-import peipo.ru.storage.infrastructure.persistence.mappers.FilterMapper;
-import peipo.ru.storage.infrastructure.persistence.mappers.cars.CarMapper;
 import peipo.ru.storage.infrastructure.web.dto.mappers.cars.CarDtoMapper;
 import peipo.ru.storage.infrastructure.web.dto.mappers.cars.CarFilterMapper;
 
@@ -30,8 +28,6 @@ public class CarController
     private final GetCarsUseCase getCarsUseCase;
 
     private final CarDtoMapper carDtoMapper;
-    private final CarMapper carMapper;
-    private final FilterMapper filterMapper;
     private final CarFilterMapper carFilterMapper;
 
     @RolesAllowed({"WAREHOUSE_ADMIN", "ADMIN"})

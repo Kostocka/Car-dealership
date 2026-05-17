@@ -1,9 +1,12 @@
 server:
   port: 8080
 
+grpc:
+  port: 9090
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/storage_db
+    url: jdbc:postgresql://postgres-storage:5432/storage_db
     username: user
     password: user
 
@@ -15,10 +18,11 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
+
     drop-first: false
 
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
@@ -27,4 +31,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8081/realms/car-dealership
+          issuer-uri: http://keycloak:8081/realms/car-dealership
