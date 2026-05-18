@@ -3,7 +3,6 @@ plugins {
 }
 
 dependencies {
-
     testImplementation project(":common")
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -18,6 +17,24 @@ dependencies {
 
     testCompileOnly "org.projectlombok:lombok"
     testAnnotationProcessor "org.projectlombok:lombok"
+
+    testImplementation 'io.grpc:grpc-netty-shaded:1.62.2'
+    testImplementation 'io.grpc:grpc-stub:1.62.2'
+    testImplementation 'io.grpc:grpc-protobuf:1.62.2'
+    testImplementation 'com.google.protobuf:protobuf-java:3.25.1'
+    testImplementation 'javax.annotation:javax.annotation-api:1.3.2'
+}
+
+def commonBuildDir = project(':common').layout.buildDirectory.get().asFile
+
+sourceSets {
+    test {
+        java {
+            srcDirs 'src/test/java'
+            srcDirs "${commonBuildDir}/generated/sources/proto/main/java"
+            srcDirs "${commonBuildDir}/generated/sources/proto/main/grpc"
+        }
+    }
 }
 
 test {

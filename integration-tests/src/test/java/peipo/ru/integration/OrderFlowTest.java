@@ -20,9 +20,17 @@ import static org.awaitility.Awaitility.await;
 
 public class OrderFlowTest
 {
-    private static final String ORDER_API = "http://localhost:8082";
+    private static final String ORDER_API =
+            System.getProperty(
+                    "order.url",
+                    "http://localhost:8082"
+            );
 
-    private static final String STORAGE_API = "http://localhost:8080";
+    private static final String STORAGE_API =
+            System.getProperty(
+                    "storage.url",
+                    "http://localhost:8080"
+            );
 
     private final RestTemplate rest = new RestTemplate();
 
@@ -38,7 +46,7 @@ public class OrderFlowTest
         // get car in stock
         ResponseEntity<CarResponseDto[]> carsResponse =
                 rest.exchange(
-                        storageUrl("/cars/filter"),
+                        orderUrl("/api/v1/cars"),
                         HttpMethod.GET,
                         new HttpEntity<>(headers(userToken)),
                         CarResponseDto[].class
