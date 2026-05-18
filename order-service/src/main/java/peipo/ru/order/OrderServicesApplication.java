@@ -10,6 +10,6 @@ public class OrderServicesApplication
 {
     public static void main(String[] args)
     {
-        SpringApplication.run(OrderServicesApplication.class);
+        SpringApplication.run(OrderServicesApplication.class,  args);
     }
 }

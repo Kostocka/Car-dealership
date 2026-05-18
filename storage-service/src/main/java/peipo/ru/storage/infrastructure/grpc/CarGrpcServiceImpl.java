@@ -4,10 +4,10 @@ import io.grpc.stub.StreamObserver;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import peipo.ru.common.grpc.*;
 import peipo.ru.common.vo.id.CarId;
 import peipo.ru.storage.application.usecases.models.GetCarByIdUseCase;
 import peipo.ru.storage.application.usecases.models.GetCarsUseCase;
-import peipo.ru.storage.grpc.*;
 import peipo.ru.storage.infrastructure.web.dto.mappers.cars.CarFilterMapper;
 
 @Component

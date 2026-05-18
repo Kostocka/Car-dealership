@@ -3,11 +3,11 @@ package peipo.ru.storage.infrastructure.grpc;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import peipo.ru.common.grpc.*;
 import peipo.ru.common.vo.DrivetrainType;
 import peipo.ru.common.vo.FuelType;
 import peipo.ru.storage.domain.models.Car;
 import peipo.ru.storage.domain.models.CarModel;
-import peipo.ru.storage.grpc.*;
 
 @Component
 @RequiredArgsConstructor
@@ -18,20 +18,30 @@ public class CarGrpcMapper
         CarModel model = car.getConfiguration();
 
         return CarMessage.newBuilder()
-                .setId(car.getCarId().toString())
+                .setId(car.getCarId().id().toString())
                 .setConfiguration(
                         CarConfigurationMessage.newBuilder()
+                                .setId(model.getModelId().id().toString())
                                 .setBrand(model.getBrand())
                                 .setModel(model.getModel())
-                                .setBody(BodyMessage.newBuilder().setType(model.getBody().getType().name()).build())
+                                .setBody(BodyMessage.newBuilder()
+                                        .setId(model.getBody().getId().id().toString())
+                                        .setType(model.getBody().getType().name()).build())
                                 .setEngine(EngineMessage.newBuilder()
+                                        .setId(model.getEngine().getId().id().toString())
                                         .setPower(model.getEngine().getPower().horsePower())
                                         .setVolume(model.getEngine().getVolume().volume())
                                         .setFuelType(mapFuelType(model.getEngine().getFuelType()))
                                         .build())
-                                .setGearBox(GearBoxMessage.newBuilder().setType(model.getGearBox().getGearBoxType().name()).build())
-                                .setInterior(InteriorMessage.newBuilder().setName(model.getInterior().getMaterial()).build())
-                                .setWheels(WheelsMessage.newBuilder().setSize(model.getWheels().getSize()).build())
+                                .setGearBox(GearBoxMessage.newBuilder()
+                                        .setId(model.getGearBox().getId().id().toString())
+                                        .setType(model.getGearBox().getGearBoxType().name()).build())
+                                .setInterior(InteriorMessage.newBuilder()
+                                        .setId(model.getInterior().getId().id().toString())
+                                        .setName(model.getInterior().getMaterial()).build())
+                                .setWheels(WheelsMessage.newBuilder()
+                                        .setId(model.getWheels().getId().id().toString())
+                                        .setSize(model.getWheels().getSize()).build())
                                 .setDrivetrainType(mapDrivetrain(model.getDrivetrainType()))
                                 .setColor(model.getColor())
                                 .build()
@@ -44,27 +54,27 @@ public class CarGrpcMapper
         return cars.stream().map(this::toMessage).toList();
     }
 
-    private peipo.ru.storage.grpc.DrivetrainType mapDrivetrain(DrivetrainType type)
+    private DrivetrainTypeGrpc mapDrivetrain(DrivetrainType type)
     {
         return switch (type)
         {
-            case FWD -> peipo.ru.storage.grpc.DrivetrainType.FWD;
-            case RWD -> peipo.ru.storage.grpc.DrivetrainType.RWD;
-            case FourWD -> peipo.ru.storage.grpc.DrivetrainType.FOURWD;
-            case AWD -> peipo.ru.storage.grpc.DrivetrainType.AWD;
+            case FWD -> DrivetrainTypeGrpc.FWD;
+            case RWD -> DrivetrainTypeGrpc.RWD;
+            case FourWD -> DrivetrainTypeGrpc.FOURWD;
+            case AWD -> DrivetrainTypeGrpc.AWD;
         };
     }
 
-    private peipo.ru.storage.grpc.FuelType mapFuelType(FuelType fuelType)
+    private FuelTypeGrpc mapFuelType(FuelType fuelType)
     {
         return switch (fuelType)
         {
-            case GASOLINE -> peipo.ru.storage.grpc.FuelType.GASOLINE;
-            case BIODIESEL -> null;
-            case ETHANOL -> null;
-            case HYDROGEN -> null;
-            case ELECTRIC -> peipo.ru.storage.grpc.FuelType.ELECTRIC;
-            case DIESEL -> peipo.ru.storage.grpc.FuelType.DIESEL;
+            case GASOLINE -> FuelTypeGrpc.GASOLINE;
+            case BIODIESEL -> FuelTypeGrpc.BIODIESEL;
+            case ETHANOL -> FuelTypeGrpc.ETHANOL;
+            case HYDROGEN -> FuelTypeGrpc.HYDROGEN;
+            case ELECTRIC -> FuelTypeGrpc.ELECTRIC;
+            case DIESEL -> FuelTypeGrpc.DIESEL;
         };
     }
 }

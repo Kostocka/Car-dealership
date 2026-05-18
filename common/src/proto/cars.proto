@@ -1,18 +1,21 @@
 syntax = "proto3";
 
-package peipo.ru.storage.grpc;
+package peipo.ru.common.grpc;
 
-option java_package = "peipo.ru.storage.grpc";
+option java_package = "peipo.ru.common.grpc";
 option java_outer_classname = "CarsProto";
 option java_multiple_files = true;
 
-enum FuelType {
+enum FuelTypeGrpc {
   GASOLINE = 0;
   ELECTRIC = 1;
   DIESEL = 2;
+  BIODIESEL = 3;
+  ETHANOL = 4;
+  HYDROGEN = 5;
 }
 
-enum DrivetrainType {
+enum DrivetrainTypeGrpc {
   FWD = 0;
   RWD = 1;
   FOURWD = 2;
@@ -20,39 +23,45 @@ enum DrivetrainType {
 }
 
 message EngineMessage {
-  int32 volume = 1;
-  int32 power = 2;
-  FuelType fuel_type = 3;
+  string id = 1;
+  int32 volume = 2;
+  int32 power = 3;
+  FuelTypeGrpc fuel_type = 4;
 }
 
 message BodyMessage {
-  string type = 1;
+  string id = 1;
+  string type = 2;
 }
 
 message GearBoxMessage {
-  string type = 1;
+  string id = 1;
+  string type = 2;
 }
 
 message InteriorMessage {
-  string name = 1;
+  string id = 1;
+  string name = 2;
 }
 
 message WheelsMessage {
-  int32 size = 1;
+  string id = 1;
+  int32 size = 2;
 }
 
 message CarConfigurationMessage {
-  string brand = 1;
-  string model = 2;
+  string id = 1;
+  string brand = 2;
+  string model = 3;
 
-  BodyMessage body = 3;
-  EngineMessage engine = 4;
-  GearBoxMessage gear_box = 5;
-  InteriorMessage interior = 6;
-  WheelsMessage wheels = 7;
+  BodyMessage body = 4;
+  EngineMessage engine = 5;
+  GearBoxMessage gear_box = 6;
+  InteriorMessage interior = 7;
+  WheelsMessage wheels = 8;
 
-  DrivetrainType drivetrain_type = 8;
-  string color = 9;
+  DrivetrainTypeGrpc drivetrain_type = 9;
+  string color = 10;
 }
 
 message CarMessage {
