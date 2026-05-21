@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package peipo.ru.common.grpc;
+
+option java_package = "peipo.ru.common.grpc";
+option java_outer_classname = "CarsProto";
+option java_multiple_files = true;
+
+enum FuelTypeGrpc {
+  GASOLINE = 0;
+  ELECTRIC = 1;
+  DIESEL = 2;
+  BIODIESEL = 3;
+  ETHANOL = 4;
+  HYDROGEN = 5;
+}
+
+enum DrivetrainTypeGrpc {
+  FWD = 0;
+  RWD = 1;
+  FOURWD = 2;
+  AWD = 3;
+}
+
+message EngineMessage {
+  string id = 1;
+  int32 volume = 2;
+  int32 power = 3;
+  FuelTypeGrpc fuel_type = 4;
+}
+
+message BodyMessage {
+  string id = 1;
+  string type = 2;
+}
+
+message GearBoxMessage {
+  string id = 1;
+  string type = 2;
+}
+
+message InteriorMessage {
+  string id = 1;
+  string name = 2;
+}
+
+message WheelsMessage {
+  string id = 1;
+  int32 size = 2;
+}
+
+message CarConfigurationMessage {
+  string id = 1;
+  string brand = 2;
+  string model = 3;
+
+  BodyMessage body = 4;
+  EngineMessage engine = 5;
+  GearBoxMessage gear_box = 6;
+  InteriorMessage interior = 7;
+  WheelsMessage wheels = 8;
+
+  DrivetrainTypeGrpc drivetrain_type = 9;
+  string color = 10;
+}
+
+message CarMessage {
+  string id = 1;
+  CarConfigurationMessage configuration = 2;
+}
+
+message CarFilterMessage {
+  string brand = 1;
+  string model = 2;
+  string gear_box = 3;
+  string color = 4;
+  int32 min_horse_power = 5;
+  int32 max_horse_power = 6;
+}
+
+message GetCarByIdRequest {
+  string id = 1;
+}
+
+message GetCarByIdResponse {
+  CarMessage car = 1;
+}
+
+message GetAllCarsRequest {
+  CarFilterMessage filter = 1;
+}
+
+message GetAllCarsResponse {
+  repeated CarMessage cars = 1;
+}
+
+service CarGrpcService {
+  rpc GetCarById(GetCarByIdRequest) returns (GetCarByIdResponse);
+  rpc GetAllCars(GetAllCarsRequest) returns (GetAllCarsResponse);
+}

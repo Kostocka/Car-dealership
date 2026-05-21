@@ -1,0 +1,36 @@
+server:
+  port: 8082
+
+grpc:
+  storage:
+    host: storage-service
+    port: 9090
+    timeout-ms: 3000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres-order:5432/order_db
+    username: user
+    password: user
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    drop-first: false
+
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8081/realms/car-dealership
