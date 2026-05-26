@@ -6,17 +6,20 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import peipo.ru.common.dto.CarFilterDto;
 import peipo.ru.common.grpc.*;
 
 @Service
 @RequiredArgsConstructor
+@EnableConfigurationProperties(GrpcStorageProperties.class)
 public class CarGrpcClient
 {
     private static final Logger log = Logger.getLogger(CarGrpcClient.class.getName());
 
-    private final ObjectProvider<CarGrpcServiceGrpc.CarGrpcServiceBlockingStub> stubProvider;
+    private final CarGrpcServiceFactory factory;
     private final GrpcStorageProperties props;
     private final CarFilterGrpcMapper carFilterGrpcMapper;
 
@@ -30,7 +33,12 @@ public class CarGrpcClient
                     .setFilter(carFilterGrpcMapper.toMessage(filter))
                     .build();
 
-            var stub = stubProvider.getObject();
+            var stub = factory.getStub();
+
+            if (stub == null)
+            {
+                throw new RuntimeException("StorageService unavailable");
+            }
 
             var response = stub
                     .withDeadlineAfter(props.getTimeoutMs(), TimeUnit.MILLISECONDS)
@@ -55,7 +63,12 @@ public class CarGrpcClient
                     .setId(id)
                     .build();
 
-            var stub = stubProvider.getObject();
+            var stub = factory.getStub();
+
+            if (stub == null)
+            {
+                throw new RuntimeException("StorageService unavailable");
+            }
 
             return stub
                     .withDeadlineAfter(props.getTimeoutMs(), TimeUnit.MILLISECONDS)
