@@ -15,8 +15,7 @@ public class EventSerializer
         try
         {
             return objectMapper.writeValueAsString(event);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             throw new RuntimeException(e);
         }
