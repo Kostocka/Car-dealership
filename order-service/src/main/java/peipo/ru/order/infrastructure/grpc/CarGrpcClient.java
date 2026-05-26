@@ -19,7 +19,7 @@ public class CarGrpcClient
 {
     private static final Logger log = Logger.getLogger(CarGrpcClient.class.getName());
 
-    private final CarGrpcServiceFactory factory;
+    private final CarGrpcChannelProvider provider;
     private final GrpcStorageProperties props;
     private final CarFilterGrpcMapper carFilterGrpcMapper;
 
@@ -33,7 +33,7 @@ public class CarGrpcClient
                     .setFilter(carFilterGrpcMapper.toMessage(filter))
                     .build();
 
-            var stub = factory.getStub();
+            var stub = provider.getStub();
 
             if (stub == null)
             {
@@ -63,7 +63,7 @@ public class CarGrpcClient
                     .setId(id)
                     .build();
 
-            var stub = factory.getStub();
+            var stub = provider.getStub();
 
             if (stub == null)
             {

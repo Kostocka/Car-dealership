@@ -4,6 +4,8 @@ server:
 grpc:
   storage:
     timeout-ms: 3000
+    instance-cache-ttl-ms: 30000
+    reconnect-delay-ms: 2000
 
 spring:
   application:

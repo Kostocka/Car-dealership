@@ -10,4 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class GrpcStorageProperties
 {
     private long timeoutMs;
+    private long instanceCacheTtlMs;
+    private long reconnectDelayMs;
 }
