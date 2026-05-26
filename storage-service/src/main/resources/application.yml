@@ -5,6 +5,9 @@ grpc:
   port: 9090
 
 spring:
+  application:
+    name: storage-service
+
   datasource:
     url: jdbc:postgresql://postgres-storage:5432/storage_db
     username: user
@@ -32,3 +35,13 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://keycloak:8081/realms/car-dealership
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
+
+  instance:
+    prefer-ip-address: true

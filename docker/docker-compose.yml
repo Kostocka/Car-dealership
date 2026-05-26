@@ -58,6 +58,7 @@ services:
       - "8080:8080"
       - "9090:9090"
     depends_on:
+      - discovery-service
       - postgres-storage
       - rabbitmq
 
@@ -67,6 +68,13 @@ services:
     ports:
       - "8082:8082"
     depends_on:
+      - discovery-service
       - postgres-order
       - rabbitmq
       - storage-service
+
+  discovery-service:
+    build: ../discovery-service
+    container_name: discovery_service
+    ports:
+      - "8761:8761"
