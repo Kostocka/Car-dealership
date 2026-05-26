@@ -3,8 +3,6 @@ server:
 
 grpc:
   storage:
-    host: storage-service
-    port: 9090
     timeout-ms: 3000
 
 spring:

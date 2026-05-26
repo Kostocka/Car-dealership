@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import peipo.ru.common.contracts.events.EventBus;
-import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderCancelledEvent;
-import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderCreatedEvent;
-import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderDeliveredEvent;
-import peipo.ru.common.contracts.events.orders.configured.ConfiguredOrderPaidEvent;
+import peipo.ru.common.contracts.events.orders.configured.*;
 import peipo.ru.common.vo.CarConfiguration;
 import peipo.ru.common.vo.id.ClientId;
 import peipo.ru.common.vo.id.EmployeeId;
@@ -79,6 +76,8 @@ public class ConfiguredOrderService
         configuredCarOrder.finish();
 
         configuredOrderRepository.save(configuredCarOrder);
+
+        eventBus.publish(new ConfiguredOrderFinishedEvent(configuredCarOrder.getOrderId()));
     }
 
     @Transactional

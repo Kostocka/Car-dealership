@@ -9,7 +9,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "grpc.storage")
 public class GrpcStorageProperties
 {
-    private String host;
-    private int port;
     private long timeoutMs;
 }
