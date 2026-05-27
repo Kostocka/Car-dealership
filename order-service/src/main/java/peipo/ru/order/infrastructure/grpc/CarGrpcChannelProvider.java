@@ -82,7 +82,11 @@ public class CarGrpcChannelProvider
             return false;
         }
 
-        return !channel.isShutdown() && !channel.isTerminated();
+        return switch (channel.getState(true))
+        {
+            case READY, IDLE -> true;
+            default -> false;
+        };
     }
 
     private void close()

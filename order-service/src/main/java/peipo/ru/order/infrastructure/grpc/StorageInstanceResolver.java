@@ -1,6 +1,5 @@
 package peipo.ru.order.infrastructure.grpc;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.cloud.client.ServiceInstance;
