@@ -78,3 +78,15 @@ services:
     container_name: discovery_service
     ports:
       - "8761:8761"
+
+  gateway-service:
+    build: ../gateway-service
+    container_name: gateway_service
+    ports:
+      - "8083:8083"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8081/realms/car-dealership
+    depends_on:
+      - discovery-service
+      - keycloak
