@@ -25,8 +25,6 @@ public class RabbitEventConsumer
     {
         JsonNode json = mapper.readTree(payload);
 
-        System.out.println(json.toString());
-
         String eventType = json.get("eventType").asText();
 
         JsonNode data = json.get("payload");
@@ -50,8 +48,7 @@ public class RabbitEventConsumer
             );
         };
 
-        Object event =
-                mapper.treeToValue(data, clazz);
+        Object event = mapper.treeToValue(data, clazz);
 
         publisher.publishEvent(event);
     }

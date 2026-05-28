@@ -20,6 +20,9 @@ dependencies {
 
     implementation 'io.grpc:grpc-netty-shaded:1.75.0'
 
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+
     implementation 'org.mapstruct:mapstruct:1.6.3'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'

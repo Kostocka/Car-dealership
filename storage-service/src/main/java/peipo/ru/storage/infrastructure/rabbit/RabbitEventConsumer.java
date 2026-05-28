@@ -48,8 +48,7 @@ public class RabbitEventConsumer
             );
         };
 
-        Object event =
-                mapper.treeToValue(data, clazz);
+        Object event = mapper.treeToValue(data, clazz);
 
         publisher.publishEvent(event);
     }

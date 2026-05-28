@@ -1,0 +1,49 @@
+server:
+  port: ${GATEWAY_SERVICE_PORT:8083}
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/orders/**,/orders/**,/api/v1/cars/**
+
+        - id: storage-service
+          uri: lb://storage-service
+          predicates:
+            - Path=/car-models/**,/parts/**
+
+        - id: order-swagger
+          uri: lb://order-service
+          predicates:
+            - Path=/swagger/order/**
+          filters:
+            - RewritePath=/swagger/order/(?<segment>.*), /$\{segment}
+
+        - id: storage-swagger
+          uri: lb://storage-service
+          predicates:
+            - Path=/swagger/storage/**
+          filters:
+            - RewritePath=/swagger/storage/(?<segment>.*), /$\{segment}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:${KEYCLOAK_PORT:8081}/realms/${KEYCLOAK_REALM:car-dealership}
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://discovery-service:${DISCOVERY_SERVICE_PORT:8761}/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: ${HOSTNAME:gateway-service}

@@ -34,7 +34,7 @@ public class OrderFlowTest
 
     private final RestTemplate rest = new RestTemplate();
 
-    private final KeyCloakTokenService  keyCloakTokenService = new KeyCloakTokenService();
+    private final KeyCloakTokenService keyCloakTokenService = new KeyCloakTokenService();
 
     @Test
     void stockOrderFlow()
@@ -86,20 +86,20 @@ public class OrderFlowTest
 
         // wait approve
         await()
-            .atMost(Duration.ofSeconds(10))
-            .untilAsserted(() -> {
+                .atMost(Duration.ofSeconds(10))
+                .untilAsserted(() -> {
 
-                ResponseEntity<StockCarOrderDto> response =
-                        rest.exchange(
-                                orderUrl("/orders/stock/" + orderId),
-                                HttpMethod.GET,
-                                new HttpEntity<>(headers(userToken)),
-                                StockCarOrderDto.class
-                        );
+                    ResponseEntity<StockCarOrderDto> response =
+                            rest.exchange(
+                                    orderUrl("/orders/stock/" + orderId),
+                                    HttpMethod.GET,
+                                    new HttpEntity<>(headers(userToken)),
+                                    StockCarOrderDto.class
+                            );
 
-                Assertions.assertNotNull(response.getBody());
-                Assertions.assertEquals("MANAGER APPROVED", response.getBody().getState());
-            });
+                    Assertions.assertNotNull(response.getBody());
+                    Assertions.assertEquals("MANAGER APPROVED", response.getBody().getState());
+                });
 
         // pay
         ResponseEntity<StockCarOrderDto> payResponse =
@@ -114,20 +114,20 @@ public class OrderFlowTest
 
         // wait for pickup
         await()
-            .atMost(Duration.ofSeconds(10))
-            .untilAsserted(() -> {
+                .atMost(Duration.ofSeconds(10))
+                .untilAsserted(() -> {
 
-                ResponseEntity<StockCarOrderDto> response =
-                        rest.exchange(
-                                orderUrl("/orders/stock/" + orderId),
-                                HttpMethod.GET,
-                                new HttpEntity<>(headers(userToken)),
-                                StockCarOrderDto.class
-                        );
+                    ResponseEntity<StockCarOrderDto> response =
+                            rest.exchange(
+                                    orderUrl("/orders/stock/" + orderId),
+                                    HttpMethod.GET,
+                                    new HttpEntity<>(headers(userToken)),
+                                    StockCarOrderDto.class
+                            );
 
-                Assertions.assertNotNull(response.getBody());
-                Assertions.assertEquals("READY FOR PICKUP", response.getBody().getState());
-            });
+                    Assertions.assertNotNull(response.getBody());
+                    Assertions.assertEquals("READY FOR PICKUP", response.getBody().getState());
+                });
 
         // finish order
 

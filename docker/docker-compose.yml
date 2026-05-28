@@ -3,50 +3,49 @@ version: '3.8'
 services:
 
   postgres-storage:
-    image: postgres:18
+    image: postgres:17
     container_name: storage_db
     environment:
-      POSTGRES_DB: storage_db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: user
+      POSTGRES_DB: ${STORAGE_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5433:5432"
+      - "${POSTGRES_STORAGE_PORT}:5432"
 
   postgres-order:
-    image: postgres:18
+    image: postgres:17
     container_name: order_db
     environment:
-      POSTGRES_DB: order_db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: user
+      POSTGRES_DB: ${ORDER_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5434:5432"
+      - "${POSTGRES_ORDER_PORT}:5432"
 
   rabbitmq:
     image: rabbitmq:3.10.7-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "${RABBITMQ_PORT}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT}:15672"
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.3.2
     container_name: keycloak
     environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_HOSTNAME: keycloak
-      KC_HOSTNAME_PORT: 8081
+      KC_HOSTNAME_PORT: ${KEYCLOAK_PORT}
       KC_HTTP_ENABLED: true
-
     volumes:
       - ./keycloak/realms:/opt/keycloak/data/import:ro
     command:
       - start-dev
-      - --http-port=8081
+      - --http-port=${KEYCLOAK_PORT}
       - --import-realm
     ports:
-      - "8081:8081"
+      - "${KEYCLOAK_PORT}:${KEYCLOAK_PORT}"
     depends_on:
       - postgres-storage
       - postgres-order
@@ -55,18 +54,47 @@ services:
     build: ../storage-service
     container_name: storage_service
     ports:
-      - "8080:8080"
-      - "9090:9090"
+      - "${STORAGE_SERVICE_PORT}:${STORAGE_SERVICE_PORT}"
+      - "${STORAGE_GRPC_PORT}:${STORAGE_GRPC_PORT}"
+    env_file:
+      - .env
     depends_on:
+      - discovery-service
       - postgres-storage
       - rabbitmq
 
   order-service:
     build: ../order-service
     container_name: order_service
+    environment:
+      SERVER_PORT: ${ORDER_SERVICE_PORT}
     ports:
-      - "8082:8082"
+      - "${ORDER_SERVICE_PORT}:${ORDER_SERVICE_PORT}"
+    env_file:
+      - .env
     depends_on:
+      - discovery-service
       - postgres-order
       - rabbitmq
       - storage-service
+
+  discovery-service:
+    build: ../discovery-service
+    container_name: discovery_service
+    environment:
+      SERVER_PORT: ${DISCOVERY_SERVICE_PORT}
+    ports:
+      - "${DISCOVERY_SERVICE_PORT}:${DISCOVERY_SERVICE_PORT}"
+
+  gateway-service:
+    build: ../gateway-service
+    container_name: gateway_service
+    environment:
+      SERVER_PORT: ${GATEWAY_SERVICE_PORT}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:${DISCOVERY_SERVICE_PORT}/eureka/
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:${KEYCLOAK_PORT}/realms/${KEYCLOAK_REALM}
+    ports:
+      - "${GATEWAY_SERVICE_PORT}:${GATEWAY_SERVICE_PORT}"
+    depends_on:
+      - discovery-service
+      - keycloak
