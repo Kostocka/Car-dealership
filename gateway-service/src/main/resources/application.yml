@@ -18,6 +18,20 @@ spring:
           predicates:
             - Path=/car-models/**,/parts/**
 
+        - id: order-swagger
+          uri: lb://order-service
+          predicates:
+            - Path=/swagger/order/**
+          filters:
+            - RewritePath=/swagger/order/(?<segment>.*), /$\{segment}
+
+        - id: storage-swagger
+          uri: lb://storage-service
+          predicates:
+            - Path=/swagger/storage/**
+          filters:
+            - RewritePath=/swagger/storage/(?<segment>.*), /$\{segment}
+
   security:
     oauth2:
       resourceserver:

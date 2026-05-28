@@ -1,0 +1,16 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: swagger-ui-service
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    urls:
+      - name: order-service
+        url: http://localhost:8083/swagger/order/v3/api-docs
+
+      - name: storage-service
+        url: http://localhost:8083/swagger/storage/v3/api-docs

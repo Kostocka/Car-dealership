@@ -90,3 +90,11 @@ services:
     depends_on:
       - discovery-service
       - keycloak
+
+  swagger-ui-service:
+    build: ../swagger-ui-service
+    container_name: swagger_ui_service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - gateway-service
