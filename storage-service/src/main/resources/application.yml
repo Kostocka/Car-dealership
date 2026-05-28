@@ -1,17 +1,17 @@
 server:
-  port: 8080
+  port: ${STORAGE_SERVICE_PORT:8080}
 
 grpc:
-  port: 9090
+  port: ${STORAGE_GRPC_PORT:9090}
 
 spring:
   application:
     name: storage-service
 
   datasource:
-    url: jdbc:postgresql://postgres-storage:5432/storage_db
-    username: user
-    password: user
+    url: jdbc:postgresql://postgres-storage:5432/${STORAGE_DB_NAME:storage_db}
+    username: ${POSTGRES_USER:user}
+    password: ${POSTGRES_PASSWORD:user}
 
   jpa:
     hibernate:
@@ -21,29 +21,28 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
-
     drop-first: false
 
   rabbitmq:
     host: rabbitmq
-    port: 5672
-    username: guest
-    password: guest
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
 
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8081/realms/car-dealership
+          issuer-uri: http://keycloak:${KEYCLOAK_PORT:8081}/realms/${KEYCLOAK_REALM:car-dealership}
 
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://discovery-service:8761/eureka/
+      defaultZone: http://discovery-service:${DISCOVERY_SERVICE_PORT:8761}/eureka/
 
   instance:
     prefer-ip-address: true
     metadata-map:
-      grpc-port: 9090
+      grpc-port: ${STORAGE_GRPC_PORT:9090}

@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: ${GATEWAY_SERVICE_PORT:8083}
 
 spring:
   application:
@@ -36,14 +36,14 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8081/realms/car-dealership
+          issuer-uri: http://keycloak:${KEYCLOAK_PORT:8081}/realms/${KEYCLOAK_REALM:car-dealership}
 
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://discovery-service:8761/eureka/
+      defaultZone: http://discovery-service:${DISCOVERY_SERVICE_PORT:8761}/eureka/
   instance:
     prefer-ip-address: true
-    hostname: gateway-service
+    hostname: ${HOSTNAME:gateway-service}
